@@ -1,9 +1,9 @@
 import logging
 import matplotlib.pyplot as plt
-from IPython.display import display
 from pymilvus import MilvusClient
 from PIL import Image
-from milvus.image_research.image_search import FeatureExtractor
+
+from milvus.image_research.image2image.image_embedding import FeatureExtractor
 
 # 配置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -13,7 +13,7 @@ def main():
         client = MilvusClient(uri="http://localhost:19530")
         extractor = FeatureExtractor("resnet34")
 
-        query_image = "/home/cz/software/pycharm-2024.2.3/PycharmProjects/python-utils/milvus/image_research/images/test/Afghan_hound/n02088094_4261.JPEG"
+        query_image = "/home/cz/software/pycharm-2024.2.3/PycharmProjects/python-utils/assets/milvus/image_research/images/test/Afghan_hound/n02088094_4261.JPEG"
 
         results = client.search(
             "image_embeddings",

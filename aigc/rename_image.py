@@ -1,7 +1,7 @@
 import os
 
 # 指定图片文件夹路径
-image_folder = r'E:\wyfx\ComfyUIworkspace\肥胖黑人生成\shein\原图'
+image_folder = r'/home/cz/workspace/benchmark/Image_restore/origin'
 
 # 获取图片文件列表
 image_files = os.listdir(image_folder)
@@ -15,7 +15,7 @@ for image_file in image_files:
     file_ext = os.path.splitext(image_file)[1]
 
     # 构建新的文件名
-    new_file_name = '{:04d}{}'.format(count, file_ext)
+    new_file_name = 'restore_{:04d}{}'.format(count, file_ext)
 
     # 构建旧文件路径和新文件路径
     old_file_path = os.path.join(image_folder, image_file)

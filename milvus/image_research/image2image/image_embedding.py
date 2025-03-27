@@ -96,7 +96,7 @@ def insert_image_data(client, extractor, root):
 def process():
     client = setup_milvus_client()
     extractor = FeatureExtractor("resnet34")
-    root = "./images/train"
+    root = "/home/cz/software/pycharm-2024.2.3/PycharmProjects/python-utils/assets/milvus/image_research/images/train"
     insert_image_data(client, extractor, root)
 
 
