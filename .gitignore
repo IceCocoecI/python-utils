@@ -161,3 +161,4 @@ cython_debug/
 
 assets/
 temp/
+OPENAI_API_KEY=你的实际API密钥
