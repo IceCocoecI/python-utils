@@ -5,7 +5,7 @@ import os
 key失效 待验证
 """
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "XXXXX"
 
 
 from glob import glob
