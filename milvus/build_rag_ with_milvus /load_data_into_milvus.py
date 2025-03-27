@@ -5,8 +5,11 @@ import os
 key失效 待验证
 """
 
-os.environ["OPENAI_API_KEY"] = "XXXXX"
-
+# 修改为从环境变量读取
+import os
+openai_api_key = os.getenv("OPENAI_API_KEY")
+if not openai_api_key:
+    raise ValueError("OPENAI_API_KEY 环境变量未设置")
 
 from glob import glob
 
