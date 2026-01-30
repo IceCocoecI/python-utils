@@ -16,12 +16,17 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 Settings.embed_model = HuggingFaceEmbedding(model_name='all-MiniLM-L6-v2')
+MODEL_NAME_ENUM  = {
+    "qwen-plus": "qwen-plus",
+    "qwen-turbo": "qwen-turbo",
+    "qwen-max": "qwen-max"
 
+  }
 # 设置通义千问的 LLM 配置
 Settings.llm = DashScope(
     api_key="sk-a9d33f951f7f4dc1a6901f984d4db27b",
     base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
-    model="qwen-plus"
+    model=MODEL_NAME_ENUM.get("qwen-max"),
 )
 
 # 加载文档
@@ -36,7 +41,7 @@ db = chromadb.PersistentClient(path="./chroma_db")
 logger.info("Creating or getting Chroma collection.")
 chroma_collection = db.get_or_create_collection(
     name="quickstart",
-    metadata={"hnsw:space": "cosine", "embedding_dimensions": 384}  # 匹配你的嵌入模型
+    metadata={"hnsw:space": "cosine", "embedding_dimensions": 384}  # 匹配嵌入模型维度
 )
 
 # 将 Chroma 作为向量存储
@@ -66,12 +71,11 @@ logger.info("Assembling query engine.")
 query_engine = RetrieverQueryEngine(
     retriever=retriever,
     response_synthesizer=response_synthesizer,
-    node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=0.5)],
+    node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=0.3)],
 )
 
 # 查询
-query_text = "什么事基于扩散模型与光流法的首尾帧发型视频生成技术，30字内"
+query_text = "根据文档内容，帮我整理福州平潭3天旅游攻略"
 logger.info(f"Querying with text: {query_text}")
 response = query_engine.query(query_text)
 logger.info(f"Response: {response}")
-print(response)

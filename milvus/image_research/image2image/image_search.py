@@ -13,7 +13,7 @@ def main():
         client = MilvusClient(uri="http://localhost:19530")
         extractor = FeatureExtractor("resnet34")
 
-        query_image = "/home/cz/software/pycharm-2024.2.3/PycharmProjects/python-utils/assets/milvus/image_research/images/test/Afghan_hound/n02088094_4261.JPEG"
+        query_image = "/home/cz/software/pycharm-2024.2.3/PycharmProjects/python-utils/assets/milvus/image_research/images/train/trump/174961422552114_P31882867.JPEG"
 
         results = client.search(
             "image_embeddings",
