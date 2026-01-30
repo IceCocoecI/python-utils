@@ -1,0 +1,25 @@
+# ===========================================
+# LangGraph Demo 依赖
+# Python 3.10+
+# ===========================================
+
+# LangGraph 核心
+langgraph>=0.2.0
+
+# 消息处理
+langchain-core>=0.3.0
+
+# 可选：使用真实 LLM 时需要
+# langchain-openai>=0.2.0   # OpenAI 模型
+# langchain-anthropic>=0.1.0  # Claude 模型
+
+# 类型支持
+typing-extensions>=4.0.0
+
+# 可选：持久化存储
+# langgraph-checkpoint-sqlite>=1.0.0  # SQLite 存储
+# langgraph-checkpoint-postgres>=1.0.0  # PostgreSQL 存储
+
+# 可选：用于测试
+pytest>=8.0.0
+pytest-asyncio>=0.24.0
