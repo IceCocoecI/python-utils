@@ -1,0 +1,57 @@
+# ============================================================
+# AIGC Learning Lab - 依赖清单
+# Python >= 3.10
+#
+# 推荐安装方式（conda 环境）：
+#   conda create -n aigc python=3.11 -y && conda activate aigc
+#   pip install -r requirements.txt
+#
+# 注意：本文件不直接列出 torch（版本随 CUDA 而异），请单独安装：
+#   CPU 版：    pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+#   CUDA 12.4：pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+#   官网选择器： https://pytorch.org/get-started/locally/
+# ============================================================
+
+# ---------- 模块 01：Python 基础与进阶 ----------
+mypy>=1.10.0
+pydantic>=2.6.0
+pytest>=8.0.0
+pytest-cov>=5.0.0
+ruff>=0.6.0
+rich>=13.7.0
+
+# ---------- 模块 03：科学计算与数据处理 ----------
+numpy>=1.26.0
+pillow>=10.0.0
+opencv-python>=4.9.0
+matplotlib>=3.8.0
+einops>=0.8.0
+albumentations>=1.4.0
+
+# 数据格式
+pandas>=2.2.0
+pyarrow>=15.0.0
+h5py>=3.10.0
+
+# ---------- 模块 02：深度学习核心库 ----------
+# torch / torchvision 单独装（见上方说明）
+
+# HuggingFace 生态
+transformers>=4.44.0
+diffusers>=0.30.0
+accelerate>=0.33.0
+datasets>=2.20.0
+safetensors>=0.4.3
+sentencepiece>=0.2.0
+peft>=0.12.0
+
+# 评估指标
+torchmetrics>=1.4.0
+
+# ---------- 实验跟踪 / 可视化（可选） ----------
+tensorboard>=2.16.0
+# wandb>=0.17.0   # 如需使用 W&B 取消注释
+
+# ---------- 开发体验（可选） ----------
+ipython>=8.20.0
+jupyter>=1.0.0
