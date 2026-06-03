@@ -15,6 +15,13 @@
 3. 掌握 HuggingFace 三件套（Transformers / Diffusers / Datasets），能够独立完成 LLM 微调与扩散模型推理。
 4. 精通 NumPy、einops 这两件写模型代码的"神器"，能用最少的代码写出清晰的张量运算。
 5. 熟悉 AIGC 常用的图像 / 音频数据处理工具链。
+6. 掌握训练工程化全流程：实验追踪、配置管理、超参搜索、可复现性。
+7. 理解分布式训练：DDP、FSDP、DeepSpeed、多维并行策略（DP/TP/PP/EP）。
+8. 独立完成大模型微调与对齐：LoRA/QLoRA、SFT、RLHF/DPO/GRPO。
+9. 掌握 AIGC 推理部署全栈：vLLM/SGLang、FastAPI 服务化、Gradio Demo。
+10. 构建 LLM 应用：RAG 全流程、向量数据库、Agent 工程。
+11. 理解前沿 AIGC 模型架构：LLM（LLaMA/Qwen/MoE）、图像/视频/语音生成。
+12. 具备 GPU 编程基础：CUDA kernel、Triton、性能剖析、自定义算子。
 
 ---
 
@@ -22,7 +29,7 @@
 
 ```
 aigc-learning/
-├── README.md                          # 当前文件：总览 + 学习路线 + 扩展大纲
+├── README.md                          # 当前文件：总览 + 学习路线
 ├── CHEATSHEET.md                      # 速查表：日常写代码最常用的片段
 ├── requirements.txt                   # 依赖清单（按模块分组）
 │
@@ -44,13 +51,28 @@ aigc-learning/
 │   ├── 05-transformer-from-scratch.md # 注意力 / 位置编码 / 掩码 / KV cache / FlashAttention
 │   └── examples/
 │
-└── 03-data-and-scientific-computing/  # 模块 03：数据处理与科学计算
+├── 03-data-and-scientific-computing/  # 模块 03：数据处理与科学计算
+│   ├── README.md
+│   ├── 01-numpy-essentials.md         # ndarray / 广播 / 向量化 / 内存视图
+│   ├── 02-einops-tutorial.md          # rearrange / reduce / repeat / Layers
+│   ├── 03-image-processing.md         # Pillow / OpenCV / torchvision / Albumentations / FID
+│   ├── 04-data-formats-and-pipelines.md  # JSONL / Parquet / WebDataset / safetensors / HF datasets
+│   └── examples/
+│
+├── 04-training-engineering/           # 模块 04：训练与实验工程化
+│   ├── README.md
+│   ├── 01-experiment-tracking.md      # TensorBoard / W&B / MLflow
+│   ├── 02-config-management.md        # OmegaConf / Hydra / 配置组合
+│   ├── 03-hyperparameter-search.md    # Optuna / Ray Tune / 搜索策略
+│   └── 04-reproducibility.md          # 随机种子 / 确定性模式 / 环境管理 / 数据版本
+│
+└── 05-distributed-training/           # 模块 05：分布式训练
     ├── README.md
-    ├── 01-numpy-essentials.md         # ndarray / 广播 / 向量化 / 内存视图
-    ├── 02-einops-tutorial.md          # rearrange / reduce / repeat / Layers
-    ├── 03-image-processing.md         # Pillow / OpenCV / torchvision / Albumentations / FID
-    ├── 04-data-formats-and-pipelines.md  # JSONL / Parquet / WebDataset / safetensors / HF datasets
-    └── examples/
+    ├── 01-distributed-basics-and-ddp.md  # DDP / torchrun / 多机训练
+    ├── 02-fsdp.md                     # FSDP / FSDP2 / 分片策略
+    ├── 03-accelerate.md               # HuggingFace Accelerate / 一键分布式
+    ├── 04-deepspeed.md                # DeepSpeed / ZeRO-1/2/3 / CPU Offload
+    └── 05-parallelism-strategies.md   # DP / TP / PP / EP / SP / 3D 并行
 ```
 
 ---
@@ -101,21 +123,7 @@ aigc-learning/
 
 ## 可选扩展大纲（后续规划）
 
-完成 01–03 三大模块后，建议按以下顺序深入更高阶主题。**当前仓库仅列出大纲，后续逐步展开。**
-
-### 模块 04：训练与实验工程化
-
-- 实验追踪：`wandb` / `tensorboard` / `mlflow`
-- 配置管理：`hydra` / `omegaconf`
-- 超参搜索：`optuna` / `ray tune`
-- 可复现性：随机种子、环境快照、`uv` / `poetry`
-
-### 模块 05：分布式训练
-
-- `torch.distributed`：DDP、FSDP、FSDP2
-- `accelerate`：一行代码切换分布式
-- `DeepSpeed`：ZeRO-1/2/3、CPU Offload
-- 大模型并行策略：DP / TP / PP / EP
+完成 01–05 模块后，建议按以下顺序深入更高阶主题。**当前仓库仅列出大纲，后续逐步展开。**
 
 ### 模块 06：大模型微调与对齐
 
