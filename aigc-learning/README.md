@@ -61,18 +61,61 @@ aigc-learning/
 │
 ├── 04-training-engineering/           # 模块 04：训练与实验工程化
 │   ├── README.md
-│   ├── 01-experiment-tracking.md      # TensorBoard / W&B / MLflow
-│   ├── 02-config-management.md        # OmegaConf / Hydra / 配置组合
+│   ├── 01-experiment-tracking.md      # TensorBoard / wandb / MLflow
+│   ├── 02-config-management.md        # Hydra / OmegaConf / 结构化配置
 │   ├── 03-hyperparameter-search.md    # Optuna / Ray Tune / 搜索策略
-│   └── 04-reproducibility.md          # 随机种子 / 确定性模式 / 环境管理 / 数据版本
+│   ├── 04-reproducibility.md          # 随机种子 / 确定性训练 / 环境与数据版本管理
+│   └── examples/
 │
-└── 05-distributed-training/           # 模块 05：分布式训练
+├── 05-distributed-training/           # 模块 05：分布式训练
+│   ├── README.md
+│   ├── 01-distributed-basics-and-ddp.md  # torch.distributed / DDP 完整教程
+│   ├── 02-fsdp.md                     # FSDP / FSDP2 全参数分片
+│   ├── 03-accelerate.md               # HuggingFace Accelerate 一键分布式
+│   ├── 04-deepspeed.md                # ZeRO-1/2/3 / CPU Offload
+│   ├── 05-parallelism-strategies.md   # DP / TP / PP / EP / 3D 并行
+│   └── examples/
+│
+├── 06-finetuning-and-alignment/       # 模块 06：大模型微调与对齐
+│   ├── README.md
+│   ├── 01-peft-and-lora.md            # LoRA / QLoRA / DoRA / peft 库
+│   ├── 02-quantization.md             # INT8/INT4 / bitsandbytes / GPTQ / AWQ / GGUF
+│   ├── 03-sft-data-and-training.md    # SFT 数据构造 / Chat Template / TRL SFTTrainer
+│   ├── 04-alignment-rlhf-dpo.md       # RLHF / DPO / GRPO / KTO / TRL
+│   └── examples/
+│
+├── 07-inference-and-deployment/       # 模块 07：AIGC 推理与部署
+│   ├── README.md
+│   ├── 01-llm-inference-engines.md    # vLLM / SGLang / TensorRT-LLM / llama.cpp
+│   ├── 02-diffusion-acceleration.md   # Scheduler 优化 / torch.compile / TensorRT / 蒸馏
+│   ├── 03-serving-frameworks.md       # FastAPI / Triton / BentoML / 生产化
+│   ├── 04-demo-and-frontend.md        # Gradio / Streamlit / 前端 Demo
+│   └── examples/
+│
+├── 08-llm-applications/               # 模块 08：LLM 应用开发
+│   ├── README.md
+│   ├── 01-rag-fundamentals.md         # RAG 全流程：切分 / Embedding / 检索 / 生成
+│   ├── 02-vector-databases.md         # FAISS / Milvus / Chroma / pgvector
+│   ├── 03-orchestration-frameworks.md # LangChain / LlamaIndex / LangGraph
+│   ├── 04-agent-engineering.md        # Tool Use / MCP / Planning / Multi-Agent
+│   └── examples/
+│
+├── 09-frontier-models/                # 模块 09：前沿 AIGC 模型架构
+│   ├── README.md
+│   ├── 01-llm-architectures.md        # GPT / LLaMA / Qwen / DeepSeek / MoE
+│   ├── 02-image-generation.md         # DDPM → SD → SDXL → DiT → Flux 演进
+│   ├── 03-multimodal-models.md        # CLIP / LLaVA / Qwen-VL / 视觉语言模型
+│   ├── 04-video-generation.md         # Sora / CogVideoX / Wan / HunyuanVideo
+│   ├── 05-speech-and-audio.md         # VALL-E / CosyVoice / F5-TTS / Whisper
+│   └── examples/
+│
+└── 10-cuda-and-triton/                # 模块 10：工程深水区
     ├── README.md
-    ├── 01-distributed-basics-and-ddp.md  # DDP / torchrun / 多机训练
-    ├── 02-fsdp.md                     # FSDP / FSDP2 / 分片策略
-    ├── 03-accelerate.md               # HuggingFace Accelerate / 一键分布式
-    ├── 04-deepspeed.md                # DeepSpeed / ZeRO-1/2/3 / CPU Offload
-    └── 05-parallelism-strategies.md   # DP / TP / PP / EP / SP / 3D 并行
+    ├── 01-gpu-architecture-and-cuda-basics.md  # GPU 架构 / CUDA 编程模型 / kernel 编写
+    ├── 02-triton-programming.md       # Triton：用 Python 写 GPU kernel
+    ├── 03-performance-profiling.md    # torch.profiler / Nsight Systems / 性能分析
+    ├── 04-custom-operators-and-extensions.md  # pybind11 / cpp_extension / FlexAttention
+    └── examples/
 ```
 
 ---
@@ -102,6 +145,48 @@ aigc-learning/
 13. `02-deep-learning-libraries/04-huggingface-diffusers.md`
 14. `01-python-foundations/03-async-programming.md`（配合服务化场景）
 
+### 第 4 阶段：训练工程化与分布式（约 3–4 周）
+
+15. `04-training-engineering/01-experiment-tracking.md`
+16. `04-training-engineering/02-config-management.md`
+17. `04-training-engineering/03-hyperparameter-search.md`
+18. `04-training-engineering/04-reproducibility.md`
+19. `05-distributed-training/01-distributed-basics-and-ddp.md`
+20. `05-distributed-training/02-fsdp.md`
+21. `05-distributed-training/03-accelerate.md`
+22. `05-distributed-training/04-deepspeed.md`
+23. `05-distributed-training/05-parallelism-strategies.md`
+
+### 第 5 阶段：微调、对齐与推理部署（约 4 周）
+
+24. `06-finetuning-and-alignment/01-peft-and-lora.md`（**必读**）
+25. `06-finetuning-and-alignment/02-quantization.md`
+26. `06-finetuning-and-alignment/03-sft-data-and-training.md`
+27. `06-finetuning-and-alignment/04-alignment-rlhf-dpo.md`
+28. `07-inference-and-deployment/01-llm-inference-engines.md`
+29. `07-inference-and-deployment/02-diffusion-acceleration.md`
+30. `07-inference-and-deployment/03-serving-frameworks.md`
+31. `07-inference-and-deployment/04-demo-and-frontend.md`
+
+### 第 6 阶段：LLM 应用与前沿（约 4 周）
+
+32. `08-llm-applications/01-rag-fundamentals.md`
+33. `08-llm-applications/02-vector-databases.md`
+34. `08-llm-applications/03-orchestration-frameworks.md`
+35. `08-llm-applications/04-agent-engineering.md`
+36. `09-frontier-models/01-llm-architectures.md`（**核心，建议反复阅读**）
+37. `09-frontier-models/02-image-generation.md`
+38. `09-frontier-models/03-multimodal-models.md`
+39. `09-frontier-models/04-video-generation.md`
+40. `09-frontier-models/05-speech-and-audio.md`
+
+### 第 7 阶段：工程深水区（持续学习）
+
+41. `10-cuda-and-triton/01-gpu-architecture-and-cuda-basics.md`
+42. `10-cuda-and-triton/02-triton-programming.md`
+43. `10-cuda-and-triton/03-performance-profiling.md`
+44. `10-cuda-and-triton/04-custom-operators-and-extensions.md`
+
 > 日常写代码遇到忘了的 API，直接翻 [`CHEATSHEET.md`](./CHEATSHEET.md)。
 
 ---
@@ -118,48 +203,12 @@ aigc-learning/
 | 文档 | [HuggingFace Transformers Docs](https://huggingface.co/docs/transformers) | Transformers 官方文档 |
 | 文档 | [HuggingFace Diffusers Docs](https://huggingface.co/docs/diffusers) | Diffusers 官方文档 |
 | 文档 | [einops 教程](https://einops.rocks/) | 张量操作 DSL |
-
----
-
-## 可选扩展大纲（后续规划）
-
-完成 01–05 模块后，建议按以下顺序深入更高阶主题。**当前仓库仅列出大纲，后续逐步展开。**
-
-### 模块 06：大模型微调与对齐
-
-- 参数高效微调：LoRA / QLoRA / DoRA（`peft`）
-- 量化训练：`bitsandbytes` / GPTQ / AWQ
-- 指令微调：SFT 数据构造与训练
-- 对齐方法：RLHF / DPO / GRPO（`trl`）
-
-### 模块 07：AIGC 推理与部署
-
-- LLM 推理引擎：`vLLM` / `SGLang` / `TensorRT-LLM` / `llama.cpp`
-- 扩散模型加速：`torch.compile` / TensorRT / ONNX
-- 服务框架：`FastAPI` + `Triton Inference Server`
-- 前端 Demo：`gradio` / `streamlit`
-
-### 模块 08：LLM 应用开发
-
-- RAG 全流程：文档切分、embedding、向量检索
-- 向量数据库：`FAISS` / `Milvus` / `Chroma`
-- 框架：`LangChain` / `LlamaIndex` / `LangGraph`
-- Agent 工程：Tool Use / Planning / Multi-Agent
-
-### 模块 09：前沿 AIGC 模型架构
-
-- LLM 架构：GPT / LLaMA / Qwen / Mixtral（MoE）
-- 图像生成：DDPM → DDIM → SD1.5 → SDXL → DiT → Flux
-- 多模态：CLIP / BLIP / Qwen-VL / LLaVA
-- 视频生成：Sora 系 / CogVideoX / Wan / HunyuanVideo
-- 语音合成：VALL-E / CosyVoice / F5-TTS
-
-### 模块 10：工程深水区
-
-- CUDA 基础：kernel 编写、共享内存、warp-level 原语
-- Triton 入门：用 Python 写 GPU kernel
-- 性能剖析：`nsight systems` / `torch.profiler`
-- C++/Python 混合编程：`pybind11` / `torch.utils.cpp_extension`
+| 文档 | [vLLM Docs](https://docs.vllm.ai/) | LLM 推理引擎文档 |
+| 框架 | [LangChain Docs](https://python.langchain.com/) | LLM 应用开发框架 |
+| 教程 | [Triton Tutorials](https://triton-lang.org/main/getting-started/tutorials/) | OpenAI Triton GPU 编程教程 |
+| 论文 | [Attention Is All You Need](https://arxiv.org/abs/1706.03762) | Transformer 原始论文 |
+| 论文 | [LoRA](https://arxiv.org/abs/2106.09685) | 参数高效微调开山之作 |
+| 论文 | [DPO](https://arxiv.org/abs/2305.18290) | 直接偏好优化，替代 RLHF |
 
 ---
 
