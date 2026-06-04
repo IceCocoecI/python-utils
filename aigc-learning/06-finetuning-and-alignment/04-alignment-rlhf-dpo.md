@@ -5,6 +5,19 @@
 
 ---
 
+## 0. 本地可运行示例
+
+先用小张量验证 Reward Model pair loss、DPO margin、IPO loss 和 GRPO 组内 advantage：
+
+```bash
+cd aigc-learning/06-finetuning-and-alignment/examples
+conda run -n aigc python dpo_loss_demo.py --beta 0.1
+```
+
+脚本不会训练大模型，而是直接计算偏好优化的核心量，便于把公式和数值对应起来。
+
+---
+
 ## 1. 为什么需要对齐？
 
 SFT 模型的问题：
@@ -300,7 +313,7 @@ For each prompt x:
   2. 用 Reward Model 打分: {r_1, r_2, ..., r_G}
   3. 组内标准化得到 advantage:
      A_i = (r_i - mean(r)) / std(r)
-  4. 用 PPO-clip 目标更新策略（但不需要 Value Model）
+  4. 用 PPO-style clipped objective 更新策略（但不需要 Value Model）
 
 目标函数：
   L_GRPO = E[min(ratio · A, clip(ratio, 1-ε, 1+ε) · A)] - β · KL(π_θ || π_ref)

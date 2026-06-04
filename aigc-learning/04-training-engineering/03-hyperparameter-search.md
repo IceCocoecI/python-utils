@@ -33,6 +33,19 @@
 - 参数 > 3 个 → **Bayesian (TPE) + 剪枝** 是最优选择
 - 训练一次要几小时 → **一定要用剪枝**
 
+本章对应示例：
+
+```bash
+cd aigc-learning/04-training-engineering/examples
+conda run -n aigc python optuna_search.py --trials 2 --epochs 1
+```
+
+当前 `aigc` 环境如果还没安装 Optuna，脚本会自动退化为 deterministic random search，方便先跑通搜索流程。安装 Optuna 后，脚本会自动切换到 TPE sampler：
+
+```bash
+python optuna_search.py --trials 8 --epochs 2
+```
+
 ---
 
 ## 2. Optuna：Python 超参搜索的王者
@@ -381,6 +394,15 @@ wandb.agent(sweep_id, function=train, count=30)
 ---
 
 ## 6. 搜索空间设计实战
+
+搜索空间设计比选择搜索算法更重要。一个合理的空间应该满足：
+
+| 原则 | 说明 |
+|---|---|
+| 有先验 | 范围来自经验、论文、baseline 或小规模探测 |
+| 有约束 | 避免非法组合，例如 `hidden_dim % num_heads != 0` |
+| 有预算 | trial 数、单 trial epoch、总 GPU hour 都要提前定义 |
+| 有复验 | top configs 需要完整训练和多 seed 验证 |
 
 ### 6.1 学习率
 

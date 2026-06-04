@@ -6,6 +6,19 @@
 
 ---
 
+## 0. 本地可运行示例
+
+先用小张量观察 per-tensor scale 和 per-group scale 的误差差异：
+
+```bash
+cd aigc-learning/06-finetuning-and-alignment/examples
+conda run -n aigc python quantization_sim.py --bits 4 --group-size 32
+```
+
+脚本会输出 FP16 理想存储、4-bit 理想存储、scale 开销、权重重构误差和线性层输出误差。它不模拟真实 CUDA 量化 kernel，但能验证分组量化为什么通常比全局 scale 更准。
+
+---
+
 ## 1. 为什么需要量化？
 
 | 精度 | 每参数字节 | 7B 模型显存 | 70B 模型显存 |
@@ -15,7 +28,7 @@
 | INT8 | 1 | 7 GB | 70 GB |
 | INT4 | 0.5 | 3.5 GB | 35 GB |
 
-量化的目标：**用更低精度存储和计算，在几乎不损失质量的前提下，大幅降低显存和提升速度。**
+量化的目标：**用更低精度存储和计算，在质量损失可控的前提下，大幅降低显存，并在合适 kernel 上提升速度。**
 
 ---
 
@@ -279,7 +292,7 @@ python convert_hf_to_gguf.py ./llama3-8b/ --outtype f16 --outfile llama3-8b-f16.
 
 ## 8. FP8 量化（Hopper / Ada GPU）
 
-NVIDIA H100/H200 和 RTX 4090 支持 FP8 硬件加速：
+NVIDIA H100/H200 等 Hopper GPU 支持 FP8 Tensor Core 加速；RTX 4090 属于 Ada 架构，具备 FP8 Tensor Core 能力，但具体训练/推理框架是否能充分使用取决于软件栈：
 
 ```python
 from transformers import AutoModelForCausalLM, BitsAndBytesConfig

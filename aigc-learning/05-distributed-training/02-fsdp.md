@@ -9,6 +9,15 @@
 
 DDP 的核心假设：**每张卡上有一份完整的模型副本**。
 
+本章对应可运行示例：
+
+```bash
+cd aigc-learning/05-distributed-training/examples
+conda run -n aigc python fsdp_memory_math.py --params-billion 7 --world-size 4
+```
+
+当前机器没有可用 GPU，因此本模块不伪装跑 GPU FSDP 训练；示例先把 DDP、`SHARD_GRAD_OP`、`FULL_SHARD` 的参数/梯度/优化器显存账算清楚。文档中的 FSDP 训练脚本需要真实多 GPU 环境，通常用 `torchrun` + `nccl` 启动。
+
 ```
 DDP（4 张卡）：
 ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐

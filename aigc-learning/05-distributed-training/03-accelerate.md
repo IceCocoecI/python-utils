@@ -20,6 +20,15 @@
 **Accelerate 的哲学**：你只需写一份普通的 PyTorch 训练脚本，
 Accelerate 帮你处理所有分布式细节。切换后端只需改配置，不改代码。
 
+本章对应可运行示例：
+
+```bash
+cd aigc-learning/05-distributed-training/examples
+conda run -n aigc accelerate launch --cpu --num_processes=2 accelerate_train.py --epochs 1
+```
+
+这个示例在当前 CPU 环境可跑，演示 `Accelerator.prepare`、`accelerator.backward`、`accelerator.gather`、主进程保存模型。切换 GPU / FSDP / DeepSpeed 时，训练脚本结构保持基本一致，主要变化在启动参数或 Accelerate 配置。
+
 ```
                 你的训练脚本
                     │

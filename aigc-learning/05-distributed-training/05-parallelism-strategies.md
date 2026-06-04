@@ -19,6 +19,15 @@ DDP / FSDP / ZeRO 本质都是**数据并行 (Data Parallelism)**——
 - **通信瓶颈**：ZeRO-3 每次 forward/backward 都要 All-Gather 和 Reduce-Scatter，
   当模型极大时通信量爆炸。
 
+本章对应可运行示例：
+
+```bash
+cd aigc-learning/05-distributed-training/examples
+conda run -n aigc python parallelism_planner.py --total-gpus 128 --tp 8 --pp 4
+```
+
+这个示例不模拟 Megatron-LM，而是验证 `总 GPU 数 = DP × TP × PP × EP` 的组合关系，并输出每个维度的设计提醒。TP/PP/EP 的真实性能必须在对应硬件拓扑上 benchmark，不能只靠公式判断。
+
 ### 1.2 超大模型需要多维并行
 
 ```

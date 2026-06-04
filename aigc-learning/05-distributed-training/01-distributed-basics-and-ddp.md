@@ -31,6 +31,18 @@
 
 一张 A100 80GB 都放不下。所以需要分布式。
 
+本章对应可运行示例：
+
+```bash
+cd aigc-learning/05-distributed-training/examples
+conda run -n aigc torchrun --standalone --nproc_per_node=2 collectives_demo.py
+conda run -n aigc torchrun --standalone --nproc_per_node=2 ddp_cpu_train.py --epochs 1
+```
+
+这两个示例使用 CPU + `gloo`，用于验证 rank/world size、集合通信、`DistributedSampler`、DDP 梯度同步和 rank 0 checkpoint。文档里的 `nccl` / CUDA 示例需要真实 NVIDIA GPU 环境。
+
+在受限沙箱中，`torchrun --standalone` 可能因为本地 TCPStore 被拦截而报 `Operation not permitted`；真实终端通常不受影响。
+
 ---
 
 ## 2. 核心概念

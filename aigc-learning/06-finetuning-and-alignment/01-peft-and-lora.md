@@ -5,6 +5,19 @@
 
 ---
 
+## 0. 本地可运行示例
+
+本节的 LoRA 低秩更新、冻结基座参数和合并权重，可以先用 CPU 小实验验证：
+
+```bash
+cd aigc-learning/06-finetuning-and-alignment/examples
+conda run -n aigc python lora_tiny_train.py --epochs 6 --rank 2
+```
+
+脚本用一个线性层模拟 `W' = W + BA`，会输出 full fine-tuning 和 LoRA 的可训练参数量、验证集 MSE，以及 LoRA adapter 合并后的权重误差。
+
+---
+
 ## 1. 问题：全量微调太贵
 
 全量微调（Full Fine-Tuning）一个 7B 模型需要什么？
@@ -16,7 +29,7 @@
 | 优化器状态（Adam） | 56 GB（2× 动量） |
 | **总计** | ~112 GB，至少 2× A100-80GB |
 
-而且：每个下游任务保存一份完整模型 → 存储灾难。
+而且：每个下游任务保存一份完整模型，存储和发布成本都会迅速膨胀。
 
 **PEFT 的核心思想**：冻结大部分参数，只训一小部分 → 省显存、省计算、省存储。
 

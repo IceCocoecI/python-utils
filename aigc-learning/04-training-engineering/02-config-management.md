@@ -67,6 +67,19 @@ python train.py training.lr=3e-5 model.num_layers=6
 
 这就是 **Hydra + OmegaConf** 的威力。
 
+本章对应示例：
+
+```bash
+cd aigc-learning/04-training-engineering/examples
+conda run -n aigc python hydra_train.py --epochs 1
+```
+
+当前 `aigc` 环境如果还没安装 Hydra，脚本会自动退化为 argparse 模式，仍然会输出 resolved config。安装 `hydra-core` 和 `omegaconf` 后，可以使用标准 Hydra 覆盖语法：
+
+```bash
+python hydra_train.py training.epochs=2 optimizer.lr=0.001 model=wide
+```
+
 ---
 
 ## 2. OmegaConf：配置数据结构
@@ -513,6 +526,8 @@ conf/
     ├── pretrain_7b.yaml       # 组合配置：model=llama_7b + data=pretrain
     └── sft_7b.yaml            # 组合配置：model=llama_7b + data=sft
 ```
+
+组织配置时建议遵循一个判断标准：**同一类选择放进同一个 config group，单次实验选择 group 的一个成员**。例如 `model=llama_7b`、`data=sft`、`optimizer=adamw` 都是选择；`training.seed=42`、`optimizer.lr=3e-5` 通常是覆盖。
 
 ```yaml
 # conf/experiment/sft_7b.yaml

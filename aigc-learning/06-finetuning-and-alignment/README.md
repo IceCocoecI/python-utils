@@ -37,6 +37,7 @@
 
 | # | 文档 | 核心话题 |
 |---|---|---|
+| 00 | [finetuning-and-alignment-theory](./00-finetuning-and-alignment-theory.md) | 微调/对齐目标、LoRA 低秩假设、量化误差、SFT loss mask、DPO 概率视角 |
 | 01 | [peft-and-lora](./01-peft-and-lora.md) | LoRA 数学原理 / QLoRA / DoRA / peft 库实战 |
 | 02 | [quantization](./02-quantization.md) | INT8 / INT4 / GPTQ / AWQ / GGUF / bitsandbytes |
 | 03 | [sft-data-and-training](./03-sft-data-and-training.md) | 数据格式 / Chat Template / TRL SFTTrainer / 完整训练脚本 |
@@ -44,10 +45,27 @@
 
 ---
 
+## 本地可运行示例
+
+`examples/` 目录提供了不依赖下载大模型的 CPU 小实验，便于在当前 `aigc` 环境快速验证核心机制：
+
+```bash
+cd aigc-learning/06-finetuning-and-alignment/examples
+conda run -n aigc python lora_tiny_train.py --epochs 6 --rank 2
+conda run -n aigc python quantization_sim.py --bits 4 --group-size 32
+conda run -n aigc python sft_data_pipeline.py --max-length 80
+conda run -n aigc python sft_data_pipeline.py --max-length 80 --pack
+conda run -n aigc python dpo_loss_demo.py --beta 0.1
+```
+
+真实 7B/8B 训练脚本仍需要 `transformers`、`peft`、`trl`、`bitsandbytes`、模型下载和合适 GPU；本地 examples 用小张量复现同一类训练和优化逻辑。
+
+---
+
 ## 前置知识
 
-- 模块 02：PyTorch 基础（Module、Optimizer、训练循环）
-- 模块 04：Transformers 库基础用法（AutoModel, Trainer）
+- 模块 02：深度学习库基础（PyTorch Module、Optimizer、训练循环）
+- 模块 04：训练工程基础（实验管理、配置、可复现性）
 - 模块 05：分布式训练基本概念（可选但有帮助）
 
 ---

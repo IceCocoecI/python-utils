@@ -5,6 +5,20 @@
 
 ---
 
+## 0. 本地可运行示例
+
+先用离线脚本验证 Alpaca/ShareGPT 转 messages、聊天模板、assistant-only loss mask 和 packing：
+
+```bash
+cd aigc-learning/06-finetuning-and-alignment/examples
+conda run -n aigc python sft_data_pipeline.py --max-length 80
+conda run -n aigc python sft_data_pipeline.py --max-length 80 --pack
+```
+
+脚本会打印每条样本的 token 数、被监督的 assistant token 数，以及被 mask 的 system/user token 数。真实训练时应使用目标模型 tokenizer 的 `apply_chat_template()`，本示例只保留机制。
+
+---
+
 ## 1. SFT 在 LLM 流水线中的位置
 
 ```
@@ -329,10 +343,11 @@ trainer = SFTTrainer(
 ### 7.2 TRL 自动 loss masking
 
 ```python
-# TRL SFTTrainer 使用 messages 格式时自动 mask 非 assistant 部分
-# 无需手动配置
+# TRL 支持 conversational dataset，具体是否自动只监督 assistant
+# 取决于 TRL 版本、chat template 和 data collator 配置。
+# 生产训练前应抽样检查 labels 中的 -100 mask 是否符合预期。
 
-# 如果用 formatting_func，需要手动处理或设置：
+# 如果用 formatting_func，需要手动处理或显式配置：
 training_args = SFTConfig(
     ...,
     dataset_text_field=None,  # 使用 messages 格式
@@ -389,7 +404,7 @@ training_args = SFTConfig(
 )
 ```
 
-**注意**：Packing 时需要 attention mask 确保不同样本之间不会互相 attend。TRL 会自动处理。
+**注意**：Packing 会改变样本边界。生产训练前应确认所用 TRL 版本的数据整理逻辑是否满足你的 causal mask / loss mask 预期，尤其是多轮对话和自定义模板场景。
 
 ### 8.4 什么时候不该用 packing
 

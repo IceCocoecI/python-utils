@@ -29,6 +29,16 @@ experiments/
 
 **更重要的**：支持**跨 run 对比**——一张表看 100 个实验的结果。
 
+本章对应示例：
+
+```bash
+cd aigc-learning/04-training-engineering/examples
+conda run -n aigc python wandb_train.py --epochs 1
+tensorboard --logdir runs/
+```
+
+示例默认写 TensorBoard 日志，并把 `config.json`、`environment.json`、`metrics.json` 和 checkpoint 放到同一个 run 目录。安装 W&B 后可加 `--use-wandb`，建议先用 `WANDB_MODE=offline` 避免把 demo 数据上传到云端。
+
 ---
 
 ## 2. TensorBoard：最轻量的起步
@@ -347,7 +357,16 @@ args = TrainingArguments(
 
 ## 6. 最佳实践
 
-### 6.1 该记录什么
+### 6.1 一个 run 至少记录什么
+
+| 类别 | 必要内容 | 为什么 |
+|---|---|---|
+| Config | 模型、数据、优化器、训练轮数、seed | 判断 run 与 run 的差异 |
+| Metrics | train/val 指标曲线、最终指标 | 比较实验结果 |
+| Artifacts | checkpoint、样本、评估报告 | 支撑后续评估和部署 |
+| Environment | Python、PyTorch、CUDA、GPU、git hash | 支撑可复现和问题定位 |
+
+### 6.2 该记录什么
 
 ```python
 essentials = {
@@ -370,7 +389,7 @@ essentials = {
 }
 ```
 
-### 6.2 命名规范
+### 6.3 命名规范
 
 ```python
 # ✅ 好：用 / 分组
@@ -382,7 +401,7 @@ wandb.log({"train_loss": ..., "train_acc": ..., "val_loss": ..., "val_acc": ...}
 
 用 `/` 分组的好处：W&B 和 TensorBoard 都会自动按前缀分面板。
 
-### 6.3 Run 命名
+### 6.4 Run 命名
 
 ```python
 # ✅ 好：包含关键区分信息
@@ -392,7 +411,7 @@ wandb.init(name="sft-llama3-8b-lr3e5-bs64-ep3")
 wandb.init(name="experiment_1")
 ```
 
-### 6.4 团队工作流
+### 6.5 团队工作流
 
 ```
 1. 统一 project 命名（如 project-name-sft、project-name-pretrain）

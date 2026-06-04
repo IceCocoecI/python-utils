@@ -17,6 +17,27 @@
 
 **可复现性不是可选的——它是科学方法的基础。**
 
+本章对应示例：
+
+```bash
+cd aigc-learning/04-training-engineering/examples
+conda run -n aigc python reproducible_train.py --epochs 1
+```
+
+示例会用同一份配置连续训练两次，并输出 `reproducibility_report.json`，其中包含配置、环境、数据 checksum、两次指标和一致性检查结果。
+
+---
+
+## 1.1 三个容易混淆的概念
+
+| 概念 | 含义 | 训练工程里的例子 |
+|---|---|---|
+| Repeatability | 同一机器、同一代码、同一配置，多次运行一致 | 本地连续跑两次 loss 完全一致 |
+| Reproducibility | 另一位成员用同一代码、配置、数据和环境跑出等价结果 | 同事按 run 记录恢复出同等指标 |
+| Replicability | 独立实现或不同系统验证同一结论 | 另一个框架也证明方法 A 优于方法 B |
+
+日常工程优先保证 reproducibility。bit-level deterministic 更适合 debug 和严格对照实验，不一定适合所有日常训练。
+
 ---
 
 ## 2. 随机种子：最基础的一步

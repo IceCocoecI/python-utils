@@ -41,6 +41,7 @@
 
 | # | 文档 | 核心话题 |
 |---|---|---|
+| 00 | [distributed-training-theory](./00-distributed-training-theory.md) | 分布式训练理论：并行维度、通信原语、显存模型、性能模型 |
 | 01 | [distributed-basics-and-ddp](./01-distributed-basics-and-ddp.md) | 分布式核心概念 / DDP / torchrun / 多机 |
 | 02 | [fsdp](./02-fsdp.md) | FSDP / FSDP2 / 分片策略 / checkpoint |
 | 03 | [accelerate](./03-accelerate.md) | HuggingFace Accelerate / 一键分布式 / DeepSpeed 集成 |
@@ -48,6 +49,57 @@
 | 05 | [parallelism-strategies](./05-parallelism-strategies.md) | DP / TP / PP / EP / SP / 3D 并行 / 选型决策 |
 
 ---
+
+## 示例代码（`examples/`）
+
+当前机器的 `aigc` 环境有 PyTorch 2.6、Accelerate 1.13；CUDA 是编译可用但当前无 GPU，DeepSpeed 未安装。
+因此示例分成两类：
+
+| 文件 | 说明 | 当前环境是否可跑 |
+|---|---|---|
+| [`collectives_demo.py`](./examples/collectives_demo.py) | `all_reduce` / `broadcast` / `all_gather` 集合通信 demo | 是，CPU + gloo |
+| [`ddp_cpu_train.py`](./examples/ddp_cpu_train.py) | 两进程 CPU DDP 训练，演示 `DistributedSampler`、rank 0 保存 | 是，CPU + gloo |
+| [`accelerate_train.py`](./examples/accelerate_train.py) | Accelerate 训练循环，可单进程或 CPU 多进程启动 | 是 |
+| [`fsdp_memory_math.py`](./examples/fsdp_memory_math.py) | DDP / FSDP / ZeRO 显存估算 | 是 |
+| [`deepspeed_config_builder.py`](./examples/deepspeed_config_builder.py) | 生成 ZeRO-1/2/3 配置 JSON | 是，不要求安装 DeepSpeed |
+| [`parallelism_planner.py`](./examples/parallelism_planner.py) | 计算 DP/TP/PP/EP 组合是否匹配总 GPU 数 | 是 |
+
+### 在当前 `aigc` 环境运行
+
+```bash
+cd aigc-learning/05-distributed-training/examples
+
+conda run -n aigc torchrun --standalone --nproc_per_node=2 collectives_demo.py
+conda run -n aigc torchrun --standalone --nproc_per_node=2 ddp_cpu_train.py --epochs 1
+conda run -n aigc accelerate launch --cpu --num_processes=2 accelerate_train.py --epochs 1
+
+conda run -n aigc python fsdp_memory_math.py --params-billion 7 --world-size 4
+conda run -n aigc python deepspeed_config_builder.py --stage 3 --offload
+conda run -n aigc python parallelism_planner.py --total-gpus 128 --tp 8 --pp 4
+```
+
+如果你在受限沙箱里运行 `torchrun`，本地 TCP rendezvous 可能被拦截并报 `Operation not permitted`。真实终端通常不会有这个限制；在本次验证中，允许本地 TCPStore 后两个 `torchrun` 示例均已跑通。
+
+---
+
+## 理论与实践怎么组织
+
+建议按四层学习：
+
+| 层次 | 要回答的问题 | 对应材料 |
+|---|---|---|
+| 理论层 | 为什么并行训练受显存、通信、同步和拓扑共同约束？ | `00-distributed-training-theory.md` |
+| 基础层 | `rank`、`world_size`、集合通信、DDP 训练循环怎么工作？ | `01` + `collectives_demo.py` + `ddp_cpu_train.py` |
+| 分片层 | FSDP/ZeRO 具体省了哪部分显存，代价是什么？ | `02`、`04` + `fsdp_memory_math.py` |
+| 编排层 | Accelerate、DeepSpeed、3D 并行如何降低工程复杂度？ | `03`、`05` + `accelerate_train.py` + `parallelism_planner.py` |
+
+学习顺序建议：
+
+1. 先读 `00`，建立显存模型、通信模型和并行维度。
+2. 跑通 `collectives_demo.py`，理解集合通信不是抽象概念。
+3. 跑通 `ddp_cpu_train.py`，理解 DDP 的数据切分、梯度同步、rank 0 I/O。
+4. 跑 `fsdp_memory_math.py` 和 `deepspeed_config_builder.py`，把 FSDP/ZeRO 的显存收益量化。
+5. 跑 `accelerate_train.py`，理解框架如何封装 DDP/FSDP/DeepSpeed 细节。
 
 ## 前置知识
 
@@ -93,3 +145,5 @@
 - [ ] 训练一个 7B 模型，你会选择哪种并行方案？70B 呢？
 - [ ] `NCCL_TIMEOUT` 报错通常是什么原因导致的？
 - [ ] 分布式训练中如何保证梯度同步的正确性？
+- [ ] 跑通 `examples/` 中的 CPU 分布式 demo，并能解释每个输出。
+- [ ] 解释为什么当前 CPU 环境能验证 DDP 机制，但不能验证 NCCL/FSDP/DeepSpeed GPU 性能。

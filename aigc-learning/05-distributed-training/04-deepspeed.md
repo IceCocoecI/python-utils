@@ -24,6 +24,15 @@ ds_report
 
 `ds_report` 会显示 DeepSpeed 版本、CUDA 版本、可用的 ops 等——**出问题时第一步就跑它**。
 
+本章对应可运行示例：
+
+```bash
+cd aigc-learning/05-distributed-training/examples
+conda run -n aigc python deepspeed_config_builder.py --stage 3 --offload
+```
+
+当前 `aigc` 环境未安装 DeepSpeed，且当前机器没有可用 GPU，所以本章的原生 DeepSpeed 训练片段不能在当前环境原样执行。示例用于生成和检查 ZeRO 配置结构；真实训练需要先安装 DeepSpeed，并在 GPU 环境中用 `deepspeed` 或 `accelerate launch --use_deepspeed` 启动。
+
 ---
 
 ## 2. ZeRO 三个阶段
