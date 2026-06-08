@@ -5,6 +5,40 @@
 
 ---
 
+## 本地可运行示例
+
+本章的生产级示例依赖 FastAPI、vLLM、GPU 和模型权重。为了在当前 `aigc` 环境先验证协议和服务形态，`examples/` 提供了两个轻量示例：
+
+```bash
+cd aigc-learning/07-inference-and-deployment/examples
+
+# 标准库实现 OpenAI 兼容响应和 SSE chunk
+conda run -n aigc python openai_compatible_toy_server.py --self-test
+
+# FastAPI 网关模板的请求模型和后端 payload 自测
+conda run -n aigc python fastapi_gateway.py --self-test
+```
+
+如需启动真实 HTTP 服务：
+
+```bash
+conda run -n aigc python openai_compatible_toy_server.py --host 127.0.0.1 --port 8000
+```
+
+安装可选依赖后可启动 FastAPI 网关：
+
+```bash
+pip install fastapi uvicorn
+conda run -n aigc python fastapi_gateway.py --backend-url http://127.0.0.1:8000 --port 9000
+```
+
+对应代码：
+
+- [`examples/openai_compatible_toy_server.py`](./examples/openai_compatible_toy_server.py)
+- [`examples/fastapi_gateway.py`](./examples/fastapi_gateway.py)
+
+---
+
 ## 1. 从 Notebook 到生产：什么变了？
 
 | 维度 | Notebook 实验 | 生产服务 |

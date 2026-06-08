@@ -50,10 +50,69 @@
 
 | # | 文档 | 核心话题 |
 |---|---|---|
+| 00 | [inference-and-deployment-theory](./00-inference-and-deployment-theory.md) | 推理性能模型 / KV Cache 显存模型 / 批处理调度 / 扩散采样理论 / 服务容量规划 |
 | 01 | [llm-inference-engines](./01-llm-inference-engines.md) | vLLM / SGLang / TensorRT-LLM / llama.cpp / KV Cache / PagedAttention / 连续批处理 |
 | 02 | [diffusion-acceleration](./02-diffusion-acceleration.md) | Scheduler 优化 / torch.compile / TensorRT / 注意力优化 / 蒸馏加速 / 实时生成 |
 | 03 | [serving-frameworks](./03-serving-frameworks.md) | FastAPI / Triton Server / BentoML / Ray Serve / 监控 / Docker / GPU 调度 |
 | 04 | [demo-and-frontend](./04-demo-and-frontend.md) | Gradio / Streamlit / 流式聊天 / 图像生成 UI / HuggingFace Spaces / Open WebUI |
+
+---
+
+## 示例代码（`examples/`）
+
+`examples/` 目录提供了可在当前 `aigc` 环境运行的 CPU 小实验，避免下载大模型或依赖 GPU：
+
+| 文件 | 说明 | 当前环境是否可跑 |
+|---|---|---|
+| [`common.py`](./examples/common.py) | KV Cache 计算、toy chat、SSE 响应等共享工具 | 是 |
+| [`kv_cache_and_batching.py`](./examples/kv_cache_and_batching.py) | KV Cache 显存估算、静态批处理 vs 连续批处理、Paged KV 浪费模拟 | 是 |
+| [`diffusion_acceleration_sim.py`](./examples/diffusion_acceleration_sim.py) | 用 tiny latent 模拟 scheduler 步数、延迟和质量权衡 | 是 |
+| [`openai_compatible_toy_server.py`](./examples/openai_compatible_toy_server.py) | 标准库实现的 OpenAI 兼容 toy server，支持非流式和 SSE 流式 | 是 |
+| [`fastapi_gateway.py`](./examples/fastapi_gateway.py) | FastAPI 网关模板；`--self-test` 不要求安装 FastAPI | 自测可跑，启动服务需可选依赖 |
+| [`demo_apps.py`](./examples/demo_apps.py) | Gradio / Streamlit demo 模板；`--mode self-test` 不要求安装 UI 依赖 | 自测可跑，启动 UI 需可选依赖 |
+| [`smoke_test.py`](./examples/smoke_test.py) | 一键运行本模块全部可验证示例 | 是 |
+
+### 在当前 `aigc` 环境运行
+
+```bash
+cd aigc-learning/07-inference-and-deployment/examples
+
+conda run -n aigc python kv_cache_and_batching.py --model llama2-7b --batch-size 4
+conda run -n aigc python diffusion_acceleration_sim.py --latent-size 32
+conda run -n aigc python openai_compatible_toy_server.py --self-test
+conda run -n aigc python fastapi_gateway.py --self-test
+conda run -n aigc python demo_apps.py --mode self-test
+
+# 一键验证
+conda run -n aigc python smoke_test.py
+```
+
+### 可选 Web/UI 依赖
+
+当前 `aigc` 环境已具备 `torch`、`numpy`、`pydantic`、`openai`、`httpx`，但未安装 `fastapi`、`uvicorn`、`gradio`、`streamlit`。如需启动真实服务和 UI：
+
+```bash
+pip install fastapi uvicorn gradio streamlit prometheus-client
+```
+
+启动 toy OpenAI 兼容服务：
+
+```bash
+conda run -n aigc python openai_compatible_toy_server.py --host 127.0.0.1 --port 8000
+```
+
+安装可选依赖后启动 FastAPI 网关：
+
+```bash
+conda run -n aigc python fastapi_gateway.py --backend-url http://127.0.0.1:8000 --port 9000
+```
+
+安装可选依赖后启动 Demo：
+
+```bash
+conda run -n aigc python demo_apps.py --mode gradio
+conda run -n aigc streamlit run demo_apps.py -- --mode streamlit
+```
 
 ---
 

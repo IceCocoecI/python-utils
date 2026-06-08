@@ -5,6 +5,25 @@
 
 ---
 
+## 本地可运行示例
+
+真实 vLLM / SGLang 示例需要 GPU 和模型权重。为了先验证核心机制，本章配套了一个 CPU 小实验：
+
+```bash
+cd aigc-learning/07-inference-and-deployment/examples
+conda run -n aigc python kv_cache_and_batching.py --model llama2-7b --batch-size 4
+```
+
+它会演示三件事：
+
+- KV Cache 显存如何随层数、KV heads、上下文长度和并发线性增长。
+- 静态批处理为什么会浪费 token slot。
+- PagedAttention 风格的 block 分配为什么能显著降低 KV 预留浪费。
+
+对应代码：[`examples/kv_cache_and_batching.py`](./examples/kv_cache_and_batching.py)
+
+---
+
 ## 1. LLM 推理基础：两个阶段
 
 LLM 的自回归生成分为两个截然不同的阶段：

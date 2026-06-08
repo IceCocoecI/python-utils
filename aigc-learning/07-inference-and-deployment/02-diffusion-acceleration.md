@@ -5,6 +5,25 @@
 
 ---
 
+## 本地可运行示例
+
+真实 SDXL / FLUX 加速需要模型下载和 GPU。为了先验证“步数、延迟、质量”的关系，本章配套了一个 tiny latent 模拟：
+
+```bash
+cd aigc-learning/07-inference-and-deployment/examples
+conda run -n aigc python diffusion_acceleration_sim.py --latent-size 32
+```
+
+它不会生成图片，而是用小张量模拟不同 scheduler 的去噪过程，输出每种策略的步数、估算延迟和 latent MSE。这个示例适合在 CPU 上快速理解：
+
+- 为什么减少采样步数能近似线性降延迟。
+- 为什么 DPM++ 可以用更少步数保持质量。
+- 为什么 LCM/Turbo 这类少步数方法必须依赖蒸馏模型，而不是简单把普通模型的 `num_inference_steps` 改小。
+
+对应代码：[`examples/diffusion_acceleration_sim.py`](./examples/diffusion_acceleration_sim.py)
+
+---
+
 ## 1. 为什么扩散模型慢？
 
 ### 迭代去噪的本质

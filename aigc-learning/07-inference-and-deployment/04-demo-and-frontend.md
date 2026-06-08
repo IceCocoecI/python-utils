@@ -5,6 +5,35 @@
 
 ---
 
+## 本地可运行示例
+
+当前 `aigc` 环境未安装 Gradio / Streamlit，因此本章示例提供了无 UI 依赖的 self-test，以及安装可选依赖后的启动方式：
+
+```bash
+cd aigc-learning/07-inference-and-deployment/examples
+
+# 验证 toy chat 和流式输出逻辑
+conda run -n aigc python demo_apps.py --mode self-test
+```
+
+安装可选依赖后启动 Gradio：
+
+```bash
+pip install gradio
+conda run -n aigc python demo_apps.py --mode gradio
+```
+
+安装可选依赖后启动 Streamlit：
+
+```bash
+pip install streamlit
+conda run -n aigc streamlit run demo_apps.py -- --mode streamlit
+```
+
+对应代码：[`examples/demo_apps.py`](./examples/demo_apps.py)
+
+---
+
 ## 1. 为什么 Demo 重要？
 
 | 角色 | 需要 Demo 的原因 |

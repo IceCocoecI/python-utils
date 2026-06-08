@@ -86,6 +86,7 @@ aigc-learning/
 │
 ├── 07-inference-and-deployment/       # 模块 07：AIGC 推理与部署
 │   ├── README.md
+│   ├── 00-inference-and-deployment-theory.md  # 推理性能模型 / 调度 / 容量规划
 │   ├── 01-llm-inference-engines.md    # vLLM / SGLang / TensorRT-LLM / llama.cpp
 │   ├── 02-diffusion-acceleration.md   # Scheduler 优化 / torch.compile / TensorRT / 蒸馏
 │   ├── 03-serving-frameworks.md       # FastAPI / Triton / BentoML / 生产化
@@ -163,29 +164,30 @@ aigc-learning/
 25. `06-finetuning-and-alignment/02-quantization.md`
 26. `06-finetuning-and-alignment/03-sft-data-and-training.md`
 27. `06-finetuning-and-alignment/04-alignment-rlhf-dpo.md`
-28. `07-inference-and-deployment/01-llm-inference-engines.md`
-29. `07-inference-and-deployment/02-diffusion-acceleration.md`
-30. `07-inference-and-deployment/03-serving-frameworks.md`
-31. `07-inference-and-deployment/04-demo-and-frontend.md`
+28. `07-inference-and-deployment/00-inference-and-deployment-theory.md`
+29. `07-inference-and-deployment/01-llm-inference-engines.md`
+30. `07-inference-and-deployment/02-diffusion-acceleration.md`
+31. `07-inference-and-deployment/03-serving-frameworks.md`
+32. `07-inference-and-deployment/04-demo-and-frontend.md`
 
 ### 第 6 阶段：LLM 应用与前沿（约 4 周）
 
-32. `08-llm-applications/01-rag-fundamentals.md`
-33. `08-llm-applications/02-vector-databases.md`
-34. `08-llm-applications/03-orchestration-frameworks.md`
-35. `08-llm-applications/04-agent-engineering.md`
-36. `09-frontier-models/01-llm-architectures.md`（**核心，建议反复阅读**）
-37. `09-frontier-models/02-image-generation.md`
-38. `09-frontier-models/03-multimodal-models.md`
-39. `09-frontier-models/04-video-generation.md`
-40. `09-frontier-models/05-speech-and-audio.md`
+33. `08-llm-applications/01-rag-fundamentals.md`
+34. `08-llm-applications/02-vector-databases.md`
+35. `08-llm-applications/03-orchestration-frameworks.md`
+36. `08-llm-applications/04-agent-engineering.md`
+37. `09-frontier-models/01-llm-architectures.md`（**核心，建议反复阅读**）
+38. `09-frontier-models/02-image-generation.md`
+39. `09-frontier-models/03-multimodal-models.md`
+40. `09-frontier-models/04-video-generation.md`
+41. `09-frontier-models/05-speech-and-audio.md`
 
 ### 第 7 阶段：工程深水区（持续学习）
 
-41. `10-cuda-and-triton/01-gpu-architecture-and-cuda-basics.md`
-42. `10-cuda-and-triton/02-triton-programming.md`
-43. `10-cuda-and-triton/03-performance-profiling.md`
-44. `10-cuda-and-triton/04-custom-operators-and-extensions.md`
+42. `10-cuda-and-triton/01-gpu-architecture-and-cuda-basics.md`
+43. `10-cuda-and-triton/02-triton-programming.md`
+44. `10-cuda-and-triton/03-performance-profiling.md`
+45. `10-cuda-and-triton/04-custom-operators-and-extensions.md`
 
 > 日常写代码遇到忘了的 API，直接翻 [`CHEATSHEET.md`](./CHEATSHEET.md)。
 
