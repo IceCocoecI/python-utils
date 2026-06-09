@@ -1,6 +1,6 @@
-"""图像处理综合示例：PIL / NumPy / PyTorch 之间的转换 + torchvision v2 管线。
+"""图像处理综合示例：PIL / OpenCV / NumPy / PyTorch 转换 + 训练增强管线。
 运行：python image_ops.py
-会在当前目录生成一张测试图 test.jpg。
+会在 examples/outputs/image_ops 下生成测试图和中间结果。
 """
 from __future__ import annotations
 
@@ -10,11 +10,12 @@ import numpy as np
 import torch
 from PIL import Image
 
-OUT = Path(".")
+OUT = Path(__file__).resolve().parent / "outputs" / "image_ops"
 
 
 def create_test_image():
     """生成一张彩色测试图（避免依赖本地图片文件）。"""
+    OUT.mkdir(parents=True, exist_ok=True)
     h, w = 256, 256
     rgb = np.zeros((h, w, 3), dtype=np.uint8)
     rgb[:, :, 0] = np.linspace(0, 255, w, dtype=np.uint8)[None, :]
@@ -38,8 +39,26 @@ def demo_pil_numpy():
     print(f"back to PIL: {img2.size}")
 
 
+def demo_opencv_bgr_rgb():
+    print("\n== 2. OpenCV：BGR <-> RGB ==")
+    import cv2
+
+    img_bgr = cv2.imread(str(OUT / "test.jpg"))
+    if img_bgr is None:
+        raise RuntimeError("cv2.imread failed")
+    print(f"OpenCV shape: {img_bgr.shape}, dtype: {img_bgr.dtype}")
+
+    img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
+    gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
+    edges = cv2.Canny(gray, 100, 200)
+
+    Image.fromarray(img_rgb).save(OUT / "test_opencv_rgb.png")
+    Image.fromarray(edges).save(OUT / "test_edges.png")
+    print("saved OpenCV RGB and edge maps")
+
+
 def demo_basic_ops():
-    print("\n== 2. 基础操作（resize / crop / flip） ==")
+    print("\n== 3. 基础操作（resize / crop / flip） ==")
     img = Image.open(OUT / "test.jpg").convert("RGB")
     resized = img.resize((128, 128), resample=Image.BICUBIC)
     cropped = img.crop((32, 32, 160, 160))
@@ -53,7 +72,7 @@ def demo_basic_ops():
 
 
 def demo_torchvision_v2():
-    print("\n== 3. torchvision.transforms.v2 训练管线 ==")
+    print("\n== 4. torchvision.transforms.v2 训练管线 ==")
     from torchvision.transforms import v2
 
     IMAGENET_MEAN = [0.485, 0.456, 0.406]
@@ -76,7 +95,7 @@ def demo_torchvision_v2():
 
 
 def demo_tensor_to_image():
-    print("\n== 4. Tensor -> Image 可视化（反归一化） ==")
+    print("\n== 5. Tensor -> Image 可视化（反归一化） ==")
     IMAGENET_MEAN = torch.tensor([0.485, 0.456, 0.406]).view(3, 1, 1)
     IMAGENET_STD = torch.tensor([0.229, 0.224, 0.225]).view(3, 1, 1)
 
@@ -97,7 +116,7 @@ def demo_tensor_to_image():
 
 
 def demo_vae_style_normalize():
-    print("\n== 5. SD VAE 风格：归一化到 [-1, 1] ==")
+    print("\n== 6. SD VAE 风格：归一化到 [-1, 1] ==")
     from torchvision.transforms import v2
     tf = v2.Compose([
         v2.Resize((128, 128), antialias=True),
@@ -111,7 +130,7 @@ def demo_vae_style_normalize():
 
 
 def demo_save_grid():
-    print("\n== 6. 批量图像网格保存 ==")
+    print("\n== 7. 批量图像网格保存 ==")
     from torchvision.utils import make_grid, save_image
     from torchvision.transforms import v2
 
@@ -127,11 +146,47 @@ def demo_save_grid():
     print(f"saved grid: {OUT / 'grid.png'}")
 
 
+def demo_albumentations():
+    print("\n== 8. Albumentations：image/mask 同步增强 ==")
+    import albumentations as A
+    import cv2
+    from albumentations.pytorch import ToTensorV2
+
+    img = np.array(Image.open(OUT / "test.jpg").convert("RGB"))
+    mask = np.zeros(img.shape[:2], dtype=np.uint8)
+    mask[64:192, 80:176] = 1
+
+    transform = A.Compose([
+        A.HorizontalFlip(p=1.0),
+        A.RandomResizedCrop(size=(128, 128), scale=(0.8, 1.0), p=1.0),
+        A.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0.03, p=1.0),
+        A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        ToTensorV2(),
+    ])
+
+    out = transform(image=img, mask=mask)
+    tensor, aug_mask = out["image"], out["mask"]
+    print(f"aug tensor: {tensor.shape}, {tensor.dtype}")
+    print(f"aug mask: {aug_mask.shape}, foreground pixels: {int(aug_mask.sum())}")
+
+    vis = tensor.float()
+    mean = torch.tensor([0.485, 0.456, 0.406]).view(3, 1, 1)
+    std = torch.tensor([0.229, 0.224, 0.225]).view(3, 1, 1)
+    vis = (vis * std + mean).clamp(0, 1)
+    vis_arr = (vis.permute(1, 2, 0).numpy() * 255).astype(np.uint8)
+    mask_arr = (aug_mask.numpy().astype(np.uint8) * 255)
+    cv2.imwrite(str(OUT / "albumentations_image.png"), cv2.cvtColor(vis_arr, cv2.COLOR_RGB2BGR))
+    cv2.imwrite(str(OUT / "albumentations_mask.png"), mask_arr)
+    print("saved Albumentations image/mask outputs")
+
+
 if __name__ == "__main__":
     create_test_image()
     demo_pil_numpy()
+    demo_opencv_bgr_rgb()
     demo_basic_ops()
     demo_torchvision_v2()
     demo_tensor_to_image()
     demo_vae_style_normalize()
     demo_save_grid()
+    demo_albumentations()

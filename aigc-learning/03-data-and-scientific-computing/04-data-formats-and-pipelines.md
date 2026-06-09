@@ -68,6 +68,8 @@ for sample in read_jsonl(Path("corpus.jsonl")):
     process(sample)
 ```
 
+完整的本地可运行版本见 [`examples/data_formats_pipeline.py`](./examples/data_formats_pipeline.py)，覆盖 JSONL、Parquet、safetensors、HDF5、HF datasets 和 tar shard。
+
 ### 2.3 LLM 训练典型 JSONL schema
 
 **预训练语料**：
@@ -376,7 +378,7 @@ for i, batch in enumerate(loader):
               f"gpu_util≈{ratio:.0%}")
 ```
 
-`gpu_util` < 70% 说明数据管线是瓶颈。
+这里的 `gpu_util` 是用数据等待时间和训练计算时间估算出来的近似值，不等价于 `nvidia-smi` 里的真实 GPU 利用率。它适合快速判断训练循环是不是明显在等数据。
 
 ### 9.2 调优手段（优先级从高到低）
 

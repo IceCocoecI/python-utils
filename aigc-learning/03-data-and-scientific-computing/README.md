@@ -21,6 +21,7 @@ AIGC 项目中最"藏 bug"的地方往往不是模型，而是：
 
 | # | 文档 | 核心话题 |
 |---|---|---|
+| 00 | [data-and-scientific-computing-theory](./00-data-and-scientific-computing-theory.md) | shape / dtype / layout / range / distribution：数据管线的底层约束 |
 | 01 | [numpy-essentials](./01-numpy-essentials.md) | ndarray / 广播 / 向量化 / 内存视图 |
 | 02 | [einops-tutorial](./02-einops-tutorial.md) | rearrange / reduce / repeat / Layers |
 | 03 | [image-processing](./03-image-processing.md) | Pillow / OpenCV / torchvision.transforms / **Albumentations** / **质量评估指标** |
@@ -34,7 +35,41 @@ AIGC 项目中最"藏 bug"的地方往往不是模型，而是：
 |---|---|
 | `numpy_basics.py` | 数组创建、切片、广播、向量化技巧 |
 | `einops_demo.py` | rearrange / reduce / repeat 在 CV/NLP 任务中的实战 |
-| `image_ops.py` | 读图、resize、裁剪、归一化、转 Tensor |
+| `image_ops.py` | PIL / OpenCV / torchvision v2 / Albumentations 图像处理闭环 |
+| `data_formats_pipeline.py` | JSONL / Parquet / safetensors / HDF5 / HF datasets / tar shard 本地示例 |
+
+### 在当前 `aigc` 环境运行
+
+```bash
+cd aigc-learning/03-data-and-scientific-computing/examples
+
+conda run -n aigc python numpy_basics.py
+conda run -n aigc python einops_demo.py
+conda run -n aigc python image_ops.py
+conda run -n aigc python data_formats_pipeline.py
+```
+
+`image_ops.py` 和 `data_formats_pipeline.py` 的输出会写到 `examples/outputs/`，便于检查中间结果，也避免污染仓库根目录。
+
+---
+
+## 理论与实践怎么组织
+
+本模块建议按三层学习：
+
+| 层次 | 要回答的问题 | 对应材料 |
+|---|---|---|
+| 理论层 | shape、dtype、layout、range、distribution 为什么是数据管线的核心不变量？ | `00-data-and-scientific-computing-theory.md` |
+| 工具层 | NumPy、einops、Pillow/OpenCV/torchvision、数据格式分别解决什么问题？ | `01` ~ `04` 文档 |
+| 模板层 | 如何把每个知识点落成可运行、可验证的小脚本？ | `examples/` |
+
+学习顺序建议：
+
+1. 先读 `00`，建立数据管线的整体模型。
+2. 跑 `numpy_basics.py`，理解广播、向量化、view/copy。
+3. 跑 `einops_demo.py`，把复杂 shape 变换改成具名维度表达。
+4. 跑 `image_ops.py`，重点检查 RGB/BGR、CHW/HWC、dtype/range。
+5. 跑 `data_formats_pipeline.py`，理解格式选择和访问模式的关系。
 
 ---
 
@@ -62,3 +97,4 @@ AIGC 项目中最"藏 bug"的地方往往不是模型，而是：
 - [ ] 为什么 LLM 语料推荐 JSONL 而不是 JSON？
 - [ ] Parquet 比 CSV 快在哪里？为什么适合大表？
 - [ ] 为什么模型权重应该用 safetensors 而不是 `torch.save`？
+- [ ] 跑通 `examples/` 下四个入口脚本，并能解释每个输出文件的作用。

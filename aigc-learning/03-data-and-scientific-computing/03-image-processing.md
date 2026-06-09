@@ -284,18 +284,19 @@ img = cv2.imdecode(np.fromfile(path, dtype=np.uint8), cv2.IMREAD_COLOR)
 import albumentations as A
 import cv2
 import numpy as np
+from albumentations.pytorch import ToTensorV2
 
 transform = A.Compose([
     A.HorizontalFlip(p=0.5),
-    A.RandomResizedCrop(height=512, width=512, scale=(0.8, 1.0), p=1.0),
+    A.RandomResizedCrop(size=(512, 512), scale=(0.8, 1.0), p=1.0),
     A.OneOf([
         A.MotionBlur(blur_limit=5),
         A.GaussianBlur(blur_limit=5),
-        A.GaussNoise(var_limit=(10, 50)),
+        A.GaussNoise(std_range=(0.05, 0.2)),
     ], p=0.3),
     A.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.05, p=0.5),
     A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-    A.ToTensorV2(),
+    ToTensorV2(),
 ])
 
 img = cv2.cvtColor(cv2.imread("cat.jpg"), cv2.COLOR_BGR2RGB)
@@ -309,7 +310,7 @@ tensor = out["image"]
 seg_transform = A.Compose([
     A.HorizontalFlip(p=0.5),
     A.RandomRotate90(p=0.5),
-    A.RandomResizedCrop(512, 512, scale=(0.8, 1.0)),
+    A.RandomResizedCrop(size=(512, 512), scale=(0.8, 1.0)),
 ])
 
 out = seg_transform(image=img, mask=mask)
