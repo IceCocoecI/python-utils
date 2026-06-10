@@ -344,4 +344,16 @@ model.config.pad_token_id = tokenizer.eos_token_id
 | `trl` | SFT / DPO / GRPO 对齐 |
 | `datasets` | 统一数据加载 |
 
+配套示例：
+
+```bash
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/transformers_quickstart.py
+```
+
+该命令默认使用本地随机初始化的极小 GPT-2 和自定义 tokenizer，用于离线验证 `tokenizer`、`generate`、`TextIteratorStreamer`、`pipeline` 的 API 链路。要加载真实 HuggingFace 模型时再运行：
+
+```bash
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/transformers_quickstart.py --real-model
+```
+
 下一节进入 **HuggingFace Diffusers**，AIGC 图像/视频生成的基石。

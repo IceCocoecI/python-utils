@@ -276,4 +276,16 @@ for epoch in range(num_epochs):
 - ControlNet / IP-Adapter / LoRA 是扩散模型最实用的三大"外挂"。
 - 显存紧张用 `enable_model_cpu_offload()`；加速用 `torch.compile` + LCM。
 
+配套示例：
+
+```bash
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/diffusers_quickstart.py --toy-steps 1 --toy-batch-size 2
+```
+
+该命令默认跑一个离线 Toy DDPM：生成几何图像、随机加噪、训练 UNet 预测噪声、用 `DDPMPipeline` 采样，适合验证扩散训练代码路径。要运行真实 SD1.5 文生图、换 scheduler、图生图示例时再运行：
+
+```bash
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/diffusers_quickstart.py --stable-diffusion
+```
+
 至此，模块 02 完成。下一步进入 **模块 03：数据处理与科学计算**。

@@ -440,6 +440,14 @@ y = F.scaled_dot_product_attention(q, k, v, is_causal=True)
 
 能答 6 题以上，你在 Transformer 上已经超越 80% 的同行。
 
+配套代码：
+
+```bash
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/transformer_from_scratch.py
+```
+
+该脚本从零实现一个极小 causal LM，覆盖 RMSNorm、RoPE、`scaled_dot_product_attention`、SwiGLU、KV cache、top-k/top-p 采样，并用一个可学习的 token pattern 验证训练与生成闭环。
+
 ---
 
 ## 小结

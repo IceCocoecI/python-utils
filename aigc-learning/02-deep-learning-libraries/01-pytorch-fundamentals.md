@@ -309,6 +309,14 @@ for batch in loader:
 3. 手动实现 Multi-Head Attention（先用 for 循环写清楚，再用 reshape 提速）。
 4. 跟着 [nanoGPT](https://github.com/karpathy/nanoGPT) 的 `model.py` 从头读一遍——~300 行。
 
+配套代码：
+
+```bash
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/pytorch_basics.py
+```
+
+该脚本覆盖 Tensor 形状操作、broadcast、autograd、`nn.Module`、SDPA self-attention 和 device 检测。
+
 ---
 
 ## 小结

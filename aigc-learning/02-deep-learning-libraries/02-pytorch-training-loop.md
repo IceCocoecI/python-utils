@@ -499,6 +499,23 @@ for epoch in range(num_epochs):
     save_checkpoint(...)
 ```
 
-所有复杂项目（nanoGPT / transformers.Trainer / diffusers 训练脚本）本质都是这个骨架的扩展。配套示例见 `examples/mlp_mnist.py`。
+所有复杂项目（nanoGPT / transformers.Trainer / diffusers 训练脚本）本质都是这个骨架的扩展。
+
+配套示例见 `examples/mlp_mnist.py`。默认 MNIST 路径会下载数据；如果只想验证训练循环本身，可以使用离线合成数据：
+
+```bash
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/mlp_mnist.py \
+  --synthetic \
+  --epochs 1 \
+  --max-train-batches 3 \
+  --max-val-batches 2 \
+  --workers 0
+```
+
+完整 MNIST 训练：
+
+```bash
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/mlp_mnist.py --epochs 3
+```
 
 下一节进入 **HuggingFace Transformers**。

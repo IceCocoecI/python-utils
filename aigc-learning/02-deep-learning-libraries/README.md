@@ -22,6 +22,7 @@
 
 | # | 文档 | 核心话题 |
 |---|---|---|
+| 00 | [deep-learning-theory](./00-deep-learning-theory.md) | 张量/梯度/优化/归一化/Attention/扩散/显存预算/训练稳定性 |
 | 01 | [pytorch-fundamentals](./01-pytorch-fundamentals.md) | Tensor / autograd / nn.Module / device |
 | 02 | [pytorch-training-loop](./02-pytorch-training-loop.md) | Dataset / DataLoader / optimizer / AMP / 保存加载 / torch.compile / **显存预算** / **训练调试** |
 | 03 | [huggingface-transformers](./03-huggingface-transformers.md) | Tokenizer / AutoModel / Trainer / PEFT (LoRA) |
@@ -35,9 +36,30 @@
 | 文件 | 说明 | 是否需要 GPU |
 |---|---|---|
 | `pytorch_basics.py` | Tensor 操作、autograd、device 管理 | 否（CPU 可跑） |
-| `mlp_mnist.py` | 完整训练循环：MLP 在 MNIST 上分类 | 否 |
-| `transformers_quickstart.py` | 加载 LLM、编码解码、chat template | CPU 可跑小模型 |
-| `diffusers_quickstart.py` | 加载 Stable Diffusion，文生图 | 推荐 GPU |
+| `mlp_mnist.py` | 完整训练循环：MLP 在 MNIST/合成 MNIST 上分类 | 否 |
+| `transformers_quickstart.py` | Tokenizer、生成、流式输出、pipeline；默认离线小模型 | 否 |
+| `diffusers_quickstart.py` | 默认离线 Toy DDPM；可选运行 Stable Diffusion | Toy 模式否，SD 推荐 GPU |
+| `transformer_from_scratch.py` | RMSNorm / RoPE / 因果注意力 / SwiGLU / KV cache / 采样 | 否 |
+
+### 本地验证命令
+
+当前环境为 `aigc` 时，建议先跑离线 smoke tests：
+
+```bash
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/pytorch_basics.py
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/mlp_mnist.py --synthetic --epochs 1 --max-train-batches 3 --max-val-batches 2 --workers 0
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/transformers_quickstart.py
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/diffusers_quickstart.py --toy-steps 1 --toy-batch-size 2
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/transformer_from_scratch.py
+```
+
+需要真实模型/真实数据时再打开下载路径：
+
+```bash
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/mlp_mnist.py --epochs 3
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/transformers_quickstart.py --real-model
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/diffusers_quickstart.py --stable-diffusion
+```
 
 ---
 
