@@ -46,6 +46,7 @@
 
 | # | 文档 | 核心话题 |
 |---|---|---|
+| 00 | [gpu-performance-theory](./00-gpu-performance-theory.md) | GPU 执行模型 / 内存层级 / Roofline / FlashAttention / PagedAttention / fusion / profiling |
 | 01 | [gpu-architecture-and-cuda-basics](./01-gpu-architecture-and-cuda-basics.md) | GPU 架构 / 内存层级 / CUDA 编程模型 / kernel 编写 / 内存优化 |
 | 02 | [triton-programming](./02-triton-programming.md) | Triton 编程模型 / fused kernel / FlashAttention / autotuning |
 | 03 | [performance-profiling](./03-performance-profiling.md) | torch.profiler / Nsight Systems / Nsight Compute / 优化工作流 |
@@ -58,6 +59,25 @@
 - 模块 02：PyTorch 基础（Tensor、autograd、nn.Module）
 - 模块 05：分布式训练基础（理解 GPU 显存布局有帮助）
 - 基本的 C/C++ 语法（不需要精通，但需要能读）
+
+---
+
+## 理论与实践怎么组织
+
+本模块建议按三层学习：
+
+| 层次 | 要回答的问题 | 对应材料 |
+|---|---|---|
+| 理论层 | GPU 如何执行线程？为什么大模型推理常常受 HBM、kernel launch、KV cache 限制？ | `00-gpu-performance-theory.md` |
+| Kernel 层 | CUDA 和 Triton 如何表达 thread/block、tiling、fusion、shared memory、autotuning？ | `01`、`02`、`04` 文档 |
+| Profiling 层 | 如何用 torch.profiler / Nsight 判断瓶颈类型，并验证优化收益？ | `03-performance-profiling.md` |
+
+学习顺序建议：
+
+1. 先读 `00`，建立 compute-bound、memory-bound、fusion、tiling 的判断框架。
+2. 再读 `01` 和 `02`，理解 CUDA 与 Triton 的编程模型差异。
+3. 学 `03` 后再做优化，避免在没有测量的情况下改 kernel。
+4. 最后读 `04`，把自定义算子接入 PyTorch 和 `torch.compile`。
 
 ---
 

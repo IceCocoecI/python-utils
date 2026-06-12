@@ -2,6 +2,10 @@
 
 > 目标：搞懂主流大语言模型的架构设计——从 Transformer 原论文到 2025 年的 DeepSeek-V3。
 > 你不需要从零训练这些模型，但你必须能看懂 `config.json`、理解每个设计选择背后的动机。
+> 如果你还不熟悉基础 Transformer，先读模块 02 的
+> [Transformer 原理白话速览](../02-deep-learning-libraries/06-transformer-principles-overview.md)
+> 和 [Transformer 架构深度剖析](../02-deep-learning-libraries/05-transformer-from-scratch.md)；
+> 本文重点放在 LLM 架构演进和现代变体。
 
 ---
 

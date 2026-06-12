@@ -30,11 +30,13 @@
 ```
 aigc-learning/
 ├── README.md                          # 当前文件：总览 + 学习路线
+├── THEORY.md                          # 理论知识地图：按概念主线阅读
 ├── CHEATSHEET.md                      # 速查表：日常写代码最常用的片段
 ├── requirements.txt                   # 依赖清单（按模块分组）
 │
 ├── 01-python-foundations/             # 模块 01：现代 Python 编程基础与进阶
 │   ├── README.md
+│   ├── 00-python-engineering-theory.md  # Python 工程心智模型
 │   ├── 01-modern-python-basics.md     # 数据结构 / 魔法方法 / 惯用法 / itertools / 陷阱
 │   ├── 02-advanced-features.md        # 装饰器 / 生成器 / 上下文管理器 / functools
 │   ├── 03-async-programming.md        # asyncio / async-await / 并发模型
@@ -44,15 +46,18 @@ aigc-learning/
 │
 ├── 02-deep-learning-libraries/        # 模块 02：深度学习核心库
 │   ├── README.md
+│   ├── 00-deep-learning-theory.md     # 张量 / 梯度 / 优化 / Attention / 扩散 / 显存预算
 │   ├── 01-pytorch-fundamentals.md     # Tensor / autograd / nn.Module / device
 │   ├── 02-pytorch-training-loop.md    # DataLoader / AMP / 显存预算 / 训练调试
 │   ├── 03-huggingface-transformers.md # Tokenizer / AutoModel / Trainer / PEFT 入门
 │   ├── 04-huggingface-diffusers.md    # Pipeline / Scheduler / 微调与 LoRA 入门
 │   ├── 05-transformer-from-scratch.md # 注意力 / 位置编码 / 掩码 / KV cache / FlashAttention
+│   ├── 06-transformer-principles-overview.md  # Transformer 白话速览
 │   └── examples/
 │
 ├── 03-data-and-scientific-computing/  # 模块 03：数据处理与科学计算
 │   ├── README.md
+│   ├── 00-data-and-scientific-computing-theory.md  # shape / dtype / layout / range / distribution
 │   ├── 01-numpy-essentials.md         # ndarray / 广播 / 向量化 / 内存视图
 │   ├── 02-einops-tutorial.md          # rearrange / reduce / repeat / Layers
 │   ├── 03-image-processing.md         # Pillow / OpenCV / torchvision / Albumentations / FID
@@ -61,6 +66,7 @@ aigc-learning/
 │
 ├── 04-training-engineering/           # 模块 04：训练与实验工程化
 │   ├── README.md
+│   ├── 00-training-engineering-theory.md  # 实验记录 / 配置空间 / 搜索空间 / 可复现边界
 │   ├── 01-experiment-tracking.md      # TensorBoard / wandb / MLflow
 │   ├── 02-config-management.md        # Hydra / OmegaConf / 结构化配置
 │   ├── 03-hyperparameter-search.md    # Optuna / Ray Tune / 搜索策略
@@ -69,6 +75,7 @@ aigc-learning/
 │
 ├── 05-distributed-training/           # 模块 05：分布式训练
 │   ├── README.md
+│   ├── 00-distributed-training-theory.md  # 通信原语 / 显存分片 / 并行策略 / 性能模型
 │   ├── 01-distributed-basics-and-ddp.md  # torch.distributed / DDP 完整教程
 │   ├── 02-fsdp.md                     # FSDP / FSDP2 全参数分片
 │   ├── 03-accelerate.md               # HuggingFace Accelerate 一键分布式
@@ -78,6 +85,7 @@ aigc-learning/
 │
 ├── 06-finetuning-and-alignment/       # 模块 06：大模型微调与对齐
 │   ├── README.md
+│   ├── 00-finetuning-and-alignment-theory.md  # PEFT / 量化 / SFT / 偏好优化理论
 │   ├── 01-peft-and-lora.md            # LoRA / QLoRA / DoRA / peft 库
 │   ├── 02-quantization.md             # INT8/INT4 / bitsandbytes / GPTQ / AWQ / GGUF
 │   ├── 03-sft-data-and-training.md    # SFT 数据构造 / Chat Template / TRL SFTTrainer
@@ -95,99 +103,105 @@ aigc-learning/
 │
 ├── 08-llm-applications/               # 模块 08：LLM 应用开发
 │   ├── README.md
+│   ├── 00-llm-applications-theory.md  # RAG / 向量检索 / 编排 / Agent / 安全评估理论
 │   ├── 01-rag-fundamentals.md         # RAG 全流程：切分 / Embedding / 检索 / 生成
 │   ├── 02-vector-databases.md         # FAISS / Milvus / Chroma / pgvector
 │   ├── 03-orchestration-frameworks.md # LangChain / LlamaIndex / LangGraph
-│   ├── 04-agent-engineering.md        # Tool Use / MCP / Planning / Multi-Agent
-│   └── examples/
+│   └── 04-agent-engineering.md        # Tool Use / MCP / Planning / Multi-Agent
 │
 ├── 09-frontier-models/                # 模块 09：前沿 AIGC 模型架构
 │   ├── README.md
+│   ├── 00-frontier-models-theory.md   # 跨模态生成模型统一理论框架
 │   ├── 01-llm-architectures.md        # GPT / LLaMA / Qwen / DeepSeek / MoE
 │   ├── 02-image-generation.md         # DDPM → SD → SDXL → DiT → Flux 演进
 │   ├── 03-multimodal-models.md        # CLIP / LLaVA / Qwen-VL / 视觉语言模型
 │   ├── 04-video-generation.md         # Sora / CogVideoX / Wan / HunyuanVideo
-│   ├── 05-speech-and-audio.md         # VALL-E / CosyVoice / F5-TTS / Whisper
-│   └── examples/
+│   └── 05-speech-and-audio.md         # VALL-E / CosyVoice / F5-TTS / Whisper
 │
 └── 10-cuda-and-triton/                # 模块 10：工程深水区
     ├── README.md
+    ├── 00-gpu-performance-theory.md   # GPU 执行模型 / Roofline / fusion / tiling / profiling
     ├── 01-gpu-architecture-and-cuda-basics.md  # GPU 架构 / CUDA 编程模型 / kernel 编写
     ├── 02-triton-programming.md       # Triton：用 Python 写 GPU kernel
     ├── 03-performance-profiling.md    # torch.profiler / Nsight Systems / 性能分析
-    ├── 04-custom-operators-and-extensions.md  # pybind11 / cpp_extension / FlexAttention
-    └── examples/
+    └── 04-custom-operators-and-extensions.md  # pybind11 / cpp_extension / FlexAttention
 ```
 
 ---
 
 ## 推荐学习顺序
 
+如果你想先按理论主线建立整体框架，可以先读 [`THEORY.md`](./THEORY.md)，再回到下面的实践路线。
+
 ### 第 1 阶段：打牢基础（约 2–3 周）
 
-1. `01-python-foundations/01-modern-python-basics.md`
-2. `03-data-and-scientific-computing/01-numpy-essentials.md`
-3. `01-python-foundations/02-advanced-features.md`
-4. `01-python-foundations/04-type-hints.md`
-5. `01-python-foundations/05-engineering-best-practices.md`（测试/调试/profiling——太多人跳过这步）
+1. `01-python-foundations/00-python-engineering-theory.md`
+2. `01-python-foundations/01-modern-python-basics.md`
+3. `03-data-and-scientific-computing/01-numpy-essentials.md`
+4. `01-python-foundations/02-advanced-features.md`
+5. `01-python-foundations/04-type-hints.md`
+6. `01-python-foundations/05-engineering-best-practices.md`（测试/调试/profiling——太多人跳过这步）
 
 ### 第 2 阶段：深度学习实战（约 3–4 周）
 
-6. `02-deep-learning-libraries/01-pytorch-fundamentals.md`
-7. `02-deep-learning-libraries/02-pytorch-training-loop.md`
-8. `03-data-and-scientific-computing/02-einops-tutorial.md`
-9. `03-data-and-scientific-computing/03-image-processing.md`
-10. `03-data-and-scientific-computing/04-data-formats-and-pipelines.md`
-11. `02-deep-learning-libraries/05-transformer-from-scratch.md`（**核心中的核心**）
+7. `02-deep-learning-libraries/01-pytorch-fundamentals.md`
+8. `02-deep-learning-libraries/02-pytorch-training-loop.md`
+9. `03-data-and-scientific-computing/02-einops-tutorial.md`
+10. `03-data-and-scientific-computing/03-image-processing.md`
+11. `03-data-and-scientific-computing/04-data-formats-and-pipelines.md`
+12. `02-deep-learning-libraries/05-transformer-from-scratch.md`（**核心中的核心**）
 
 ### 第 3 阶段：AIGC 框架应用（约 3 周）
 
-12. `02-deep-learning-libraries/03-huggingface-transformers.md`
-13. `02-deep-learning-libraries/04-huggingface-diffusers.md`
-14. `01-python-foundations/03-async-programming.md`（配合服务化场景）
+13. `02-deep-learning-libraries/03-huggingface-transformers.md`
+14. `02-deep-learning-libraries/04-huggingface-diffusers.md`
+15. `01-python-foundations/03-async-programming.md`（配合服务化场景）
 
 ### 第 4 阶段：训练工程化与分布式（约 3–4 周）
 
-15. `04-training-engineering/01-experiment-tracking.md`
-16. `04-training-engineering/02-config-management.md`
-17. `04-training-engineering/03-hyperparameter-search.md`
-18. `04-training-engineering/04-reproducibility.md`
-19. `05-distributed-training/01-distributed-basics-and-ddp.md`
-20. `05-distributed-training/02-fsdp.md`
-21. `05-distributed-training/03-accelerate.md`
-22. `05-distributed-training/04-deepspeed.md`
-23. `05-distributed-training/05-parallelism-strategies.md`
+16. `04-training-engineering/01-experiment-tracking.md`
+17. `04-training-engineering/02-config-management.md`
+18. `04-training-engineering/03-hyperparameter-search.md`
+19. `04-training-engineering/04-reproducibility.md`
+20. `05-distributed-training/01-distributed-basics-and-ddp.md`
+21. `05-distributed-training/02-fsdp.md`
+22. `05-distributed-training/03-accelerate.md`
+23. `05-distributed-training/04-deepspeed.md`
+24. `05-distributed-training/05-parallelism-strategies.md`
 
 ### 第 5 阶段：微调、对齐与推理部署（约 4 周）
 
-24. `06-finetuning-and-alignment/01-peft-and-lora.md`（**必读**）
-25. `06-finetuning-and-alignment/02-quantization.md`
-26. `06-finetuning-and-alignment/03-sft-data-and-training.md`
-27. `06-finetuning-and-alignment/04-alignment-rlhf-dpo.md`
-28. `07-inference-and-deployment/00-inference-and-deployment-theory.md`
-29. `07-inference-and-deployment/01-llm-inference-engines.md`
-30. `07-inference-and-deployment/02-diffusion-acceleration.md`
-31. `07-inference-and-deployment/03-serving-frameworks.md`
-32. `07-inference-and-deployment/04-demo-and-frontend.md`
+25. `06-finetuning-and-alignment/01-peft-and-lora.md`（**必读**）
+26. `06-finetuning-and-alignment/02-quantization.md`
+27. `06-finetuning-and-alignment/03-sft-data-and-training.md`
+28. `06-finetuning-and-alignment/04-alignment-rlhf-dpo.md`
+29. `07-inference-and-deployment/00-inference-and-deployment-theory.md`
+30. `07-inference-and-deployment/01-llm-inference-engines.md`
+31. `07-inference-and-deployment/02-diffusion-acceleration.md`
+32. `07-inference-and-deployment/03-serving-frameworks.md`
+33. `07-inference-and-deployment/04-demo-and-frontend.md`
 
 ### 第 6 阶段：LLM 应用与前沿（约 4 周）
 
-33. `08-llm-applications/01-rag-fundamentals.md`
-34. `08-llm-applications/02-vector-databases.md`
-35. `08-llm-applications/03-orchestration-frameworks.md`
-36. `08-llm-applications/04-agent-engineering.md`
-37. `09-frontier-models/01-llm-architectures.md`（**核心，建议反复阅读**）
-38. `09-frontier-models/02-image-generation.md`
-39. `09-frontier-models/03-multimodal-models.md`
-40. `09-frontier-models/04-video-generation.md`
-41. `09-frontier-models/05-speech-and-audio.md`
+34. `08-llm-applications/00-llm-applications-theory.md`
+35. `08-llm-applications/01-rag-fundamentals.md`
+36. `08-llm-applications/02-vector-databases.md`
+37. `08-llm-applications/03-orchestration-frameworks.md`
+38. `08-llm-applications/04-agent-engineering.md`
+39. `09-frontier-models/00-frontier-models-theory.md`
+40. `09-frontier-models/01-llm-architectures.md`（**核心，建议反复阅读**）
+41. `09-frontier-models/02-image-generation.md`
+42. `09-frontier-models/03-multimodal-models.md`
+43. `09-frontier-models/04-video-generation.md`
+44. `09-frontier-models/05-speech-and-audio.md`
 
 ### 第 7 阶段：工程深水区（持续学习）
 
-42. `10-cuda-and-triton/01-gpu-architecture-and-cuda-basics.md`
-43. `10-cuda-and-triton/02-triton-programming.md`
-44. `10-cuda-and-triton/03-performance-profiling.md`
-45. `10-cuda-and-triton/04-custom-operators-and-extensions.md`
+45. `10-cuda-and-triton/00-gpu-performance-theory.md`
+46. `10-cuda-and-triton/01-gpu-architecture-and-cuda-basics.md`
+47. `10-cuda-and-triton/02-triton-programming.md`
+48. `10-cuda-and-triton/03-performance-profiling.md`
+49. `10-cuda-and-triton/04-custom-operators-and-extensions.md`
 
 > 日常写代码遇到忘了的 API，直接翻 [`CHEATSHEET.md`](./CHEATSHEET.md)。
 

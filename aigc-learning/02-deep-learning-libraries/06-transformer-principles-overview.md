@@ -3,7 +3,8 @@
 > 本篇是 [05-transformer-from-scratch](./05-transformer-from-scratch.md) 的**概念入门/快速复习版**：
 > 不写代码、不推导实现，只用直觉和类比把 Transformer 的核心思想讲透。
 > 适合第一遍建立心智模型，或者面试前 10 分钟快速过一遍。
-> 想看公式推导、从零手写实现（RoPE / KV cache / FlashAttention），请移步 05。
+> 想看公式推导、从零手写实现（RoPE / KV cache / FlashAttention），请移步 05；
+> 想看 LLaMA/Qwen/DeepSeek/MoE 等现代架构演进，请移步 [09/01-llm-architectures](../09-frontier-models/01-llm-architectures.md)。
 
 ---
 

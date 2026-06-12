@@ -2,6 +2,10 @@
 
 > 本文是模块 02 的理论底座。后面的 PyTorch、Transformers、Diffusers 文档偏工程实践；
 > 这里回答更底层的问题：模型为什么能训练、训练为什么会不稳定、显存为什么会爆、Transformer 和扩散模型到底在优化什么。
+> Transformer 在本文中只作为深度学习机制的一部分出现；完整分层阅读见
+> [06-transformer-principles-overview](./06-transformer-principles-overview.md)、
+> [05-transformer-from-scratch](./05-transformer-from-scratch.md) 和
+> [09/01-llm-architectures](../09-frontier-models/01-llm-architectures.md)。
 
 ---
 

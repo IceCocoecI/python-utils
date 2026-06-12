@@ -16,7 +16,7 @@
 - **选型选不对**：什么时候用 Dense 模型，什么时候用 MoE？什么时候用 DiT 而不是 U-Net？
 - **面试答不上**：架构题是 AIGC 岗位面试的重中之重
 
-本模块带你系统梳理 2024–2025 年 AIGC 领域最前沿的模型架构。
+本模块带你系统梳理近几年 AIGC 领域主流和前沿的模型架构。
 
 ---
 
@@ -45,6 +45,7 @@
 
 | # | 文档 | 核心话题 |
 |---|---|---|
+| 00 | [frontier-models-theory](./00-frontier-models-theory.md) | AIGC 模型统一理论：token/latent/patch、生成模型家族、跨模态架构、Scaling 与选型 |
 | 01 | [llm-architectures](./01-llm-architectures.md) | Transformer 家族、GPT/LLaMA/Qwen/Mistral/DeepSeek 架构演进、MoE、长上下文、Scaling Laws |
 | 02 | [image-generation](./02-image-generation.md) | GAN → VAE → Diffusion → Flow Matching、SD/SDXL/DiT/Flux/SD3、采样算法、ControlNet |
 | 03 | [multimodal-models](./03-multimodal-models.md) | CLIP/SigLIP、BLIP-2、LLaVA、Qwen-VL、InternVL、视觉语言模型架构范式 |
@@ -54,6 +55,10 @@
 ---
 
 ## 推荐阅读顺序
+
+### 第 0 步：统一理论框架
+
+先读 00，建立“输入表示 → 主干网络 → 条件注入 → 训练目标 → 采样/解码 → 评估瓶颈”的读模型方法。
 
 ### 第 1 步：LLM 架构（最核心）
 
@@ -68,6 +73,25 @@
 ### 第 3 步：多模态 → 视频 → 语音
 
 03 → 04 → 05 按兴趣选读。多模态和视频联系紧密，可以连着看。
+
+---
+
+## 理论与实践怎么组织
+
+本模块建议按三层学习：
+
+| 层次 | 要回答的问题 | 对应材料 |
+|---|---|---|
+| 统一架构层 | Transformer、扩散、Flow Matching、多模态对齐如何成为不同模态的共同底座？ | `00-frontier-models-theory.md` |
+| 模态专题层 | 文本、图像、多模态、视频、语音各自的结构演进和核心瓶颈是什么？ | `01` ~ `05` 文档 |
+| 选型判断层 | 什么时候用 Dense/MoE、U-Net/DiT、VLM/Any-to-Any、codec/audio LM？ | 各专题的对比表、时间线和常见坑 |
+
+学习顺序建议：
+
+1. 先读 `00`，建立统一的模型架构读法。
+2. 再读 `01`，把 Decoder-only、GQA、MoE、长上下文和 Scaling Laws 打牢。
+3. 继续读 `02`，理解扩散和 Flow Matching，这条线会延伸到图像、视频、音频。
+4. 最后按兴趣读多模态、视频和语音专题。
 
 ---
 
