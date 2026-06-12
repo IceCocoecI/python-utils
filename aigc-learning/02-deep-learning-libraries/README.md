@@ -28,6 +28,7 @@
 | 03 | [huggingface-transformers](./03-huggingface-transformers.md) | Tokenizer / AutoModel / Trainer / PEFT (LoRA) |
 | 04 | [huggingface-diffusers](./04-huggingface-diffusers.md) | Pipeline / Scheduler / UNet / VAE / 图像生成与微调 |
 | 05 | [transformer-from-scratch](./05-transformer-from-scratch.md) | 多头注意力、位置编码（RoPE/ALiBi）、掩码、KV cache、FlashAttention |
+| 06 | [transformer-principles-overview](./06-transformer-principles-overview.md) | Transformer 原理白话速览（无代码概念版，适合入门/快速复习） |
 
 ---
 
