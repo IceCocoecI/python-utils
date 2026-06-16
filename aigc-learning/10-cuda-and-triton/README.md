@@ -61,6 +61,29 @@
 
 ---
 
+## 示例代码（`examples/`）
+
+| 文件 | 说明 | 是否需要 GPU |
+|---|---|---|
+| [`torch_profiler_demo.py`](./examples/torch_profiler_demo.py) | 用 `torch.profiler` 分析一个 tiny training step，输出耗时表，可选写 TensorBoard trace | 否，GPU 下信息更完整 |
+
+运行：
+
+```bash
+conda run -n aigc python aigc-learning/10-cuda-and-triton/examples/torch_profiler_demo.py --steps 5
+```
+
+默认使用 CPU，并隐藏部分 PyTorch profiler 在 CPU-only 环境下的底层设备探测日志。GPU 环境可显式增加 `--device cuda`；需要内存统计时再加 `--profile-memory`；调试 profiler 本身时可加 `--show-profiler-stderr`。
+
+生成 trace：
+
+```bash
+conda run -n aigc python aigc-learning/10-cuda-and-triton/examples/torch_profiler_demo.py --steps 5 --trace
+tensorboard --logdir aigc-learning/10-cuda-and-triton/examples/outputs/profiler_demo
+```
+
+---
+
 ## 推荐配套资源
 
 ### 核心文档

@@ -25,6 +25,29 @@
 
 ---
 
+## 如何选择学习方式
+
+本仓库现在按“路线层、项目层、验收层、知识库”四层使用：
+
+| 层次 | 目录 | 作用 |
+|---|---|---|
+| 路线层 | [`routes/`](./routes/README.md) | 按实践、理论、岗位方向告诉你先学什么、后学什么、哪些可以暂时跳过 |
+| 项目层 | [`labs/`](./labs/README.md) | 把零散示例串成端到端任务，每个 Lab 都有目标、运行命令和验收标准 |
+| 验收层 | [`assessments/`](./assessments/README.md) | 阶段自检、理论问题、面试题，用来判断是否真的掌握 |
+| 记录层 | [`progress/`](./progress/README.md) | 学习日志、周复盘、项目报告模板 |
+| 作品层 | [`portfolio/`](./portfolio/README.md) | 把 Lab 产出整理成可展示作品 |
+| 知识库 | `01` ~ `10` | 系统教程、示例代码、资源链接，适合深入阅读和查阅 |
+
+如果你想快速做项目，走 [`实践优先路线`](./routes/practice-track.md)；如果你想补原理和架构，走 [`理论优先路线`](./routes/theory-track.md)。
+如果目标是岗位能力，可以直接选：
+
+- [`LLM 应用工程师`](./routes/role-llm-app-engineer.md)
+- [`微调与对齐工程师`](./routes/role-finetuning-engineer.md)
+- [`推理部署工程师`](./routes/role-inference-engineer.md)
+- [`模型架构与研究基础`](./routes/role-research-foundation.md)
+
+---
+
 ## 目录结构
 
 ```
@@ -32,6 +55,36 @@ aigc-learning/
 ├── README.md                          # 当前文件：总览 + 学习路线
 ├── CHEATSHEET.md                      # 速查表：日常写代码最常用的片段
 ├── requirements.txt                   # 依赖清单（按模块分组）
+│
+├── routes/                            # 学习路线：实践 / 理论 / 岗位方向
+│   ├── practice-track.md              # 实践优先路线
+│   ├── theory-track.md                # 理论优先路线
+│   ├── role-llm-app-engineer.md       # LLM 应用 / RAG / Agent
+│   ├── role-finetuning-engineer.md    # 微调 / SFT / 对齐
+│   ├── role-inference-engineer.md     # 推理 / 部署 / 性能
+│   └── role-research-foundation.md    # 模型架构 / 论文 / 原理
+│
+├── labs/                              # 端到端实践任务
+│   ├── 01-python-data-tensors/
+│   ├── 02-train-mini-model/
+│   ├── 03-transformer-from-scratch/
+│   ├── 04-lora-sft-mini-llm/
+│   ├── 05-openai-compatible-server/
+│   ├── 06-rag-mini-system/
+│   └── 07-profiling-and-optimization/
+│
+├── assessments/                       # 阶段验收与面试问题
+│   ├── practice-checkpoints.md
+│   ├── theory-checkpoints.md
+│   └── interview-questions.md
+│
+├── progress/                          # 学习日志和项目报告模板
+├── portfolio/                         # 作品集规划
+├── ENVIRONMENT.md                     # 环境能力矩阵
+├── TROUBLESHOOTING.md                 # 常见问题排查
+├── VERSION_MATRIX.md                  # 版本兼容建议
+├── MAINTENANCE.md                     # 维护指南
+├── scripts/check_links.py             # 本地 Markdown 链接检查
 │
 ├── 01-python-foundations/             # 模块 01：现代 Python 编程基础与进阶
 │   ├── README.md
@@ -216,9 +269,33 @@ aigc-learning/
 
 ## 如何使用本仓库
 
-1. 按模块 README 指引顺序阅读 `.md` 教程。
-2. 每个模块的 `examples/` 目录包含可运行脚本，**边读边跑**是最好的学习方式。
-3. 建议使用 `uv` 或 `conda` 创建独立虚拟环境：
+1. 先从 [`routes/`](./routes/README.md) 选择一条主路线。
+2. 按路线阅读 `01` ~ `10` 中的模块文档。
+3. 每个模块的 `examples/` 目录包含可运行脚本，**边读边跑**是最好的学习方式。
+4. 每完成一个阶段，做一个 [`labs/`](./labs/README.md) 里的端到端任务。
+5. 阶段结束后回到 [`assessments/`](./assessments/README.md) 做自检。
+6. 用 [`progress/`](./progress/README.md) 记录学习过程，把关键 Lab 产出整理到 [`portfolio/`](./portfolio/README.md)。
+
+遇到环境或运行问题，先看：
+
+- [`ENVIRONMENT.md`](./ENVIRONMENT.md)
+- [`TROUBLESHOOTING.md`](./TROUBLESHOOTING.md)
+- [`VERSION_MATRIX.md`](./VERSION_MATRIX.md)
+
+当前建议使用你的 `aigc` conda 环境运行示例：
+
+```bash
+conda activate aigc
+python <script.py>
+```
+
+或者不激活环境，直接使用：
+
+```bash
+conda run -n aigc python <script.py>
+```
+
+如果需要从零创建独立虚拟环境，也可以使用 `venv`：
 
 ```bash
 cd aigc-learning
@@ -226,7 +303,7 @@ python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. 推荐配套工具：VSCode / Cursor + Jupyter 扩展；GPU 环境建议 CUDA 12.x + PyTorch 2.4+。
+推荐配套工具：VSCode / Cursor + Jupyter 扩展；GPU 环境建议 CUDA 12.x + PyTorch 2.4+。
 
 ---
 

@@ -53,6 +53,22 @@
 
 ---
 
+## 示例代码（`examples/`）
+
+| 文件 | 说明 | 是否需要外部模型 |
+|---|---|---|
+| [`toy_rag.py`](./examples/toy_rag.py) | 使用本地 Markdown、哈希 embedding 和 NumPy 检索实现最小 RAG 流水线 | 否 |
+
+运行：
+
+```bash
+conda run -n aigc python aigc-learning/08-llm-applications/examples/toy_rag.py --self-test
+```
+
+这个示例用于理解 RAG 的 ingestion、chunking、embedding、retrieval、generation 形状，不代表真实 embedding 模型效果。
+
+---
+
 ## 推荐配套资源
 
 | 类型 | 资源 | 说明 |
