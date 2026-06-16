@@ -24,6 +24,60 @@
 先测量 → 判断瓶颈类型 → 选择优化手段 → 再测量验证
 ```
 
+### 1.1 IO-aware 是大模型性能优化的核心思想
+
+很多初学者以为 GPU 优化主要是“少算 FLOPs”。在 AIGC 场景里，更常见的瓶颈是数据搬运：
+
+```text
+HBM ↔ cache/shared memory/register ↔ compute unit
+```
+
+GPU 算力增长很快，但 HBM 带宽、显存容量、跨卡通信和 kernel launch 开销不会同等增长。
+因此大量关键优化的目标不是改变数学结果，而是让同一份数据少搬几次、搬得更连续、在高速存储中复用更多次。
+
+| 技术 | 表面现象 | 本质优化 |
+|---|---|---|
+| FlashAttention | attention 更省显存、更快 | 不 materialize 完整 attention matrix，减少 HBM 读写 |
+| Operator Fusion | 多个算子合成一个 kernel | 中间结果留在寄存器/共享内存，少写回 HBM |
+| Tiling | 把大矩阵分块 | 让数据块在 shared memory/register 中重复使用 |
+| PagedAttention | KV cache 支持高并发和长上下文 | 改变 KV 的物理布局，减少碎片和无效预留 |
+| ZeRO/FSDP | 大模型能跨卡训练 | 切分参数、梯度、优化器状态，用通信换显存 |
+
+这是一条非常重要的理论主线：**AI 系统的能力上限，往往由数据移动而不是公式复杂度决定**。
+所以看性能论文或 kernel 代码时，先问四个问题：
+
+1. 它减少了哪一级内存读写？
+2. 它增加了哪些计算或通信作为代价？
+3. 它适合训练、prefill、decode，还是只适合特定 shape？
+4. 它是否保持精确结果，还是引入了近似或量化误差？
+
+#### 深度解读：为什么大模型性能经常输给数据移动？
+
+一个算子在数学上可能很简单，但在 GPU 上慢，常常是因为每次计算前后都要读写大量数据。
+例如几个 elementwise 操作的 FLOPs 很少，看起来“便宜”，但如果每一步都单独启动 kernel，并把中间结果写回 HBM，就会反复付出内存带宽和 launch 开销。
+
+这解释了很多 AIGC 性能技术的共同逻辑：
+
+- FlashAttention 不近似 attention，而是改变计算顺序，避免把完整 `(T, T)` attention matrix 写进 HBM。
+- Fusion 不一定减少数学运算，却能减少中间 tensor 的读写。
+- Tiling 把数据块搬到 shared memory/register 后重复使用，提高算术强度。
+- KV cache 用显存换计算，避免每个 decode step 重算历史 token。
+- PagedAttention 改变 KV cache 的物理分配方式，让在线请求更少浪费显存。
+- ZeRO/FSDP 用通信换显存，让单卡不再保存所有训练状态。
+
+所以性能优化不能只看“理论 FLOPs 少了多少”，还要看：
+
+```text
+实际搬了多少 bytes？
+是否产生大中间 tensor？
+是否能复用已加载的数据？
+是否让 GPU 等 CPU、等通信、等小 kernel？
+```
+
+对 LLM 来说，prefill 常常更像大矩阵计算问题，decode 常常更像权重和 KV cache 的带宽问题。
+同一个模型、同一张 GPU，在不同 batch size、prompt 长度、输出长度和并发模式下，瓶颈可能完全不同。
+这也是为什么 profiling 必须按真实 workload 做，而不是只测一个孤立 kernel。
+
 ---
 
 ## 2. GPU 的执行模型

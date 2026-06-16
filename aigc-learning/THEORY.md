@@ -23,7 +23,52 @@
 
 ---
 
-## 2. 理论阅读主线
+## 2. AI 发展的关键思想地图
+
+学习 AIGC 理论时，不要只按模型名记忆。更重要的是抓住几次真正改变发展路径的思想转向。
+这些思想解释了为什么现代 AI 会从“小模型 + 人工特征”走向“通用架构 + 大规模数据 + 工程系统”。
+
+| 关键思想 | 革命性在哪里 | 学习时要抓住的难点 | 对应文档 |
+|---|---|---|---|
+| 表征学习 | 不再手工设计特征，而是让模型从数据中学习可迁移表示 | 表示不是“特征列”，而是可优化的连续空间 | [02 深度学习核心理论](./02-deep-learning-libraries/00-deep-learning-theory.md)、[03 数据理论](./03-data-and-scientific-computing/00-data-and-scientific-computing-theory.md) |
+| 反向传播 + 自动微分 | 把复杂模型的训练变成可组合的梯度计算 | 计算图、梯度累积、数值稳定性、显存保存激活 | [02 深度学习核心理论](./02-deep-learning-libraries/00-deep-learning-theory.md) |
+| 自监督学习 | 用数据自身构造训练信号，绕开人工标注瓶颈 | next-token、mask、contrastive、denoising 本质上都是预测缺失信息 | [02 深度学习核心理论](./02-deep-learning-libraries/00-deep-learning-theory.md)、[09 前沿模型理论](./09-frontier-models/00-frontier-models-theory.md) |
+| Attention / Transformer | 用统一的序列建模骨架替代大量任务专用结构 | Q/K/V、因果 mask、位置编码、长上下文复杂度 | [02 Transformer 速览](./02-deep-learning-libraries/06-transformer-principles-overview.md)、[02 Transformer 深剖](./02-deep-learning-libraries/05-transformer-from-scratch.md) |
+| Scaling Laws | 能力提升从“调技巧”转向“参数、数据、算力的可预测扩展” | 规模不是万能，数据质量、训练预算、推理成本会反过来约束架构 | [09 前沿模型理论](./09-frontier-models/00-frontier-models-theory.md)、[05 分布式训练理论](./05-distributed-training/00-distributed-training-theory.md) |
+| 生成式建模 | 从分类/检索转向直接建模数据分布并生成新内容 | 自回归、扩散、Flow Matching 的训练目标和采样代价不同 | [02 深度学习核心理论](./02-deep-learning-libraries/00-deep-learning-theory.md)、[09 图像生成](./09-frontier-models/02-image-generation.md) |
+| 指令微调与偏好对齐 | 模型从“会续写”变成“可交互、可控、符合人类偏好” | SFT 改变条件分布，DPO/RLHF 改变偏好排序，不能混为一谈 | [06 微调与对齐理论](./06-finetuning-and-alignment/00-finetuning-and-alignment-theory.md) |
+| 检索增强与工具使用 | 把模型从封闭参数系统扩展成能访问外部知识和行动的系统 | RAG 不是长 prompt，Agent 不是万能自动化；核心是上下文、工具、校验闭环 | [08 LLM 应用理论](./08-llm-applications/00-llm-applications-theory.md) |
+| 软硬件协同优化 | 模型能力不只由算法决定，还被显存、带宽、通信、调度限制 | FlashAttention、PagedAttention、ZeRO、KV cache 都是在重排数据移动 | [07 推理理论](./07-inference-and-deployment/00-inference-and-deployment-theory.md)、[10 GPU 性能理论](./10-cuda-and-triton/00-gpu-performance-theory.md) |
+
+一个简化的演进链路：
+
+```text
+手工特征
+  ↓
+深度表征学习
+  ↓
+自监督预训练
+  ↓
+Transformer 统一架构
+  ↓
+Scaling Laws 指导大规模训练
+  ↓
+SFT / RLHF / DPO 变成可用助手
+  ↓
+RAG / Tool / Agent 接入真实环境
+  ↓
+推理引擎 / GPU kernel / 分布式系统支撑规模化落地
+```
+
+阅读各模块时，建议把问题始终压回三句话：
+
+1. 这个思想解决了之前什么瓶颈？
+2. 它引入了什么新的代价或失败模式？
+3. 工程上如何观测、验证和控制这些代价？
+
+---
+
+## 3. 理论阅读主线
 
 如果目标是系统补理论，推荐按下面顺序阅读。
 
@@ -118,7 +163,7 @@ Transformer 相关内容分层阅读：
 
 ---
 
-## 3. 模块理论地图
+## 4. 模块理论地图
 
 | 模块 | 理论入口 | 实践入口 | 备注 |
 |---|---|---|---|
@@ -135,7 +180,7 @@ Transformer 相关内容分层阅读：
 
 ---
 
-## 4. 理论文档的阅读方法
+## 5. 理论文档的阅读方法
 
 每个 `00-...-theory.md` 建议按四步使用：
 
@@ -148,7 +193,7 @@ Transformer 相关内容分层阅读：
 
 ---
 
-## 5. 推荐的理论文档模板
+## 6. 推荐的理论文档模板
 
 后续新增理论文档时，建议统一采用这个结构：
 
@@ -172,7 +217,7 @@ Transformer 相关内容分层阅读：
 
 ---
 
-## 6. 当前补齐状态
+## 7. 当前补齐状态
 
 第一阶段补齐：
 
