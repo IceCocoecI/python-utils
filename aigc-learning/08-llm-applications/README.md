@@ -35,6 +35,7 @@
 
 | # | 文档 | 核心话题 |
 |---|---|---|
+| 00 | [llm-applications-theory](./00-llm-applications-theory.md) | LLM 应用系统模型、RAG 理论链路、向量检索、编排、Agent、安全与评估 |
 | 01 | [rag-fundamentals](./01-rag-fundamentals.md) | RAG 全流程：切分 → Embedding → 检索 → 生成 → 评估 |
 | 02 | [vector-databases](./02-vector-databases.md) | FAISS / Milvus / Chroma / Qdrant / pgvector 对比与实战 |
 | 03 | [orchestration-frameworks](./03-orchestration-frameworks.md) | LangChain / LlamaIndex / LangGraph / 提示工程 / 结构化输出 |
@@ -50,6 +51,24 @@
 - 了解 Transformer 架构和注意力机制（模块 02）
 - 会用 HuggingFace Transformers 加载模型和 tokenizer（模块 02）
 - 了解 NumPy 和基本的向量运算（模块 03）
+
+---
+
+## 理论与实践怎么组织
+
+本模块建议按三层学习：
+
+| 层次 | 要回答的问题 | 对应材料 |
+|---|---|---|
+| 理论层 | LLM 应用如何构造上下文、接入外部知识、调用工具、做评估和安全控制？ | `00-llm-applications-theory.md` |
+| 工具层 | RAG、向量数据库、编排框架、Agent 分别解决系统里的哪一层问题？ | `01` ~ `04` 文档 |
+| 产品层 | 如何把检索、生成、工具调用、日志、评估组成可靠用户流程？ | 结合 `01` ~ `04` 做 mini 项目 |
+
+学习顺序建议：
+
+1. 先读 `00`，建立 LLM 应用系统的整体框架。
+2. 按 `01` → `02` 打通 RAG 和向量检索。
+3. 再读 `03` → `04`，把固定链路升级成工作流和 Agent。
 
 ---
 
@@ -91,6 +110,9 @@ conda run -n aigc python aigc-learning/08-llm-applications/examples/toy_rag.py -
 ## 推荐学习顺序
 
 ```
+00-llm-applications-theory
+        │
+        ▼
 01-rag-fundamentals ──→ 02-vector-databases ──→ 03-orchestration-frameworks ──→ 04-agent-engineering
         │                        │                          │
         │                        │                          │
@@ -98,7 +120,7 @@ conda run -n aigc python aigc-learning/08-llm-applications/examples/toy_rag.py -
    以及完整流水线                                    最终构建自主 Agent
 ```
 
-建议每一章花 2–3 天：先读教程，再动手跑示例，最后尝试用自己的数据搭建一个 mini 项目。
+建议每一章花 2–3 天：先读理论和教程，再跟着文档中的代码片段实现关键链路，最后尝试用自己的数据搭建一个 mini 项目。
 
 ---
 

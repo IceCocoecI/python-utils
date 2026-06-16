@@ -19,6 +19,7 @@
 
 | # | 文档 | 核心话题 |
 |---|---|---|
+| 00 | [python-engineering-theory](./00-python-engineering-theory.md) | Python 工程心智模型：数据结构、协议、生成器、async、类型、测试、profiling |
 | 01 | [modern-python-basics](./01-modern-python-basics.md) | 数据结构、魔法方法、惯用法、itertools、match-case、常见陷阱 |
 | 02 | [advanced-features](./02-advanced-features.md) | 装饰器、生成器、上下文管理器、functools |
 | 03 | [async-programming](./03-async-programming.md) | asyncio、async/await、并发模型 |
@@ -42,6 +43,26 @@
 cd 01-python-foundations/examples
 python decorators_demo.py
 ```
+
+---
+
+## 理论与实践怎么组织
+
+本模块建议按三层学习：
+
+| 层次 | 要回答的问题 | 对应材料 |
+|---|---|---|
+| 理论层 | Python 工程代码如何用数据结构、协议、流程控制、类型和测试守住边界？ | `00-python-engineering-theory.md` |
+| 语言机制层 | Python 的对象模型、迭代器、协程、类型系统分别解决什么问题？ | `01` ~ `04` 文档 |
+| 工程规范层 | 如何把脚本写成可测试、可调试、可维护的工程代码？ | `05-engineering-best-practices.md` |
+| 模板层 | 如何把装饰器、生成器、async、类型注解落到可运行小例子？ | `examples/` |
+
+学习顺序建议：
+
+1. 先读 `00`，建立 Python 工程代码的整体心智模型。
+2. 再读 `01` 和 `02`，掌握 Pythonic 写法和语言机制。
+3. 读 `04`，用类型注解约束工程接口。
+4. 最后读 `05` 并跑 examples，把测试、调试、profiling 接入日常代码。
 
 ---
 

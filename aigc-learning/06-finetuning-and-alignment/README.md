@@ -62,6 +62,24 @@ conda run -n aigc python dpo_loss_demo.py --beta 0.1
 
 ---
 
+## 理论与实践怎么组织
+
+本模块建议按三层学习：
+
+| 层次 | 要回答的问题 | 对应材料 |
+|---|---|---|
+| 理论层 | 微调到底改变什么？LoRA 为什么有效？量化误差来自哪里？SFT / DPO 的目标函数分别是什么？ | `00-finetuning-and-alignment-theory.md` |
+| 工具层 | PEFT、bitsandbytes、TRL、chat template 分别解决什么工程问题？ | `01` ~ `04` 文档 |
+| 模板层 | 如何用小模型/小张量验证 LoRA、量化、SFT packing、DPO loss？ | `examples/` |
+
+学习顺序建议：
+
+1. 先读 `00`，区分 pretrain、SFT、preference alignment、PEFT 和量化。
+2. 跑 `examples/`，用小实验验证核心机制。
+3. 再读 `01` ~ `04`，把机制迁移到真实模型和 HuggingFace 生态。
+
+---
+
 ## 前置知识
 
 - 模块 02：深度学习库基础（PyTorch Module、Optimizer、训练循环）

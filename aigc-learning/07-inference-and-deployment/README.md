@@ -116,6 +116,24 @@ conda run -n aigc streamlit run demo_apps.py -- --mode streamlit
 
 ---
 
+## 理论与实践怎么组织
+
+本模块建议按三层学习：
+
+| 层次 | 要回答的问题 | 对应材料 |
+|---|---|---|
+| 理论层 | 推理系统为什么要区分 prefill/decode、KV cache、batching、调度和容量规划？ | `00-inference-and-deployment-theory.md` |
+| 引擎与服务层 | vLLM/SGLang、扩散加速、FastAPI/Triton/BentoML 分别解决什么边界问题？ | `01` ~ `04` 文档 |
+| 模板层 | 如何用 CPU toy 示例验证 KV cache、连续批处理、SSE、网关和 Demo 结构？ | `examples/` |
+
+学习顺序建议：
+
+1. 先读 `00`，建立延迟、吞吐、成本和显存模型。
+2. 跑 `examples/smoke_test.py`，确认 toy 服务和性能模型能工作。
+3. 再读 `01` ~ `04`，把理论映射到真实推理引擎和服务框架。
+
+---
+
 ## 推荐配套资源
 
 | 类型 | 资源 | 说明 |

@@ -64,6 +64,47 @@ conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/diffu
 
 ---
 
+## 理论与实践怎么组织
+
+本模块建议按四层学习：
+
+| 层次 | 要回答的问题 | 对应材料 |
+|---|---|---|
+| 理论层 | 张量、梯度、优化、归一化、Attention、扩散、显存预算之间是什么关系？ | `00-deep-learning-theory.md` |
+| 概念速览层 | 不看代码时，如何用白话解释 Transformer 的整体机制？ | `06-transformer-principles-overview.md` |
+| 实现层 | 如何从 PyTorch 基础一步步写出训练循环和 Transformer block？ | `01`、`02`、`05` 文档 |
+| 框架层 | 如何把核心概念映射到 Transformers / Diffusers 的真实生态？ | `03`、`04` 文档和 `examples/` |
+
+学习顺序建议：
+
+1. 先读 `00`，建立深度学习底层概念。
+2. 读 `06` 快速建立 Transformer 心智模型。
+3. 跑 PyTorch 和 Transformer from scratch 示例，确认 shape、mask、KV cache。
+4. 再进入 HuggingFace Transformers 和 Diffusers。
+
+---
+
+## Transformer 内容分层
+
+本仓库有多处讲 Transformer，它们不是重复章节，而是不同抽象层：
+
+| 层次 | 文档 | 重点 |
+|---|---|---|
+| 概念直觉 | [06-transformer-principles-overview](./06-transformer-principles-overview.md) | 不写代码，用白话解释 Attention、位置编码、架构变体 |
+| 公式与实现 | [05-transformer-from-scratch](./05-transformer-from-scratch.md) | 手写 Attention、RoPE、mask、KV cache、FlashAttention 相关实现 |
+| 深度学习底座 | [00-deep-learning-theory](./00-deep-learning-theory.md) | 把 Attention 放回张量、梯度、优化、显存和数值稳定性体系里 |
+| 现代架构演进 | [09/01-llm-architectures](../09-frontier-models/01-llm-architectures.md) | 解释 LLaMA、Qwen、DeepSeek、MoE、长上下文等工程化变体 |
+
+推荐路径：
+
+```text
+06 概念速览 → 05 从零实现 → 09/01 现代架构
+```
+
+如果你已经会实现基础 Transformer，可以跳过 `06`，直接从 `05` 或 `09/01` 进入。
+
+---
+
 ## 推荐配套资源
 
 ### 官方

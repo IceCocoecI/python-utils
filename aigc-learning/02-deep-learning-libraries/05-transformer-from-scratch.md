@@ -3,6 +3,8 @@
 > 所有现代 AIGC 模型（GPT / LLaMA / Qwen / Flux / DiT / Sora）都建立在 Transformer 之上。
 > **不真正理解 Transformer，后面学什么都会半懂不懂。**
 > 本节不教你调 API，而是带你把这些"看上去很玄"的概念拆到最底。
+> 如果你只想先建立直觉，先读 [06-transformer-principles-overview](./06-transformer-principles-overview.md)；
+> 如果你想看 LLaMA/Qwen/DeepSeek/MoE 等现代变体，继续读 [09/01-llm-architectures](../09-frontier-models/01-llm-architectures.md)。
 
 ---
 
