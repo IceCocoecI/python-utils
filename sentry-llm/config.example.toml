@@ -1,0 +1,28 @@
+service_name = "local-ai-node"
+sample_interval_seconds = 5
+database_path = "data/sentry_llm.sqlite3"
+retention_days = 30
+http_host = "127.0.0.1"
+http_port = 8765
+
+[thresholds]
+cpu_percent_warning = 85
+cpu_percent_critical = 95
+load_per_cpu_warning = 1.5
+memory_available_percent_warning = 10
+memory_available_percent_critical = 5
+swap_percent_warning = 20
+disk_usage_percent_warning = 85
+disk_usage_percent_critical = 95
+disk_io_busy_percent_warning = 80
+network_errors_per_sec_warning = 0.1
+network_drops_per_sec_warning = 0.1
+gpu_utilization_low_percent = 20
+gpu_utilization_high_percent = 95
+gpu_memory_percent_warning = 90
+gpu_memory_percent_critical = 97
+gpu_temperature_warning_c = 82
+gpu_temperature_critical_c = 90
+gpu_power_percent_warning = 95
+resource_pressure_warning = 80
+resource_pressure_critical = 90

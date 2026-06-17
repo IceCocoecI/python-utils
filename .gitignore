@@ -122,6 +122,8 @@ celerybeat.pid
 # Environments
 .env
 .venv
+sentry-llm/.venv/
+sentry-llm/data/
 env/
 venv/
 ENV/
