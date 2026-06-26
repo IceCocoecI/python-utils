@@ -194,7 +194,7 @@ args = TrainingArguments(
     eval_strategy="epoch",
     save_strategy="epoch",
     logging_steps=50,
-    bf16=True,
+    bf16=torch.cuda.is_available() and torch.cuda.is_bf16_supported(),
     report_to="none",
 )
 
@@ -214,7 +214,7 @@ trainer.train()
 
 ## 6. PEFT：参数高效微调（LoRA）
 
-**全参微调 8B 模型需要 48GB+ 显存，LoRA 只需要 10GB。**
+常见设置下，全参微调 8B 模型往往需要几十 GB 甚至更高显存；LoRA 只训练少量低秩适配器，显存压力会明显下降。实际占用还取决于序列长度、batch size、优化器状态、梯度检查点、量化方式和是否使用 ZeRO/FSDP。
 
 ```python
 from peft import LoraConfig, get_peft_model, TaskType
@@ -265,6 +265,8 @@ model = AutoModelForCausalLM.from_pretrained(
 ## 7. `TRL`：SFT / DPO / GRPO 对齐训练
 
 `trl` 是 HuggingFace 专门做 LLM 对齐的库：
+
+> 本节需要额外安装 `trl`。如果只是运行本模块的离线 smoke test，可以先跳过。
 
 ```python
 from trl import SFTTrainer, SFTConfig

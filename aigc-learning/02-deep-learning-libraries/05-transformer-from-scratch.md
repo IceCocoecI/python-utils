@@ -104,7 +104,7 @@ class MultiHeadSelfAttention(nn.Module):
         return self.out(y)
 ```
 
-`F.scaled_dot_product_attention` 是 PyTorch 2.x 内置的 FlashAttention 实现——直接用，不要手写 softmax 算 `QKᵀ`。
+`F.scaled_dot_product_attention` 是 PyTorch 2.x 的统一 SDPA 入口，会根据设备、dtype、mask 和 shape 自动选择 math / memory-efficient / FlashAttention 等后端。工程代码优先用它，不要手写 softmax 算 `QKᵀ`。
 
 ### 3.3 如果你一定要手写一遍（教学用）
 
@@ -406,7 +406,7 @@ FlashAttention 的两招：
 y = F.scaled_dot_product_attention(q, k, v, is_causal=True)
 ```
 
-**PyTorch 2.x 的 SDPA 已经内置 FlashAttention**——背后会自动选最优内核。你不需要手动调用 `flash-attn` 库，除非有特殊需求（如 `flash-attn-3`、自定义 bias）。
+**PyTorch 2.x 的 SDPA 是统一入口**——在满足条件时会走 FlashAttention 或其他高效内核，不满足时回退到通用实现。你不需要手动调用 `flash-attn` 库，除非有特殊需求（如 `flash-attn-3`、自定义 bias、特定模型 kernel 适配）。
 
 ---
 

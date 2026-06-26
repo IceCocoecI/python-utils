@@ -186,6 +186,8 @@ pipe.enable_sequential_cpu_offload()
 
 **组合用法**：24GB 显存跑 SDXL → `enable_model_cpu_offload()`；8GB 跑 SD 1.5 → `attention_slicing + vae_tiling`。
 
+不要一开始把所有优化开关全打开。建议先跑 baseline，再逐个打开并记录速度、显存和图像质量；CPU offload 通常省显存但会牺牲吞吐，`torch.compile` 首次调用也会有明显编译成本。
+
 ### 6.2 推理加速
 
 ```python
@@ -282,7 +284,7 @@ for epoch in range(num_epochs):
 conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/diffusers_quickstart.py --toy-steps 1 --toy-batch-size 2
 ```
 
-该命令默认跑一个离线 Toy DDPM：生成几何图像、随机加噪、训练 UNet 预测噪声、用 `DDPMPipeline` 采样，适合验证扩散训练代码路径。要运行真实 SD1.5 文生图、换 scheduler、图生图示例时再运行：
+该命令默认跑一个离线 Toy DDPM：生成几何图像、随机加噪、训练 UNet 预测噪声、用 `DDPMPipeline` 采样，适合验证扩散训练代码路径。可以用 `--out-dir` 指定输出目录，用 `--seed` 固定随机性。要运行真实 SD1.5 文生图、换 scheduler、图生图示例时再运行：
 
 ```bash
 conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/diffusers_quickstart.py --stable-diffusion

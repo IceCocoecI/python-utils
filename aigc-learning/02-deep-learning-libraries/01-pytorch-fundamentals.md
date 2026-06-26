@@ -229,7 +229,7 @@ class SelfAttention(nn.Module):
         return self.proj(attn)
 ```
 
-`F.scaled_dot_product_attention` 是 PyTorch 2.x 内置的 FlashAttention 实现——**直接用它，不要手写 softmax**。
+`F.scaled_dot_product_attention` 是 PyTorch 2.x 的统一 SDPA 入口，会按设备、dtype、mask 和 shape 自动选择高效后端；工程代码优先用它，不要手写 softmax。
 
 ---
 

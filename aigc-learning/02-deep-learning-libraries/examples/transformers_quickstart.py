@@ -14,6 +14,7 @@ import torch
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
+    GenerationConfig,
     GPT2Config,
     GPT2LMHeadModel,
     PreTrainedTokenizerFast,
@@ -89,12 +90,13 @@ def build_tiny_model(vocab_size: int) -> GPT2LMHeadModel:
     return model
 
 
-def load_real_model(model_name: str):
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
+def load_real_model(model_name: str, local_files_only: bool = False):
+    tokenizer = AutoTokenizer.from_pretrained(model_name, local_files_only=local_files_only)
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
         dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32,
         device_map="auto" if torch.cuda.is_available() else None,
+        local_files_only=local_files_only,
     )
     model.eval()
     return tokenizer, model
@@ -190,18 +192,26 @@ def demo_pipeline(real_model: bool):
         sentiment = pipeline("sentiment-analysis")
         print(sentiment(["I love diffusion models!", "LLMs are mostly boring."]))
     else:
+        tok = build_tiny_tokenizer()
+        gen_cfg = GenerationConfig(
+            max_new_tokens=8,
+            do_sample=False,
+            pad_token_id=tok.pad_token_id,
+            eos_token_id=tok.eos_token_id,
+        )
         generator = pipeline(
             "text-generation",
-            model=build_tiny_model(vocab_size=len(build_tiny_tokenizer())),
-            tokenizer=build_tiny_tokenizer(),
+            model=build_tiny_model(vocab_size=len(tok)),
+            tokenizer=tok,
         )
-        print(generator("Hello", max_new_tokens=8, do_sample=False))
+        print(generator("Hello", generation_config=gen_cfg))
 
 
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", default="Qwen/Qwen2.5-0.5B-Instruct")
     parser.add_argument("--real-model", action="store_true", help="Load a Hub model; requires network/cache.")
+    parser.add_argument("--local-files-only", action="store_true", help="Use local HuggingFace cache only.")
     return parser.parse_args()
 
 
@@ -209,8 +219,9 @@ if __name__ == "__main__":
     torch.manual_seed(42)
     args = parse_args()
     if args.real_model:
-        tokenizer, causal_lm = load_real_model(args.model)
+        tokenizer, causal_lm = load_real_model(args.model, local_files_only=args.local_files_only)
     else:
+        print("note: offline mode uses a randomly initialized tiny GPT-2; outputs only validate API behavior.")
         tokenizer = build_tiny_tokenizer()
         causal_lm = build_tiny_model(vocab_size=len(tokenizer))
 

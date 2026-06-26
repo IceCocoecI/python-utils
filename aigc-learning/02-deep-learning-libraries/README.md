@@ -32,6 +32,46 @@
 
 ---
 
+## 推荐学习路径
+
+文件编号按“深度学习底座 → 框架 → 从零实现”组织；实际学习时可以按目标选择路径：
+
+| 路径 | 顺序 | 适合人群 |
+|---|---|---|
+| 零基础路径 | `00 → 06 → 01 → 02 → 05 → 03 → 04` | 先建立概念，再进入代码和框架 |
+| 工程路径 | `01 → 02 → 03 → 04 → 05 → 00` | 已懂基本理论，想快速上手库和脚本 |
+| 复习路径 | 先看自检清单，再回到对应章节 | 查漏补缺、准备面试或项目开发 |
+
+`06` 虽然编号靠后，但它是 Transformer 的概念速览，可以在 `00` 之后提前阅读。
+
+---
+
+## 环境基线
+
+本模块按 `conda` 环境 `aigc` 验证。一次完整离线 smoke test 至少需要：
+
+| 依赖 | 用途 |
+|---|---|
+| `torch` / `torchvision` | PyTorch 基础、训练循环、MNIST、Transformer from scratch |
+| `transformers` / `tokenizers` | Tokenizer、AutoModel、generate、streaming、pipeline |
+| `diffusers` | Toy DDPM、Stable Diffusion Pipeline |
+| `accelerate` | Diffusers/Transformers 生态中的分布式与设备管理 |
+| `datasets` | Transformers 文档中的数据集示例 |
+| `peft` | LoRA/QLoRA 示例 |
+| `safetensors` | 安全权重保存与加载 |
+
+可选依赖：
+
+| 依赖 | 什么时候需要 |
+|---|---|
+| `trl` | SFT / DPO / GRPO 等对齐训练章节 |
+| `bitsandbytes` | QLoRA 4bit/8bit 量化 |
+| `xformers` / `flash-attn` | 特定 GPU、特定模型或自定义 attention kernel 优化 |
+
+当前容器里 CUDA 可能不可用；README 中的默认命令都走 CPU/离线路径。真实 HuggingFace 模型、Stable Diffusion、QLoRA 和大模型训练需要联网、模型缓存和合适的 GPU。
+
+---
+
 ## 示例代码（`examples/`）
 
 | 文件 | 说明 | 是否需要 GPU |
@@ -54,12 +94,20 @@ conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/diffu
 conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/transformer_from_scratch.py
 ```
 
+示例脚本默认把运行产物写到 `examples/` 下的 `data/`、`checkpoints/`、`outputs/`，这些目录已被忽略，不会进入 Git。
+
 需要真实模型/真实数据时再打开下载路径：
 
 ```bash
 conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/mlp_mnist.py --epochs 3
 conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/transformers_quickstart.py --real-model
 conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/diffusers_quickstart.py --stable-diffusion
+```
+
+如果真实模型已经在本机 HuggingFace cache 中，可以用离线缓存路径：
+
+```bash
+conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/transformers_quickstart.py --real-model --local-files-only
 ```
 
 ---
@@ -131,7 +179,7 @@ conda run -n aigc python aigc-learning/02-deep-learning-libraries/examples/diffu
 
 - [ ] 手写一个完整的 PyTorch 训练循环（包含 train/eval/save）。
 - [ ] 解释 `loss.backward()` 背后发生了什么。
-- [ ] 用 `torch.cuda.amp` 开混合精度训练。
+- [ ] 用 `torch.amp.autocast` / `torch.amp.GradScaler` 开混合精度训练。
 - [ ] 用 `transformers.AutoModelForCausalLM` 加载 LLM 并生成文本。
 - [ ] 用 `peft` 给 LLM 添加 LoRA 适配器。
 - [ ] 用 `diffusers.StableDiffusionPipeline` 从 prompt 生成图像。

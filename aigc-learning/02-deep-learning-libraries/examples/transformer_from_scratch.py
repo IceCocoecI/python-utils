@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import math
+import argparse
 from dataclasses import dataclass
 
 import torch
@@ -208,9 +209,18 @@ def generate(
     return out
 
 
-def demo_attention_equivalence() -> None:
+def resolve_device(name: str) -> torch.device:
+    if name == "auto":
+        return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device(name)
+    if device.type == "cuda" and not torch.cuda.is_available():
+        raise RuntimeError("CUDA was requested but is not available.")
+    return device
+
+
+def demo_attention_equivalence(seed: int) -> None:
     print("== Attention shape check ==")
-    torch.manual_seed(0)
+    torch.manual_seed(seed)
     q = torch.randn(2, 4, 8, 16)
     k = torch.randn(2, 4, 8, 16)
     v = torch.randn(2, 4, 8, 16)
@@ -222,17 +232,21 @@ def demo_attention_equivalence() -> None:
     print("sdpa:", tuple(sdpa.shape), "max_diff:", (sdpa - naive).abs().max().item())
 
 
-def demo_train_and_generate() -> None:
+def demo_train_and_generate(steps: int, device: torch.device, seed: int) -> None:
     print("\n== Tiny Transformer LM training ==")
-    torch.manual_seed(42)
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    torch.manual_seed(seed)
     cfg = TinyConfig()
     model = TinyTransformerLM(cfg).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=2e-3)
     print("params:", sum(p.numel() for p in model.parameters()))
 
     model.train()
-    for step in range(20):
+    log_steps = {0, steps - 1}
+    if steps > 5:
+        log_steps.add(5)
+    if steps > 10:
+        log_steps.add(10)
+    for step in range(steps):
         x, y = make_pattern_batch(batch_size=32, seq_len=24, vocab_size=cfg.vocab_size, device=device)
         _, loss = model(x, y)
         assert loss is not None
@@ -240,7 +254,7 @@ def demo_train_and_generate() -> None:
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
         optimizer.step()
-        if step in {0, 5, 10, 19}:
+        if step in log_steps:
             print(f"step={step:02d} loss={loss.item():.4f}")
 
     prompt = torch.tensor([[3, 4, 5, 6]], device=device)
@@ -249,6 +263,16 @@ def demo_train_and_generate() -> None:
     print("generated:", generated.cpu().tolist()[0])
 
 
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--steps", type=int, default=20)
+    parser.add_argument("--device", default="auto")
+    parser.add_argument("--seed", type=int, default=42)
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    demo_attention_equivalence()
-    demo_train_and_generate()
+    args = parse_args()
+    device = resolve_device(args.device)
+    demo_attention_equivalence(args.seed)
+    demo_train_and_generate(args.steps, device, args.seed)
