@@ -19,12 +19,15 @@ from torch.utils.data import DataLoader, Dataset
 from torchvision import datasets, transforms
 
 logger = logging.getLogger(__name__)
+SCRIPT_DIR = Path(__file__).resolve().parent
+DEFAULT_DATA_DIR = SCRIPT_DIR / "data"
+DEFAULT_CKPT_DIR = SCRIPT_DIR / "checkpoints"
 
 
 @dataclass
 class Config:
-    data_dir: Path = Path("./data")
-    ckpt_dir: Path = Path("./checkpoints")
+    data_dir: Path = DEFAULT_DATA_DIR
+    ckpt_dir: Path = DEFAULT_CKPT_DIR
     batch_size: int = 128
     eval_batch_size: int = 256
     num_epochs: int = 3
@@ -39,6 +42,7 @@ class Config:
     synthetic_val_size: int = 256
     max_train_batches: int | None = None
     max_val_batches: int | None = None
+    resume: Path | None = None
 
 
 class SyntheticMNIST(Dataset):
@@ -185,7 +189,24 @@ def evaluate(
     return {"val_loss": total_loss / max(total, 1), "val_acc": correct / max(total, 1)}
 
 
-def save_checkpoint(path: Path, model: nn.Module, optimizer, scheduler, epoch: int, metrics: dict):
+def config_to_dict(cfg: Config) -> dict:
+    data = asdict(cfg)
+    for key in ("data_dir", "ckpt_dir", "resume"):
+        if data[key] is not None:
+            data[key] = str(data[key])
+    return data
+
+
+def save_checkpoint(
+    path: Path,
+    model: nn.Module,
+    optimizer,
+    scheduler,
+    epoch: int,
+    metrics: dict,
+    cfg: Config,
+    total_steps: int,
+):
     path.parent.mkdir(parents=True, exist_ok=True)
     torch.save({
         "epoch": epoch,
@@ -193,13 +214,48 @@ def save_checkpoint(path: Path, model: nn.Module, optimizer, scheduler, epoch: i
         "optimizer_state": optimizer.state_dict(),
         "scheduler_state": scheduler.state_dict(),
         "metrics": metrics,
+        "config": config_to_dict(cfg),
+        "total_steps": total_steps,
     }, path)
+
+
+def reset_optimizer_lrs(optimizer: torch.optim.Optimizer, scheduler: torch.optim.lr_scheduler.LRScheduler) -> None:
+    for param_group, lr in zip(optimizer.param_groups, scheduler.get_last_lr()):
+        param_group["lr"] = lr
+
+
+def load_checkpoint(
+    path: Path,
+    model: nn.Module,
+    optimizer,
+    scheduler,
+    device: torch.device,
+    total_steps: int,
+) -> tuple[int, float]:
+    checkpoint = torch.load(path, map_location=device, weights_only=False)
+    model.load_state_dict(checkpoint["model_state"])
+    optimizer.load_state_dict(checkpoint["optimizer_state"])
+    saved_total_steps = int(checkpoint.get("total_steps", checkpoint["scheduler_state"].get("total_steps", total_steps)))
+    if saved_total_steps == total_steps:
+        scheduler.load_state_dict(checkpoint["scheduler_state"])
+    else:
+        reset_optimizer_lrs(optimizer, scheduler)
+        logger.warning(
+            "checkpoint scheduler total_steps=%d differs from current total_steps=%d; "
+            "using a fresh scheduler for the current run",
+            saved_total_steps,
+            total_steps,
+        )
+    epoch = int(checkpoint.get("epoch", -1))
+    metrics = checkpoint.get("metrics", {})
+    best_acc = float(metrics.get("val_acc", 0.0))
+    return epoch + 1, best_acc
 
 
 def parse_args() -> Config:
     p = argparse.ArgumentParser()
-    p.add_argument("--data-dir", type=Path, default=Path("./data"))
-    p.add_argument("--ckpt-dir", type=Path, default=Path("./checkpoints"))
+    p.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
+    p.add_argument("--ckpt-dir", type=Path, default=DEFAULT_CKPT_DIR)
     p.add_argument("--epochs", type=int, default=3)
     p.add_argument("--batch-size", type=int, default=128)
     p.add_argument("--eval-batch-size", type=int, default=256)
@@ -212,6 +268,7 @@ def parse_args() -> Config:
     p.add_argument("--synthetic-val-size", type=int, default=256)
     p.add_argument("--max-train-batches", type=int, default=None)
     p.add_argument("--max-val-batches", type=int, default=None)
+    p.add_argument("--resume", type=Path, default=None, help="Resume from a checkpoint saved by this script.")
     ns = p.parse_args()
     return Config(
         data_dir=ns.data_dir,
@@ -222,12 +279,13 @@ def parse_args() -> Config:
         lr=ns.lr,
         num_workers=ns.workers,
         use_amp=not ns.no_amp,
-        download=not ns.no_download,
+        download=(not ns.no_download and not ns.synthetic),
         synthetic=ns.synthetic,
         synthetic_train_size=ns.synthetic_train_size,
         synthetic_val_size=ns.synthetic_val_size,
         max_train_batches=ns.max_train_batches,
         max_val_batches=ns.max_val_batches,
+        resume=ns.resume,
     )
 
 
@@ -257,8 +315,12 @@ def main():
 
     scaler = torch.amp.GradScaler(device.type) if (cfg.use_amp and device.type == "cuda") else None
 
-    best_acc = 0.0
-    for epoch in range(cfg.num_epochs):
+    start_epoch, best_acc = 0, 0.0
+    if cfg.resume is not None:
+        start_epoch, best_acc = load_checkpoint(cfg.resume, model, optimizer, scheduler, device, total_steps)
+        logger.info("resumed from %s at epoch=%d best_acc=%.4f", cfg.resume, start_epoch, best_acc)
+
+    for epoch in range(start_epoch, cfg.num_epochs):
         train_stats = train_one_epoch(
             model, train_loader, optimizer, scheduler, scaler, device, epoch, cfg.max_train_batches
         )
@@ -267,7 +329,7 @@ def main():
 
         if val_stats["val_acc"] > best_acc:
             best_acc = val_stats["val_acc"]
-            save_checkpoint(cfg.ckpt_dir / "best.pt", model, optimizer, scheduler, epoch, val_stats)
+            save_checkpoint(cfg.ckpt_dir / "best.pt", model, optimizer, scheduler, epoch, val_stats, cfg, total_steps)
             logger.info("saved best model with val_acc=%.4f", best_acc)
 
     logger.info("done. best val_acc=%.4f", best_acc)

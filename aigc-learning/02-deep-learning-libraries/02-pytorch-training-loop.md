@@ -198,23 +198,33 @@ def evaluate(model: nn.Module, loader: DataLoader, device: str) -> dict[str, flo
 **几乎免费的 2 倍加速 + 省一半显存。**
 
 ```python
+import torch
 from torch.amp import autocast, GradScaler
 
-scaler = GradScaler("cuda")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+use_amp = device.type == "cuda"
+use_bf16 = use_amp and torch.cuda.is_bf16_supported()
+amp_dtype = torch.bfloat16 if use_bf16 else torch.float16
+scaler = GradScaler("cuda", enabled=use_amp and not use_bf16)
 
 for x, y in loader:
     x, y = x.to(device), y.to(device)
 
-    with autocast(device_type="cuda", dtype=torch.bfloat16):
+    with autocast(device_type=device.type, dtype=amp_dtype, enabled=use_amp):
         logits = model(x)
         loss = F.cross_entropy(logits, y)
 
     optimizer.zero_grad()
-    scaler.scale(loss).backward()
-    scaler.unscale_(optimizer)
-    torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-    scaler.step(optimizer)
-    scaler.update()
+    if scaler.is_enabled():
+        scaler.scale(loss).backward()
+        scaler.unscale_(optimizer)
+        torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+        scaler.step(optimizer)
+        scaler.update()
+    else:
+        loss.backward()
+        torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+        optimizer.step()
 ```
 
 **规则**：

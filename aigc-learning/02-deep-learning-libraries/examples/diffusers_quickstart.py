@@ -15,8 +15,7 @@ import torch
 import torch.nn.functional as F
 
 
-OUT_DIR = Path(__file__).resolve().parent / "outputs"
-OUT_DIR.mkdir(exist_ok=True)
+DEFAULT_OUT_DIR = Path(__file__).resolve().parent / "outputs"
 
 
 def make_toy_images(batch_size: int, image_size: int = 32, device: torch.device | str = "cpu") -> torch.Tensor:
@@ -45,10 +44,12 @@ def tensor_to_pil_grid(images: torch.Tensor, nrow: int = 4):
     return Image.fromarray(array)
 
 
-def demo_toy_ddpm(num_train_steps: int = 3, batch_size: int = 4):
+def demo_toy_ddpm(num_train_steps: int = 3, batch_size: int = 4, out_dir: Path = DEFAULT_OUT_DIR, seed: int = 0):
     print("== 0. 离线 Toy DDPM：训练噪声预测 + 采样 ==")
     from diffusers import DDPMPipeline, DDPMScheduler, UNet2DModel
 
+    torch.manual_seed(seed)
+    out_dir.mkdir(parents=True, exist_ok=True)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = UNet2DModel(
         sample_size=32,
@@ -81,27 +82,29 @@ def demo_toy_ddpm(num_train_steps: int = 3, batch_size: int = 4):
         print(f"step={step} loss={loss.item():.4f}")
 
     clean_grid = tensor_to_pil_grid(make_toy_images(8, device=device), nrow=4)
-    clean_path = OUT_DIR / "toy_clean_grid.png"
+    clean_path = out_dir / "toy_clean_grid.png"
     clean_grid.save(clean_path)
 
     model.eval()
     pipe = DDPMPipeline(unet=model, scheduler=noise_scheduler)
-    generator = torch.Generator(device=device).manual_seed(0)
+    generator = torch.Generator(device=device).manual_seed(seed)
     sample = pipe(
         batch_size=4,
         generator=generator,
         num_inference_steps=5,
         output_type="pil",
     ).images
-    sample[0].save(OUT_DIR / "toy_ddpm_sample.png")
+    sample_path = out_dir / "toy_ddpm_sample.png"
+    sample[0].save(sample_path)
     print(f"saved: {clean_path.resolve()}")
-    print(f"saved: {(OUT_DIR / 'toy_ddpm_sample.png').resolve()}")
+    print(f"saved: {sample_path.resolve()}")
 
 
-def demo_text2image():
+def demo_text2image(out_dir: Path):
     print("== 1. 文生图 ==")
     from diffusers import StableDiffusionPipeline
 
+    out_dir.mkdir(parents=True, exist_ok=True)
     pipe = StableDiffusionPipeline.from_pretrained(
         "runwayml/stable-diffusion-v1-5",
         torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
@@ -121,13 +124,13 @@ def demo_text2image():
         width=512, height=512,
     ).images[0]
 
-    out = OUT_DIR / "panda.png"
+    out = out_dir / "panda.png"
     image.save(out)
     print(f"saved: {out.resolve()}")
     return pipe
 
 
-def demo_scheduler(pipe):
+def demo_scheduler(pipe, out_dir: Path):
     print("\n== 2. 换 Scheduler：DPM++ 2M（20 步） ==")
     from diffusers import DPMSolverMultistepScheduler
 
@@ -138,17 +141,17 @@ def demo_scheduler(pipe):
         num_inference_steps=20,
         guidance_scale=7.0,
     ).images[0]
-    out = OUT_DIR / "astronaut.png"
+    out = out_dir / "astronaut.png"
     image.save(out)
     print(f"saved: {out.resolve()}")
 
 
-def demo_img2img():
+def demo_img2img(out_dir: Path):
     print("\n== 3. 图生图 ==")
     from diffusers import StableDiffusionImg2ImgPipeline
     from PIL import Image
 
-    img_path = OUT_DIR / "panda.png"
+    img_path = out_dir / "panda.png"
     if not img_path.exists():
         print(f"skip img2img: {img_path} not found (run demo_text2image first)")
         return
@@ -168,7 +171,7 @@ def demo_img2img():
         strength=0.7,
         guidance_scale=7.5,
     ).images[0]
-    out = OUT_DIR / "panda_watercolor.png"
+    out = out_dir / "panda_watercolor.png"
     out_img.save(out)
     print(f"saved: {out.resolve()}")
 
@@ -188,12 +191,14 @@ if __name__ == "__main__":
     parser.add_argument("--stable-diffusion", action="store_true", help="Run SD1.5 demos; requires weights.")
     parser.add_argument("--toy-steps", type=int, default=3)
     parser.add_argument("--toy-batch-size", type=int, default=4)
+    parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT_DIR)
+    parser.add_argument("--seed", type=int, default=0)
     args = parser.parse_args()
 
     if args.stable_diffusion:
-        pipe = demo_text2image()
-        demo_scheduler(pipe)
-        demo_img2img()
+        pipe = demo_text2image(args.out_dir)
+        demo_scheduler(pipe, args.out_dir)
+        demo_img2img(args.out_dir)
         demo_memory_profile()
     else:
-        demo_toy_ddpm(num_train_steps=args.toy_steps, batch_size=args.toy_batch_size)
+        demo_toy_ddpm(num_train_steps=args.toy_steps, batch_size=args.toy_batch_size, out_dir=args.out_dir, seed=args.seed)
