@@ -130,7 +130,7 @@ def synthesize_answer(query: str, results: list[SearchResult], max_context_chars
         snippet = snippet[:budget]
         if not snippet:
             continue
-        context_parts.append(f"[{idx}] {result.chunk.path.name}: {snippet}")
+        context_parts.append(f"[{idx}] {result.chunk.path.name}#{result.chunk.chunk_id}: {snippet}")
         budget -= len(snippet)
         if budget <= 0:
             break
@@ -148,7 +148,10 @@ def print_results(query: str, results: list[SearchResult]) -> None:
     for rank, result in enumerate(results, start=1):
         rel_path = result.chunk.path
         preview = result.chunk.text.replace("\n", " ")[:140]
-        print(f"{rank}. score={result.score:.3f} file={rel_path} start_word={result.chunk.start_word}")
+        print(
+            f"{rank}. score={result.score:.3f} file={rel_path} "
+            f"chunk_id={result.chunk.chunk_id} start_word={result.chunk.start_word}"
+        )
         print(f"   {preview}")
 
 
@@ -194,4 +197,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

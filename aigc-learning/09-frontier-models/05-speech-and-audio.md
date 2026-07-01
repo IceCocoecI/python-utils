@@ -2,7 +2,7 @@
 
 > 目标：理解 TTS、ASR、音乐生成背后的模型架构——
 > 从传统语音合成到 Codec Language Model（VALL-E）再到 Flow Matching TTS（F5-TTS）。
-> 2024 年的语音 AI 正在经历范式转变。
+> 2024–2026 年的语音 AI 正在经历从“离线生成”到“实时多模态交互”的范式转变。
 
 ---
 
@@ -24,6 +24,17 @@ AIGC 音频领域地图：
 │ VALL-E     │           │                 │
 └────────────┴───────────┴─────────────────┘
 ```
+
+### 1.1 音频任务的四条链路
+
+| 链路 | 输入输出 | 代表应用 | 架构重点 |
+|---|---|---|---|
+| ASR | speech → text | 会议转录、字幕、语音搜索 | 鲁棒性、时间戳、说话人、长音频分段 |
+| TTS | text + voice prompt → speech | 配音、有声书、客服 | 音色、韵律、可懂度、流式延迟 |
+| Audio LM | audio/text → audio/text | 音频问答、声音事件理解 | 音频编码器、LLM 对齐、多任务数据 |
+| Music/SFX | text/audio → music/effect | 音乐创作、游戏音效 | 长时结构、版权、风格控制 |
+
+实时语音助手通常是 ASR + LLM + TTS + interruption/barge-in + VAD 的系统工程，不只是一个 TTS 模型。
 
 ---
 
@@ -100,6 +111,17 @@ log_mel = torch.log(mel_spec + 1e-8)
 文本 token
      极少量 token
 ```
+
+### 2.3 音频表示决定延迟
+
+| 表示 | 适合 | 延迟特点 | 主要风险 |
+|---|---|---|---|
+| waveform | 端到端音频模型、vocoder | 数据量最大，实时难度高 | 计算贵、长程依赖难 |
+| mel spectrogram | TTS、ASR | 生态成熟，可分块处理 | 需要 vocoder，音质受限 |
+| codec token | TTS、音乐、语音 LM | token 化后可用 LM/streaming | codec 失真、codebook 层间依赖 |
+| semantic token | 语义/内容建模 | token 少，适合高层规划 | 细节和音色需另一路补充 |
+
+做实时系统时要看 **首包延迟**、**实时率 RTF** 和 **流式稳定性**，不能只看离线 MOS。
 
 ---
 
@@ -304,6 +326,18 @@ CosyVoice 架构：
 | **指令控制** | 支持情感、语速等自然语言指令 |
 | **流式推理** | 支持实时流式生成 |
 | **开源** | 模型和代码完全开源 |
+
+### 6.3 CosyVoice 2 的方向
+
+CosyVoice 2 进一步强调流式语音生成和大规模语音建模。
+它说明 TTS 的竞争点正在从“能不能克隆声音”转向：
+
+- 低首包延迟；
+- 长文本韵律稳定；
+- 跨语言和方言；
+- 情绪/语气可控；
+- 和 LLM 对话系统的端到端衔接；
+- 安全水印和说话人授权。
 
 ```python
 # CosyVoice 使用示例
@@ -652,6 +686,7 @@ Audio-Language Model 时代:
 | SALMONN | 字节 | 语音 + 音频 + 音乐理解 |
 | Gemini | Google | 原生音频理解（端到端） |
 | GPT-4o | OpenAI | 端到端语音对话 |
+| Qwen2.5-Omni | 阿里 | 多模态输入，支持流式语音输出 |
 
 ```python
 from transformers import Qwen2AudioForConditionalGeneration, AutoProcessor
@@ -678,6 +713,16 @@ inputs = processor(text=text, audios=[audio], return_tensors="pt")
 output = model.generate(**inputs, max_new_tokens=256)
 ```
 
+### 13.3 端到端语音模型 vs 级联系统
+
+| 方案 | 优点 | 缺点 |
+|---|---|---|
+| ASR → LLM → TTS | 可解释、可替换、易审计、文本日志完整 | 延迟高，语气和中断处理不自然 |
+| 端到端 audio-language | 低延迟、保留语气/情绪、交互自然 | 调试难、可控性和审计更复杂 |
+| 混合方案 | 关键路径端到端，旁路输出文本和日志 | 系统复杂，但更接近产品需求 |
+
+企业落地通常先用级联系统，因为可观测性和合规更好；实时陪伴、同传、语音 Agent 则更需要端到端或混合架构。
+
 ---
 
 ## 14. 评估指标
@@ -691,6 +736,8 @@ output = model.generate(**inputs, max_new_tokens=256)
 | **Speaker Similarity** | 说话人相似度 | 克隆声音是否像 | 越高越好 |
 | **PESQ** | Perceptual Evaluation of Speech Quality | 客观音质 | 越高越好 |
 | **UTMOS** | 自动 MOS 预测 | 用模型预测 MOS | 越高越好 |
+| **RTF** | Real-Time Factor | 生成耗时 / 音频时长 | 越低越好 |
+| **首包延迟** | Time to first audio chunk | 用户多久听到第一段声音 | 越低越好 |
 
 ```
 MOS (Mean Opinion Score) 评估流程：
@@ -721,6 +768,17 @@ hypothesis = "hello how are you doing"
 error = jiwer.wer(reference, hypothesis)
 print(f"WER: {error:.2%}")  # WER: 16.67% (1 deletion / 6 words)
 ```
+
+### 14.3 语音系统评估不要只看单指标
+
+| 场景 | 主指标 | 还要看 |
+|---|---|---|
+| 客服 ASR | WER / CER | 噪声、口音、专有名词、时间戳 |
+| 会议纪要 | DER + WER | 说话人分离、长音频漂移、摘要准确性 |
+| 配音 TTS | MOS | 情绪、停顿、长文本一致性、版权授权 |
+| 实时助手 | 首包延迟 + RTF | 打断响应、流式稳定、端到端延迟 |
+| 语音克隆 | speaker similarity | 内容可懂度、泄露风险、水印 |
+| 音乐生成 | 主观偏好 | 长时结构、版权相似性、人声质量 |
 
 ---
 
@@ -815,6 +873,49 @@ EnCodec 的 8 层 codebook 不是平等的：
 - 第 1 层：最重要，包含语义和韵律信息
 - 后面的层：补充声学细节（音色、清晰度）
 VALL-E 的 AR 模型只生成第 1 层，正是因为它最关键。
+
+### 17.7 忽视授权、水印和滥用风险
+
+语音克隆比图像生成更敏感，因为声音直接绑定个人身份。
+上线前至少明确：
+
+- 是否获得说话人授权；
+- 是否限制相似度过高的克隆；
+- 是否添加可检测水印；
+- 是否保留生成记录；
+- 是否阻断诈骗、冒充、政治/金融敏感场景；
+- 是否支持用户撤销授权和删除声音样本。
+
+这不是“产品条款”附属问题，而是语音模型能否安全使用的一部分。
+
+---
+
+## 18. 实践任务：设计一个实时语音助手链路
+
+写出一页设计：
+
+```text
+场景：
+ASR 模型：
+LLM：
+TTS 模型：
+VAD：
+是否支持打断：
+目标首包延迟：
+目标 RTF：
+日志和审计：
+隐私策略：
+失败兜底：
+```
+
+再对比两种方案：
+
+| 方案 | 测试点 |
+|---|---|
+| ASR → LLM → TTS 级联 | 可观测性、延迟、错误传播 |
+| 端到端/Omni API | 自然度、打断、成本、可控性 |
+
+建议用同一组 20 条真实语音输入测试，覆盖口音、噪声、打断、长句、专有名词和情绪表达。
 
 ---
 

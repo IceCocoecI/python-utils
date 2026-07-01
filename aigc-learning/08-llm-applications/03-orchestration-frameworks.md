@@ -2,6 +2,7 @@
 
 > 单次 LLM 调用只能完成简单问答，真实产品需要把检索、推理、工具调用串成可靠的工作流。
 > LangChain、LlamaIndex、LangGraph 是当前最主流的三大编排框架。
+> 框架 API 变化较快，本文重点讲稳定的抽象和工程取舍；具体代码以对应版本官方文档为准。
 
 ---
 
@@ -27,6 +28,16 @@
 - 可组合的链式 / 图式调用
 - 内置的错误处理和重试
 - 可观测性（tracing、logging）
+
+但编排框架不是越多越好。生产系统优先保证：
+
+| 能力 | 为什么重要 |
+|---|---|
+| 显式状态 | 知道每一步输入、输出和失败原因 |
+| 可恢复 | 长任务中断后能从 checkpoint 继续 |
+| 可观测 | trace 能定位检索、模型、工具、校验哪一步出错 |
+| 可测试 | 每个节点可以单测，整条链可以离线回归 |
+| 可降级 | 模型/API/工具失败时有 fallback |
 
 ---
 
@@ -219,6 +230,17 @@ md_nodes = md_parser.get_nodes_from_documents(documents)
 | 学习曲线 | 较陡 | 较平缓 |
 | 建议 | 复杂工作流 / Agent | 快速搭建 RAG 原型 |
 
+### 3.5 什么时候不用框架？
+
+如果应用只有：
+
+- 一个固定 prompt；
+- 一个模型调用；
+- 少量规则后处理；
+- 没有工具、检索、状态和多分支；
+
+直接写普通 Python 代码更清晰。框架适合复杂度已经出现时使用，不适合为了“看起来像 AI 工程”而引入。
+
 ---
 
 ## 4. LangGraph：状态机驱动的 Agent 框架
@@ -234,6 +256,9 @@ Node: 执行某个操作（调用 LLM、检索、工具调用）
 Edge: 定义节点间的跳转逻辑
 State: 在节点间共享的数据（TypedDict）
 ```
+
+LangGraph 的核心价值不只是“能循环”，还包括 durable execution、checkpoint、human-in-the-loop、streaming 和可观测状态。
+这使它更适合长任务、工具调用和需要人工审批的流程。
 
 ### 4.2 一个简单的 Agent
 
@@ -269,6 +294,8 @@ print(result["messages"][-1].content)
 ```python
 from langchain_core.tools import tool
 from langgraph.prebuilt import ToolNode, tools_condition
+import ast
+import operator
 
 @tool
 def search_web(query: str) -> str:
@@ -278,7 +305,28 @@ def search_web(query: str) -> str:
 @tool
 def calculate(expression: str) -> str:
     """计算数学表达式"""
-    return str(eval(expression))
+    allowed_ops = {
+        ast.Add: operator.add,
+        ast.Sub: operator.sub,
+        ast.Mult: operator.mul,
+        ast.Div: operator.truediv,
+        ast.Pow: operator.pow,
+        ast.USub: operator.neg,
+    }
+
+    def eval_node(node):
+        if isinstance(node, ast.Expression):
+            return eval_node(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in allowed_ops:
+            return allowed_ops[type(node.op)](eval_node(node.left), eval_node(node.right))
+        if isinstance(node, ast.UnaryOp) and type(node.op) in allowed_ops:
+            return allowed_ops[type(node.op)](eval_node(node.operand))
+        raise ValueError("Only simple arithmetic expressions are allowed")
+
+    tree = ast.parse(expression, mode="eval")
+    return str(eval_node(tree))
 
 tools = [search_web, calculate]
 llm_with_tools = ChatOpenAI(model="gpt-4o-mini").bind_tools(tools)
@@ -318,6 +366,29 @@ graph.add_conditional_edges("agent", should_continue, {
 ```
 
 这就是 LangGraph 的核心范式：**条件边实现循环，让 Agent 可以多轮推理**。
+
+### 4.5 状态设计原则
+
+LangGraph 好不好维护，很大程度取决于 State 设计。
+
+| 字段 | 用途 |
+|---|---|
+| messages | 对话和工具调用轨迹 |
+| intent | 当前任务类型 |
+| retrieved_docs | 检索证据 |
+| tool_results | 工具执行结果 |
+| plan / current_step | 多步任务进度 |
+| budget | 剩余 token、工具次数、时间 |
+| errors | 可恢复错误和重试记录 |
+| approvals | 人工审批状态 |
+
+原则：
+
+- 不要把所有东西都塞进 `messages`；
+- 可审计状态和临时 scratchpad 分开；
+- 高风险工具调用前写入 pending approval；
+- 每个节点只读写自己负责的字段；
+- 状态要可序列化，方便 checkpoint 和重放。
 
 ---
 
@@ -382,7 +453,7 @@ prompt = """请一步步思考后回答问题。
 
 ## 7. 结构化输出
 
-### 7.1 OpenAI Function Calling
+### 7.1 OpenAI Function Calling / Tools
 
 ```python
 from openai import OpenAI
@@ -416,6 +487,9 @@ print(tool_call.function.name)       # get_weather
 print(tool_call.function.arguments)  # {"city": "北京", "unit": "celsius"}
 ```
 
+> OpenAI 生态正在从 Chat Completions / Assistants 逐步迁移到 Responses API 和 Agents SDK。
+> 学习重点是 tool schema、参数校验、结构化输出和审计，不要把某个接口形态当成长期不变的架构。
+
 ### 7.2 Pydantic + LangChain 结构化输出
 
 ```python
@@ -437,6 +511,28 @@ print(f"评分: {review.rating}")
 print(f"点评: {review.summary}")
 print(f"推荐: {review.recommended}")
 ```
+
+### 7.3 结构化输出失败恢复
+
+结构化输出仍然可能失败：
+
+| 失败 | 处理 |
+|---|---|
+| JSON 无法解析 | 自动重试，附上解析错误 |
+| 字段缺失 | schema validator 指出缺失字段 |
+| 枚举越界 | 要求模型在允许值中重选 |
+| 数值越界 | 程序侧 clamp 或拒绝 |
+| 业务规则不满足 | 进入修复节点或人工审核 |
+
+生产上建议：
+
+```text
+LLM output → parse → schema validate → business validate
+  ├─ pass → downstream
+  └─ fail → repair prompt / retry / fallback / human review
+```
+
+不要把 Pydantic 解析成功等同于业务正确。
 
 ---
 
@@ -510,6 +606,22 @@ def route_model(query: str) -> str:
 3. Prompt 优化：减少冗余上下文，压缩检索结果
 ```
 
+### 9.4 成本预算写进链路
+
+复杂工作流要把预算放进 state：
+
+```text
+max_input_tokens
+max_output_tokens
+max_tool_calls
+max_retries
+timeout_seconds
+max_cost_usd
+```
+
+每个节点执行前检查预算，超过预算就降级、总结当前进度或请求用户确认。
+否则 Agent/Graph 很容易在异常路径上把成本放大。
+
 ---
 
 ## 10. 常见陷阱
@@ -524,10 +636,43 @@ def route_model(query: str) -> str:
 | 忽略错误处理 | LLM 返回格式不对就崩溃 | 加 retry、fallback、输出校验 |
 | 框架升级不兼容 | LangChain API 频繁变化 | 锁版本、关注 changelog |
 | 不做成本监控 | 月底账单吓一跳 | 记录每次调用的 token 用量 |
+| 状态设计混乱 | 后续节点读不到或误读上下文 | 明确定义 State schema |
+| 结构化输出只做解析 | JSON 合法但业务错误 | 增加业务 validator |
+| 工具无幂等设计 | 重试导致重复下单/写入 | idempotency key + 审计 |
 
 ---
 
-## 11. 本章小结
+## 11. 实践任务：把 RAG Chain 改成 Graph
+
+把一个简单 RAG 改写成显式状态图：
+
+```text
+query
+  → classify_intent
+  → retrieve
+  → rerank
+  → generate_answer
+  → validate_citation
+  → final / ask_clarification / refuse
+```
+
+State 至少包含：
+
+```python
+class RAGState(TypedDict):
+    question: str
+    intent: str
+    retrieved_docs: list
+    answer: str
+    citations: list
+    errors: list
+```
+
+记录每个节点的输入输出、耗时和 token 用量，然后用 20 条问题做回归测试。
+
+---
+
+## 12. 本章小结
 
 ```
 框架选择：

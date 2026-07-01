@@ -4,6 +4,10 @@
 > 后续 LLM、图像生成、多模态、视频生成、语音音频专题都可以看成同一个问题的不同实例：
 > 如何把一种模态表示成模型可处理的 token / latent / feature，并学习可控的生成或理解过程。
 
+> 前沿模型资料有明显时效性。本文按 `2026-06-30` 可公开验证的技术报告、论文和模型卡来组织；
+> 对 GPT-4o、Gemini、Sora、Veo、Kling、Runway 等闭源系统，只讨论公开披露能力和工程现象，
+> 不把社区猜测写成确定架构。
+
 ---
 
 ## 1. 本模块真正解决什么问题？
@@ -24,6 +28,19 @@
 输入表示 → 主干网络 → 条件注入 → 训练目标 → 采样/解码 → 评估与瓶颈
 ```
 
+更工程化一点，可以把它压缩成“六问”：
+
+| 问题 | 要看的证据 | 直接影响 |
+|---|---|---|
+| 输入被表示成什么？ | tokenizer、VAE、ViT patch、codec、采样率、帧率 | 上下文长度、显存、信息损失 |
+| 主干如何建模依赖？ | Decoder-only、DiT、MMDiT、3D DiT、MoE、cross-attention | 可扩展性、延迟、并行方式 |
+| 条件如何进入模型？ | prompt token、adapter、AdaLN、cross-attention、joint attention | 可控性、编辑能力、多模态对齐 |
+| 训练目标是什么？ | next-token、denoising、flow matching、contrastive、RL/preference | 能力边界、采样方式、稳定性 |
+| 推理最贵的是什么？ | 权重带宽、KV cache、视觉 token、去噪步数、codec 帧数 | 部署成本、吞吐、延迟 |
+| 评估是否可信？ | benchmark、人工评测、真实数据集、失败案例 | 能否上线、是否需要二次评估 |
+
+读新模型时，先回答这六问，再看模型名。否则很容易被“参数更大”“榜单更高”“demo 更惊艳”带偏。
+
 ### 1.1 几个真正改变路线的架构思想
 
 前沿模型更新很快，但背后的关键思想相对稳定。读模型演进时，优先抓下面几条主线。
@@ -37,6 +54,16 @@
 | Flow Matching / Rectified Flow | 传统扩散采样步数多、路径间接 | 直接学习从噪声到数据的速度场，少步采样潜力更好 | 训练目标、solver、蒸馏和质量稳定性 |
 | MoE | Dense 模型每 token 激活全部参数，推理成本高 | 扩大总参数但只激活部分专家，提高训练/推理的计算效率 | 路由、负载均衡、All-to-All 通信、专家退化 |
 | 多模态 token 化 | 图像/音频/视频系统割裂 | 把不同模态变成 token、patch、latent 或 codec，复用大模型能力 | 对齐数据、token 数爆炸、跨模态评估 |
+
+这些思想不是互斥的。2025 之后的前沿系统往往是组合拳：
+
+```text
+LLM: Decoder-only + GQA/MLA + MoE + 长上下文 + RL 推理增强
+图像: VAE latent + DiT/MMDiT + Rectified Flow/Flow Matching + 多编码器文本条件
+视频: 3D VAE + Spacetime Patch + DiT + Flow Matching + 大规模视频 caption
+语音: codec token / mel + LLM/DiT + streaming decoder + 低延迟缓存
+多模态: ViT/audio encoder + LLM + modality-specific projector + time/space RoPE
+```
 
 这里的“革命性”不表示旧方法无用，而是表示约束条件变了。
 例如 GAN 在特定图像任务仍有价值，但通用文生图更依赖 Diffusion/Flow；U-Net 在扩散里依然强，但 DiT/MMDiT 更贴近大模型 scaling 路线。
@@ -89,6 +116,22 @@ AIGC 模型处理不同模态，但底层通常先把数据变成某种可学习
 
 1. **离散化**：把模态变成 token 序列，用语言模型式目标建模。
 2. **连续化**：把模态变成 latent / feature，用扩散或 flow 建模连续分布。
+
+### 2.1 表示层的工程代价
+
+“表示”不是预处理细节，而是架构的第一性约束。
+
+| 表示 | 典型压缩 | 优点 | 代价 |
+|---|---|---|---|
+| 文本 token | 依赖 tokenizer | 最适合自回归、KV cache 可复用 | 多语言 token 效率差异大 |
+| 图像 latent | 空间 4x/8x 压缩 | 高分辨率生成成本可控 | VAE 重建会限制小字、纹理和局部细节 |
+| 图像 patch | patch_size 决定 token 数 | 适合 DiT/ViT scaling | token 数随分辨率平方增长 |
+| 视频 latent/patch | 空间 + 时间压缩 | 让视频生成可训练 | 时序压缩过强会损失运动细节 |
+| 音频 codec token | RVQ 多 codebook | 可复用 LM 范式、适合流式 | codec 失真会成为音质上限 |
+| mel spectrogram | STFT/梅尔滤波 | TTS/ASR 生态成熟 | 仍需 vocoder，韵律控制复杂 |
+
+工程上常见错误是只看主干网络，而不看表示层。
+例如两个视频模型都叫 DiT，但 3D VAE 的时间压缩率、patch size、帧率 bucket 不同，实际显存、运动质量和长视频能力会完全不同。
 
 ---
 
@@ -344,6 +387,38 @@ waveform → codec encoder → discrete codes → language model → codec decod
 - 统一架构 vs 模态专用归纳偏置；
 - 开源可部署性 vs 最高效果。
 
+### 10.1 资源预算四件套
+
+做模型选型时，先写清楚四个预算，再讨论模型先进性。
+
+| 预算 | 关键问题 | 常见结论 |
+|---|---|---|
+| 显存预算 | 能否加载权重、KV cache、视觉 token、VAE/DiT activation？ | 24GB 更适合 7B/小 VLM/图像；80GB 才更适合视频大模型实验 |
+| 延迟预算 | 用户能接受 300ms、3s、30s 还是 3min？ | 聊天、语音、搜索需要流式；图像/视频可接受异步任务 |
+| 成本预算 | 单次请求 GPU 秒、API 费用、缓存命中率如何？ | 长上下文、视频、多模态输入最容易把成本打爆 |
+| 质量预算 | 需要“可用”“稳定”“SOTA”还是“可解释可控”？ | 产品常常优先稳定和可控，而不是榜单最高 |
+
+这四个预算会反过来决定架构：
+
+- 低延迟聊天：优先小 Dense 或低激活 MoE、GQA/MLA、KV cache 友好。
+- 长文档问答：优先长上下文效率、检索混合、上下文压缩，而不是盲目 1M context。
+- 高精度文档 VLM：优先动态分辨率、OCR、布局理解和 visual token 管控。
+- 视频生成：优先 3D VAE 质量、帧数/分辨率可控、VAE tiling/offload，而不是只看参数量。
+- 实时语音：优先流式 ASR/TTS、首包延迟、codec/vocoder 质量和中断处理。
+
+### 10.2 前沿模型的“三层真相”
+
+看前沿模型信息时，要区分三层：
+
+| 层次 | 例子 | 可信度 | 用法 |
+|---|---|---|---|
+| 公开事实 | 论文、技术报告、模型卡、开源权重、config | 高 | 可以写入架构评审 |
+| 行为观察 | API 输出质量、延迟、价格、benchmark、demo 复现 | 中 | 可用于选型，但要注明测试条件 |
+| 社区推测 | 闭源参数量、专家数、训练数据来源、内部路由 | 低 | 只能作为背景，不应作为工程决策依据 |
+
+例如 GPT-4o、Gemini、Sora、Veo、Kling、Runway 等系统可以分析能力边界、输入输出接口、延迟和质量，
+但不能把“可能是某种统一 Transformer”写成确定架构。
+
 ---
 
 ## 11. 如何读一篇模型论文或 config
@@ -358,6 +433,47 @@ waveform → codec encoder → discrete codes → language model → codec decod
 6. 扩展策略：参数、数据、上下文、分辨率、专家数怎么 scale？
 7. 推理成本：权重、KV cache、activation、采样步数哪个最贵？
 8. 评估：用什么 benchmark，是否覆盖真实应用失败模式？
+
+### 11.1 一页架构评审模板
+
+```text
+模型：
+任务：
+
+1. 输入表示
+   - 文本 tokenizer / 词表：
+   - 图像/视频 VAE 或 ViT：
+   - 音频采样率 / mel / codec：
+   - token 或 latent shape：
+
+2. 主干架构
+   - Dense / MoE：
+   - attention 形式：
+   - 位置编码：
+   - 条件注入：
+
+3. 训练目标与数据
+   - pretraining objective：
+   - post-training / RL / preference：
+   - 数据规模和质量控制：
+
+4. 推理路径
+   - 解码或采样方式：
+   - 关键超参：
+   - 缓存与并行：
+
+5. 成本估算
+   - 权重显存：
+   - KV cache / visual tokens / denoising steps：
+   - 单请求延迟：
+
+6. 风险
+   - 幻觉 / 安全 / 版权 / 隐私：
+   - benchmark 与业务不一致：
+   - 部署依赖和许可证：
+```
+
+这个模板的价值在于强迫你把“模型很强”翻译成“为什么强、代价在哪、是否适合当前业务”。
 
 ---
 

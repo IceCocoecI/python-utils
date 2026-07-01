@@ -2,6 +2,7 @@
 
 > 向量数据库是 RAG 系统的心脏——没有高效的语义检索，一切都是空谈。
 > 本节从原理到实战，覆盖 FAISS、Milvus、Chroma、Qdrant、pgvector 五大方案。
+> 生产选型不只看“能存多少向量”，还要看过滤、更新、隔离、备份、观测和运维成本。
 
 ---
 
@@ -20,6 +21,20 @@
 - 毫秒级近似最近邻（ANN）搜索
 - 支持 metadata 过滤
 - 支持增删改查
+
+### 1.1 向量数据库在 RAG 里真正负责什么？
+
+| 能力 | 为什么重要 |
+|---|---|
+| ANN 搜索 | 大规模向量下低延迟召回 |
+| metadata 过滤 | 租户、权限、语言、时间、文档类型 |
+| upsert/delete | 文档更新、删除、合规要求 |
+| 多向量/混合检索 | 同一文档可有 dense、sparse、title、body 多路表示 |
+| 分片/副本 | 容量、可用性和吞吐 |
+| 备份恢复 | 索引损坏或误删后可恢复 |
+| 观测指标 | 查询延迟、召回、过滤命中、索引构建状态 |
+
+教学 demo 可以只存向量，生产系统必须把 payload/metadata 当成同等重要的数据。
 
 ---
 
@@ -54,6 +69,16 @@ print(f"L2: {l2:.4f}, Cosine: {cosine:.4f}, IP: {ip:.4f}")
 | Inner Product | 已归一化的向量 | 归一化后等价于 cosine |
 
 > **经验法则**：如果 embedding 模型输出已归一化（如 OpenAI、BGE），用 cosine 或 IP 都行。
+
+### 2.3 距离度量必须和模型约定一致
+
+入库前要固定三件事：
+
+```text
+embedding_model + normalize_strategy + distance_metric
+```
+
+任何一项变化都应视为新索引版本。否则你会遇到“代码没报错，但检索质量突然变差”的隐性故障。
 
 ---
 
@@ -364,6 +389,8 @@ for row in cur.fetchall():
 | 语言 | C++/Python | Go/C++ | Python | Rust | C |
 | 适合场景 | 原型/嵌入 | 生产大规模 | 快速原型 | 中大规模 | 已有 PG |
 
+> 表格是学习用概览。各项目能力更新很快，具体是否支持 hybrid、多向量、量化、分布式、云服务和过滤语法，以当前官方文档为准。
+
 ### 如何选择？
 
 ```
@@ -374,6 +401,21 @@ for row in cur.fetchall():
 ├── < 1000 万 & 需要强过滤 → Qdrant
 └── > 1000 万 / 需要分布式 → Milvus
 ```
+
+### 8.1 生产选型矩阵
+
+| 约束 | 优先选择 |
+|---|---|
+| 单机 demo、课程实验 | Chroma / FAISS |
+| Python 进程内检索、无需服务 | FAISS |
+| 已有 PostgreSQL、数据量中小、团队熟 SQL | pgvector |
+| 需要强 payload 过滤、简单运维 | Qdrant |
+| 需要大规模分布式、混合检索、企业级扩展 | Milvus |
+| 多租户强隔离 | 独立 collection / database / index，避免只靠后置过滤 |
+| 频繁更新删除 | 关注 upsert/delete、compaction、索引重建成本 |
+| 合规审计 | 关注备份、删除证明、访问日志和数据驻留 |
+
+不要只按向量数量选库。RAG 线上问题很多来自过滤、更新和权限，而不是 ANN 本身。
 
 ---
 
@@ -489,6 +531,29 @@ for i, (dist, idx) in enumerate(zip(D[0], I[0])):
 └── 降维（PCA / Matryoshka embedding）
 ```
 
+### 11.3 索引生命周期
+
+生产向量库要管理索引版本：
+
+```text
+raw_document_version
+parser_version
+chunker_version
+embedding_model_version
+index_version
+created_at
+```
+
+常见流程：
+
+1. 新文档进入 staging index。
+2. 跑离线评估集，对比旧索引。
+3. 通过后切换线上 alias。
+4. 保留旧索引用于回滚。
+5. 删除过期索引并记录审计。
+
+不要直接在生产索引上“边改边试”，否则很难解释质量波动。
+
 ---
 
 ## 12. 常见陷阱
@@ -502,10 +567,44 @@ for i, (dist, idx) in enumerate(zip(D[0], I[0])):
 | 混用不同 embedding 模型 | 索引和查询的向量空间不一致 | 全链路用同一个模型 |
 | 忽略 metadata 过滤 | 检索出不相关的文档 | 用 Milvus/Qdrant 的过滤功能 |
 | 一次性加载所有数据到内存 | 启动慢、OOM | 分批加载，或用内存映射 |
+| 只做后置权限过滤 | 召回质量差，甚至泄漏风险 | 检索前过滤或租户隔离 |
+| 无备份和回滚 | 索引损坏后只能重建 | snapshot、alias、蓝绿切换 |
+| 不监控空结果率 | 用户看到“没找到”但没人发现 | 监控 empty retrieval rate |
+| 删除文档不删向量 | 合规和隐私风险 | delete + compaction + 审计 |
 
 ---
 
-## 13. 本章小结
+## 13. 实践任务：压测一个向量库方案
+
+任选 FAISS、Qdrant、Milvus、Chroma 或 pgvector，记录：
+
+```text
+向量数量：
+向量维度：
+距离度量：
+索引类型：
+metadata 字段：
+过滤条件：
+top-k：
+QPS：
+p50/p95 latency：
+内存/磁盘占用：
+更新和删除耗时：
+备份恢复方式：
+```
+
+至少做 4 组实验：
+
+| 实验 | 观察点 |
+|---|---|
+| Flat vs HNSW/IVF | 召回、延迟、内存 |
+| 有过滤 vs 无过滤 | 延迟和召回变化 |
+| top-k 5/20/100 | 延迟、rerank 成本 |
+| 10 万 / 100 万向量 | 扩展趋势 |
+
+---
+
+## 14. 本章小结
 
 ```
 选库决策树：

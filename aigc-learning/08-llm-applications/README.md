@@ -2,6 +2,7 @@
 
 > 大模型训好只是起点，把它变成用户愿意付费的产品才是终点。
 > 本模块覆盖从 RAG 到 Agent 的完整 LLM 应用技术栈——这是 2024–2026 年 AIGC 领域最大的工程机会。
+> 本模块按 `2026-06-30` 的主流工程实践组织，重点不是“会调一个 API”，而是能把 LLM 接入真实业务、可评估、可观测、可控地运行。
 
 ---
 
@@ -28,6 +29,14 @@
 - **向量数据库**：语义检索的基础设施，所有 RAG 系统的心脏
 - **编排框架**：把 LLM 调用、检索、工具组合成可靠的工作流
 - **Agent 工程**：让 LLM 自主规划、调用工具、完成复杂任务
+
+但生产级 LLM 应用不等于“RAG + Agent”。更准确地说，它是六件事的组合：
+
+```text
+上下文构造 + 工具/数据接入 + 结构化输出 + 权限安全 + 评估监控 + 成本控制
+```
+
+如果没有评估、日志、权限和降级策略，RAG 会变成“带引用的幻觉”，Agent 会变成“不可控的循环调用”。
 
 ---
 
@@ -63,12 +72,42 @@
 | 理论层 | LLM 应用如何构造上下文、接入外部知识、调用工具、做评估和安全控制？ | `00-llm-applications-theory.md` |
 | 工具层 | RAG、向量数据库、编排框架、Agent 分别解决系统里的哪一层问题？ | `01` ~ `04` 文档 |
 | 产品层 | 如何把检索、生成、工具调用、日志、评估组成可靠用户流程？ | 结合 `01` ~ `04` 做 mini 项目 |
+| 运维层 | 如何上线后持续监控质量、成本、延迟、安全事件和数据漂移？ | 各章节的评估、日志、权限和实践任务 |
 
 学习顺序建议：
 
 1. 先读 `00`，建立 LLM 应用系统的整体框架。
 2. 按 `01` → `02` 打通 RAG 和向量检索。
 3. 再读 `03` → `04`，把固定链路升级成工作流和 Agent。
+
+---
+
+## 学完本模块应该产出什么？
+
+建议不要只读概念，至少做出下面 4 份材料：
+
+| 产出 | 内容 | 价值 |
+|---|---|---|
+| RAG 评估集 | 30–100 条真实问题、标准答案、证据文档、权限标签 | 判断检索错还是生成错 |
+| 检索链路报告 | chunk 策略、embedding、hybrid、reranker、top-k、引用格式 | 能稳定迭代 RAG |
+| 工具调用安全表 | 每个 tool 的 schema、权限、风险等级、审批策略、日志字段 | 防止 Agent 越权和误操作 |
+| 成本与延迟预算 | p50/p95 延迟、tokens/request、cache hit、失败重试成本 | 支撑上线和容量规划 |
+
+一页应用设计模板：
+
+```text
+业务目标：
+用户输入：
+是否需要外部知识：
+是否需要外部动作：
+RAG 数据源：
+工具列表与权限：
+输出 schema：
+拒答/降级策略：
+离线评估集：
+线上监控指标：
+成本上限：
+```
 
 ---
 
@@ -100,9 +139,13 @@ conda run -n aigc python aigc-learning/08-llm-applications/examples/toy_rag.py -
 | 文档 | [Milvus 文档](https://milvus.io/docs) | 最流行的开源向量数据库 |
 | 文档 | [Chroma 文档](https://docs.trychroma.com/) | 轻量级嵌入式向量数据库 |
 | 文档 | [OpenAI Function Calling](https://platform.openai.com/docs/guides/function-calling) | 工具调用的标准范式 |
+| 文档 | [OpenAI Responses API](https://platform.openai.com/docs/api-reference/responses) | OpenAI 新一代模型响应与工具调用接口 |
 | 文档 | [MCP 协议规范](https://modelcontextprotocol.io/) | Anthropic 发起的模型上下文协议 |
+| 文档 | [Ragas 文档](https://docs.ragas.io/) | RAG 评估框架 |
 | 论文 | [RAG 原始论文](https://arxiv.org/abs/2005.11401) | Lewis et al., 2020 |
 | 论文 | [ReAct](https://arxiv.org/abs/2210.03629) | Yao et al., 2022 |
+| 论文 | [Toolformer](https://arxiv.org/abs/2302.04761) | 模型学习调用工具 |
+| 论文 | [Self-RAG](https://arxiv.org/abs/2310.11511) | 检索与生成自我反思 |
 | 代码 | [langchain-ai/rag-from-scratch](https://github.com/langchain-ai/rag-from-scratch) | LangChain 团队的 RAG 手把手教程 |
 
 ---
@@ -142,3 +185,8 @@ conda run -n aigc python aigc-learning/08-llm-applications/examples/toy_rag.py -
 - [ ] 如何防御 prompt injection？有哪些常见攻击方式？
 - [ ] 评估 RAG 系统用什么指标？Ragas 框架提供了哪些？
 - [ ] 控制 LLM 应用成本的三大手段是什么？
+- [ ] 为什么 RAG 的权限过滤应该尽量在检索前完成？
+- [ ] 什么场景应该用 Graph，而不是 Agent？
+- [ ] 工具调用的 schema、权限、幂等性和审计日志分别解决什么风险？
+- [ ] 如何区分检索失败、上下文构造失败、生成失败和工具失败？
+- [ ] OpenAI Responses API、Function Calling、MCP 分别处在工具调用生态的哪一层？

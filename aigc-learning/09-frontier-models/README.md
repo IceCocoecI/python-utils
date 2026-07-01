@@ -1,8 +1,9 @@
 # 模块 09：前沿 AIGC 模型架构
 
 > 了解模型架构是 AIGC 算法工程师的**核心素养**。
-> 你不需要能从零训练 GPT-4，但你必须能看懂它的架构图、理解每个组件的设计动机、
-> 并能在此基础上做微调、推理优化和应用开发。
+> 你不需要能从零训练 GPT-4、Claude、Gemini、Qwen 或 DeepSeek 级别的模型，
+> 但你必须能看懂公开模型的架构图、`config.json`、技术报告和模型卡，
+> 并能把这些判断落到微调、推理优化、应用开发和模型选型上。
 
 ---
 
@@ -17,6 +18,9 @@
 - **面试答不上**：架构题是 AIGC 岗位面试的重中之重
 
 本模块带你系统梳理近几年 AIGC 领域主流和前沿的模型架构。
+
+> 前沿模型更新很快。本文档按 `2026-06-30` 的公开资料组织学习框架；
+> 对闭源模型只讨论公开信息和可验证的工程现象，不把社区传闻当成架构事实。
 
 ---
 
@@ -36,7 +40,8 @@
           │              │              │            │            │
      GPT/LLaMA      SD/DiT/Flux     CLIP/LLaVA   Sora/Wan    VALL-E
      Qwen/DeepSeek  ControlNet      Qwen-VL      CogVideoX   CosyVoice
-     Mistral/MoE    SD3/SDXL        InternVL     HunyuanV    F5-TTS
+     Mistral/MoE    SD3/SDXL        InternVL     HunyuanVideo F5-TTS
+     Qwen3/R1       Rectified Flow  GPT-4o类     Veo/Kling    Qwen2.5-Omni
 ```
 
 ---
@@ -85,6 +90,7 @@
 | 统一架构层 | Transformer、扩散、Flow Matching、多模态对齐如何成为不同模态的共同底座？ | `00-frontier-models-theory.md` |
 | 模态专题层 | 文本、图像、多模态、视频、语音各自的结构演进和核心瓶颈是什么？ | `01` ~ `05` 文档 |
 | 选型判断层 | 什么时候用 Dense/MoE、U-Net/DiT、VLM/Any-to-Any、codec/audio LM？ | 各专题的对比表、时间线和常见坑 |
+| 交付输出层 | 如何把论文和模型卡转成一页架构评审、资源估算和风险清单？ | `00` 的评审模板 + 各专题实践任务 |
 
 学习顺序建议：
 
@@ -92,6 +98,33 @@
 2. 再读 `01`，把 Decoder-only、GQA、MoE、长上下文和 Scaling Laws 打牢。
 3. 继续读 `02`，理解扩散和 Flow Matching，这条线会延伸到图像、视频、音频。
 4. 最后按兴趣读多模态、视频和语音专题。
+
+---
+
+## 学完本模块应该产出什么？
+
+不要只停留在“知道模型名”。完成本模块后，建议至少做出 4 份可复用材料：
+
+| 产出 | 内容 | 价值 |
+|---|---|---|
+| 架构拆解卡 | 任选一个开源 LLM，拆 `config.json`、参数量、KV cache、上下文、tokenizer | 面试和选型都能直接复用 |
+| 图像/视频 pipeline 图 | 标出 text encoder、VAE、DiT/U-Net、scheduler、guidance 的数据流和 shape | 防止把模型调用当黑箱 |
+| 多模态 token 预算表 | 对比单图、多图、视频、音频输入会占多少 token 或 latent frame | 直接服务产品成本估算 |
+| 模型选型建议书 | 在给定硬件、延迟、质量、安全要求下选 Dense/MoE/VLM/TTS/视频模型 | 训练“技术判断”而不是背诵 |
+
+建议模板：
+
+```text
+模型名称：
+任务目标：
+输入表示：
+主干架构：
+训练目标：
+推理瓶颈：
+硬件预算：
+主要风险：
+是否适合当前业务：
+```
 
 ---
 
@@ -108,12 +141,24 @@
 | [Mixtral of Experts](https://arxiv.org/abs/2401.04088) | 2024 | 开源 MoE |
 | [DeepSeek-V2](https://arxiv.org/abs/2405.04434) | 2024 | MLA + DeepSeekMoE |
 | [DeepSeek-V3](https://arxiv.org/abs/2412.19437) | 2024 | 671B MoE |
+| [DeepSeek-R1](https://arxiv.org/abs/2501.12948) | 2025 | 大规模 RL 激发推理能力 |
+| [Qwen2.5](https://arxiv.org/abs/2412.15115) | 2024 | 多尺寸、多语言、18T tokens |
+| [Qwen3](https://arxiv.org/abs/2505.09388) | 2025 | Dense/MoE + thinking/non-thinking 统一 |
 | [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239) | 2020 | DDPM |
 | [High-Resolution Image Synthesis with LDM](https://arxiv.org/abs/2112.10752) | 2022 | Stable Diffusion |
 | [Scalable Diffusion Models with Transformers](https://arxiv.org/abs/2212.09748) | 2023 | DiT |
+| [Scaling Rectified Flow Transformers](https://arxiv.org/abs/2403.03206) | 2024 | SD3 / MMDiT / Rectified Flow |
+| [FLUX.1 Kontext](https://arxiv.org/abs/2506.15742) | 2025 | 图像生成与编辑统一 flow 模型 |
 | [CLIP: Learning Transferable Visual Representations](https://arxiv.org/abs/2103.00020) | 2021 | 图文对齐 |
 | [LLaVA: Visual Instruction Tuning](https://arxiv.org/abs/2304.08485) | 2023 | 视觉语言模型 |
+| [Qwen2.5-VL](https://arxiv.org/abs/2502.13923) | 2025 | 动态分辨率、文档/视频理解 |
+| [Qwen2.5-Omni](https://arxiv.org/abs/2503.20215) | 2025 | 文本/图像/音频/视频输入，文本/语音输出 |
+| [HunyuanVideo](https://arxiv.org/abs/2412.03603) | 2024 | 13B 开源视频生成框架 |
+| [Wan](https://arxiv.org/abs/2503.20314) | 2025 | 开源大规模视频生成模型套件 |
 | [Neural Codec Language Models for Zero-Shot TTS](https://arxiv.org/abs/2301.02111) | 2023 | VALL-E |
+| [CosyVoice 2](https://arxiv.org/abs/2412.10117) | 2024 | 流式语音合成与 LLM 语音建模 |
+| [F5-TTS](https://arxiv.org/abs/2410.06885) | 2024 | Flow Matching 非自回归 TTS |
+| [MaskGCT](https://arxiv.org/abs/2409.00750) | 2024 | Masked codec TTS |
 
 ### 推荐博客 / 教程
 
@@ -147,3 +192,7 @@
 - [ ] 神经音频编解码器（如 EnCodec）的作用是什么？为什么它让 TTS 发生了范式转变？
 - [ ] Flow Matching 和 DDPM 的训练目标有什么区别？
 - [ ] 什么是 Scaling Law？Chinchilla 最优比例是什么？
+- [ ] 为什么 Qwen3 这类模型要同时提供 thinking 和 non-thinking 模式？它影响哪些推理成本？
+- [ ] 闭源多模态模型的架构信息不完整时，哪些结论可以说，哪些只能说是推断？
+- [ ] 给定 24GB / 48GB / 80GB GPU，如何粗略判断一个 LLM、VLM 或视频模型能不能本地跑？
+- [ ] 评估图像、视频、语音模型时，哪些 benchmark 容易和真实产品体验脱节？

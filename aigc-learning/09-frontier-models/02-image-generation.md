@@ -2,6 +2,7 @@
 
 > 目标：理清图像生成从 GAN 到 Flow Matching 的完整演进脉络。
 > 重点掌握扩散模型家族——这是 2023–2025 年图像/视频/音频生成的绝对主流范式。
+> 本文按 `2026-06-30` 的公开资料组织，重点关注能迁移到工程选型的架构规律。
 
 ---
 
@@ -22,6 +23,22 @@ ProGAN                              LDM 范式       IP-Adapter     MMDiT
 | VAE | 编码到潜在空间，解码重建 | 训练稳定，有显式概率模型 | 生成模糊 |
 | Diffusion | 逐步加噪 → 逐步去噪 | 生成质量高，训练稳定 | 采样慢（需多步） |
 | Flow Matching | 学习从噪声到数据的直线路径 | 训练简单，采样更快 | 较新，生态还在成熟 |
+
+### 1.1 架构选型先看什么？
+
+图像生成模型不要只按“哪个更新”排序，而要按任务约束排序。
+
+| 场景 | 更优先的架构能力 | 常见选择 |
+|---|---|---|
+| 快速出图、生态插件 | 成熟 scheduler、LoRA、ControlNet、社区模型 | SD 1.5 / SDXL |
+| 高质量通用文生图 | 文本理解、构图、审美、少步采样 | Flux / SD3.5 / 商业 API |
+| 文本渲染和复杂 prompt | 强文本编码器、MMDiT/joint attention、数据质量 | SD3.5 / Flux / DALL-E 类 |
+| 可控生成 | ControlNet、IP-Adapter、参考图、mask/inpaint | SDXL 生态仍很强 |
+| 产品级一致性 | 固定风格、可复现、低失败率、审核和水印 | 自建 SDXL/Flux 工作流 + 评估集 |
+| 研究新架构 | DiT/MMDiT、Flow Matching、蒸馏、consistency | SD3/Flux 系技术路线 |
+
+工程判断的核心是：你缺的是质量、控制、速度、成本、版权安全，还是工作流生态。
+这几个目标经常冲突。
 
 ---
 
@@ -321,7 +338,7 @@ image = pipe(
 ### 8.2 代码实现
 
 ```python
-def classifier_free_guidance(model, x_t, t, text_embed, guidance_scale):
+def classifier_free_guidance(model, x_t, t, text_embed, empty_embed, guidance_scale):
     # 有条件预测
     noise_cond = model(x_t, t, encoder_hidden_states=text_embed)
     # 无条件预测（用空文本）
@@ -507,6 +524,9 @@ class MMDiTBlock(nn.Module):
 | 路径 | 曲线路径 | 最优传输直线路径 |
 | 采样 | 需要特殊 scheduler | ODE 求解器（Euler 等） |
 
+> 这里的“直线”是最简化的教学直觉。真实模型可能使用 rectified flow、不同噪声参数化、时间采样策略、蒸馏和专门的 solver。
+> 工程上不要只看模型是否叫 Flow Matching，还要看官方推荐的 scheduler、步数、CFG 范围和分辨率 bucket。
+
 ```python
 # Flow Matching 训练（简化）
 def flow_matching_loss(model, x_0):
@@ -566,6 +586,19 @@ image = pipe(
 | x₀-prediction | 直接预测干净图像 | 部分模型 | 低噪声时效果好 |
 | Flow Matching | 预测速度场 v = x₀ - ε | Flux, SD3 | 训练简单，路径更直 |
 
+### 13.1 预测目标和 scheduler 必须匹配
+
+扩散/flow 模型最容易踩的坑是“模型、scheduler、prediction type 不匹配”。
+
+| 错误组合 | 现象 | 原因 |
+|---|---|---|
+| ε-prediction 模型配 flow scheduler | 图像发灰、结构崩坏 | 模型输出语义不是速度场 |
+| Flow 模型配 DDPM/DDIM scheduler | 采样方向错误 | 时间参数化和更新公式不一致 |
+| v-prediction 当 ε 用 | 细节差、颜色异常 | 预测目标坐标系不同 |
+| CFG scale 沿用旧模型经验 | 过饱和或 prompt 不跟随 | 不同训练目标的 guidance 响应不同 |
+
+调试生成质量时，先确认 pipeline 配置，再调 prompt。很多“模型不行”其实是 scheduler 或 VAE 配错。
+
 ---
 
 ## 14. 采样算法
@@ -623,6 +656,21 @@ pipe.scheduler = DPMSolverMultistepScheduler.from_config(
 | **IS** | Inception Score | 生成图像的质量和多样性 | 越高越好 |
 | **LPIPS** | Learned Perceptual Similarity | 感知相似度（用于图像重建） | 越低越好 |
 
+### 16.1 指标和产品体验的落差
+
+公开指标只能回答一部分问题：
+
+| 你关心的问题 | 单一指标是否足够 | 更可靠的做法 |
+|---|---|---|
+| 画面是否美观 | 不足 | 人工偏好评测 + aesthetic model + 业务 prompt 集 |
+| 是否严格跟随 prompt | 不足 | 分解式 VQA/CLIPScore + 人工审核 |
+| 文字是否正确 | 不足 | OCR 检测 + 字符级准确率 |
+| 人脸/手部是否稳定 | 不足 | 专门的失败类型标注 |
+| 品牌风格是否一致 | 不足 | 固定 seed/LoRA/参考图 + 内部 golden set |
+| 是否可上线 | 不足 | 安全审核、版权过滤、敏感内容评估 |
+
+产品落地时建议维护一套 50–200 条内部 prompt，覆盖真实失败模式，而不是只看论文里的 FID 或榜单。
+
 ```python
 # 计算 CLIP Score
 from transformers import CLIPModel, CLIPProcessor
@@ -658,7 +706,8 @@ clip_score = outputs.logits_per_image.item()
 2024  SD3 / SD3.5          MMDiT + Flow Matching
 2024  Flux                 MMDiT + T5 + Flow Matching
 2024  DALL-E 3             更好的文本理解
-2025  ...                  更快采样、更高分辨率、视频统一
+2025  Flux Kontext         图像生成与编辑统一
+2025+ 更快蒸馏、更强编辑、更高分辨率、图像视频统一
 ```
 
 ---
@@ -693,6 +742,50 @@ SD3 和 Flux 用的是 Flow Matching（预测速度场），不是 ε-prediction
 
 用 SD 1.5 生成 1024×1024 会出问题（训练分辨率是 512×512）。
 同理，用 SDXL 生成 512×512 也不理想。**用模型训练时的分辨率**。
+
+### 18.7 忽略 VAE 和文本编码器版本
+
+同一个 U-Net/DiT，换 VAE 或 text encoder 都可能改变画质、文字能力和风格稳定性。
+复现实验时要记录：
+
+- base model / refiner；
+- VAE 权重；
+- text encoder；
+- scheduler；
+- prediction type；
+- 分辨率、步数、CFG、seed。
+
+只记录 prompt 不足以复现图像生成结果。
+
+---
+
+## 19. 实践任务：拆一个图像模型 pipeline
+
+任选一个 SDXL、SD3.5 或 Flux pipeline，写一页拆解：
+
+```text
+模型：
+输入 prompt：
+文本编码器：
+VAE 压缩率：
+去噪主干：
+训练目标：
+scheduler：
+默认步数：
+默认分辨率：
+CFG 推荐范围：
+最可能的失败模式：
+```
+
+再做 5 组对比实验：
+
+| 实验 | 观察点 |
+|---|---|
+| 步数 10 / 20 / 30 / 50 | 质量是否继续提升，速度差多少 |
+| CFG 2 / 4 / 7 / 12 | prompt 跟随、饱和、伪影 |
+| 512 / 768 / 1024 / 非标准宽高比 | 构图和重复结构 |
+| 同 prompt 不同 seed | 多样性和稳定性 |
+| 同 seed 不同 scheduler | 细节、颜色、结构差异 |
 
 ---
 
