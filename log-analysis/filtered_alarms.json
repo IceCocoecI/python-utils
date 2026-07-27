@@ -1,10 +1,10 @@
 {
   "meta": {
-    "sourceRecordCount": 8290,
+    "sourceRecordCount": 4061,
     "skippedRecordCount": 0,
     "messageGroupCount": 15,
-    "errorGroupCount": 111,
-    "generatedAt": "2026-07-16T08:13:39.795502+00:00",
+    "errorGroupCount": 110,
+    "generatedAt": "2026-07-27T06:19:05.788926+00:00",
     "grouping": [
       "message",
       "params.子功能",
@@ -16,129 +16,95 @@
   "groups": [
     {
       "message": "USEAPI平台API调用失败",
-      "count": 5570,
+      "count": 1494,
       "children": [
         {
           "subFunction": "pixverse",
-          "count": 5255,
+          "count": 995,
           "errorGroups": [
             {
-              "error": "PixVerse paid account list is empty.",
-              "workId": "3100600028271895213-1784159991584-r0dd1",
-              "count": 2559
-            },
-            {
-              "error": "PixVerse account or password is None.",
-              "workId": "3100600028271895213-1784159991584-r0dd1",
-              "count": 2400
-            },
-            {
               "error": "Response is None. Details: Pix Useapi POST Request. HTTPStatusError: Client error '412 Precondition Failed' for url 'https://api.useapi.net/v2/pixverse/videos/create' Occurred on attempt <n>. Response: {\"error\":\"All Credits have been used up. Please upgrade your membership or purchase credits. (500043)\"}",
-              "workId": "2106251205124198174-1784186459077-9BMf3",
-              "count": 226
-            },
-            {
-              "error": "Lock Status: AccountStatus.FAILURE. Msg: Account submission failed. Msg: Submit Account Pix Useapi POST Request. HTTPStatusError: Server error '555 <none>' for url 'https://api.useapi.net/v2/pixverse/accounts/<email>' Occurred on attempt <n>. Response: {\"error\":\"Your account has been banned for violating community guidelines. If you wish to appeal, please contact us via <email>. (400024)\"}",
-              "workId": "3100100026909697721-1784145588120-COuRI",
-              "count": 46
-            },
-            {
-              "error": "Lock Status: AccountStatus.FAILURE. Msg: [Exception] Failed to acquire lock: PixVerse account password is required when submitting account",
-              "workId": "3040600028241197781-1784141857824-QRxv8",
-              "count": 15
-            },
-            {
-              "error": "Task timed out. Final Status: GENERATING. Response: {'video_id': 'user:1306-pixverse:<email>-video:<long-number>', 'video_status': 9, 'video_deleted': 0, 'account_id': <long-number>, 'created_at': '2026-07-16T03:09:54Z', 'video_created_at': '2026-07-16T03:09:54Z', 'first_frame': '', 'output_width': 0, 'output_height': 0, 'original_video_id': 0, 'upscaled': 0, 'prompt': '對象： 全家便利商店店長、營業幹部、店舖夥伴。\\n語氣： 像主管在分享，而不是教育訓練。\\n影片不要一開始就講SQC。\\n先讓觀看的人思考：\\n一位顧客走進便利商店， 停留可能三分鐘。\\n他會拿商品、 看排面、 等待結帳。\\n真正和店員互動， 只有結帳前後短短幾十秒。\\n因此， 決定這家店服務好不好， 不是歡迎光臨喊多大聲， 而是結帳那一刻。\\n請從消費者角度， 描述一次購物旅程。\\n並提出：\\n真正留下印象的是 「離櫃前最後一次互動」。\\n最後帶出一句話：\\n服務不用做到滿分， 但是關鍵時刻一定要做到。\\n結尾自然銜接：\\n接下來， 我們一起看看， 什麼叫做好服務。\\n請生成一支約2分鐘教育影片。\\n延續上一支影片。\\n說明：\\n服務不是每一分鐘都做到100分。\\n但是一定有一個關鍵時刻。\\n請用便利商店情境描述：\\n顧客走進店裡。\\n可能沒有聽見歡迎光臨。\\n可能店員正在補貨。\\n可能店員正在忙。\\n這都可以理解。\\n但是到了櫃檯。\\n店員開始結帳。\\n這就是整個購物體驗的 Moment of Truth。\\n請用情境比較：\\nA店\\n店員沒有眼神、 沒有互動、 沒有金額確認、 沒有推薦、 沒有謝謝光臨。\\nB店\\n店員有眼神接觸、 確認金額、 提醒活動、 親切結帳、 謝謝光臨。\\n最後請總結：\\n顧客記住的， 永遠不是前面的三分鐘。\\n而是最後這30秒。\\n請生成一支約3分鐘教育影片。\\n請不要談抽象服務。\\n直接拆成店舖可以做到的四個動作。\\n第一\\n迎賓\\n眼神 笑容 主動打招呼\\n第二\\n結帳\\n確認商品 確認金額 確認付款方式\\n第三\\n推薦\\n活動提醒\\n會員提醒\\n優惠提醒\\n第四\\n送客\\n謝謝光臨\\n歡迎再來\\n請搭配便利商店情境。\\n每一段都說明：\\n如果沒有做到， 顧客會有什麼感受。\\n如果做到， 顧客又會有什麼感受。\\n不要像教育訓練。\\n比較像在分享 『', 'model': 'pixverse-c1', 'negative_prompt': '', 'quality': '540p', 'motion_mode': '', 'asset_id': 0, 'auto_character_prompt': 0, 'seed': <long-number>, 'likes': 0, 'model_name': '', 'queue_data': {'queue_time': 1, 'queue_count': 0, 'estimated_gen_time': 0, 'processing_start_time': '0001-01-01T00:00:00Z'}, 'video_duration': 5, 'last_frame': '', 'extended': 0, 'lip_sync': None, 'original_sound_switch': 0, 'sound_effect_switch': 0, 'lip_sync_switch': 0, 'is_sound': 0, 'preview_mode': 0, 'is_hidden': 0, 'url': 'https://media.pixverse.ai/pixverse%2Fmp4%2Fmedia%2Fweb%2Fori%2F44536d7c-21ff-4aab-a24e-a7386419fb7c_seed1751458669.mp4', 'video_path': 'pixverse/mp4/media/web/ori/44536d7c-21ff-4aab-a24e-a7386419fb7c_seed1751458669.mp4', 'img_id': 0, 'img_url': '', 'img_path': '', 'customer_img_path': '', 'customer_img_url': '', 'duration': 5, 'motion_brush': '', 'asset_name': '', 'asset_display_name': '對象： 全家便利商店店長、營業幹部、店舖夥伴。語氣： 像主管_pixverse-c1_540p_5s', 'display_name': '對象： 全家便利商店店長、營業幹部、店舖夥伴。語氣： 像主管_pixverse-c1_540p_5s', 'asset_img_url': '', 'remove_watermark': 1, 'nick_name': 'hmmadtvn73', 'avatar': 'https://media.pixverse.ai/profile-picture%2Fprofile_picture2.jpeg', 'aspect_ratio': '', 'camera_movement': '', 'relation_type': 0, 'style': '', 'template_id': 0, 'template_name': '', 'template_thumbnail_url': '', 'template_thumbnail_video_url': '', 'template_thumbnail_gif_url': '', 'template_i18n_json': '', 'workflow_tag': '', 'customer_paths': {'ext_info': None, 'platform': 'web', 'agent_info': None, 'cameo_id_list': None, 'duration_type': '', 'fusion_id_list': None, 'model_evaluator': '', 'customer_img_url': 'https://media.pixverse.ai/upload%2F8aa7f37f-27b8-4480-a0fb-0a3ca578f12f.jpeg', 'customer_img_path': 'upload/<uuid>.jpeg', 'use_api_gen_image': False}, 'optional_image_num': 0, 'platform': 'web', 'create_mode': 'image_text', 'qualities': None, 'lora_weight': 0, 'restyle_id': 0, 'restyle_prompt': '', 'create_count': 1, 'off_peak': 0, 'is_dislike': 0, 'feedback_id': 0, 'creation_type': 2, 'cut_time_ms': 0, 'mask_info': None, 'template_paid': 0, 'media_locked': 0, 'is_remix': False, 'remix_feed_id': 0, 'audio': 0, 'multi_shot': 0, 'template_status': 0, 'webp_url': 'https://media.pixverse.ai/pixverse%2Fwebp%2Fmedia%2Fweb%2F44536d7c-21ff-4aab-a24e-a7386419fb7c_seed1751458669.webp', 'video_status_name': 'GENERATING', 'video_status_final': False}",
-              "workId": "3100100028289998667-1784171385032-aypxK",
-              "count": 5
+              "workId": "2106251109045892118-1785132877836-4iVwQ",
+              "count": 959
             },
             {
               "error": "Response is None. Details: Key Frame Pix Useapi POST Request. HTTPStatusError: Client error '412 Precondition Failed' for url 'https://api.useapi.net/v2/pixverse/videos/create-frames' Occurred on attempt <n>. Response: {\"error\":\"All Credits have been used up. Please upgrade your membership or purchase credits. (500043)\"}",
-              "workId": "3100100023204497611-1784149959206-glbyJ",
+              "workId": "3100600026949292118-1785109579437-VgEQm",
+              "count": 25
+            },
+            {
+              "error": "Response is None. Details: Key Frame Pix Useapi POST Request. HTTPStatusError: Client error '412 Precondition Failed' for url 'https://api.useapi.net/v2/pixverse/videos/create-transition' Occurred on attempt <n>. Response: {\"error\":\"All Credits have been used up. Please upgrade your membership or purchase credits. (500043)\"}",
+              "workId": "3040600029749994652-1785110677184-OUkJD",
+              "count": 4
+            },
+            {
+              "error": "Lock Status: AccountStatus.FAILURE. Msg: Account submission failed. Msg: Submit Account Pix Useapi POST Request. HTTPStatusError: Client error '401 Unauthorized' for url 'https://api.useapi.net/v2/pixverse/accounts/<email>' Occurred on attempt <n>. Response: {\"error\":\"Incorrect password. (500201)\"}",
+              "workId": "3100600029825096410-1785091893512-w0tNv",
               "count": 2
             },
             {
-              "error": "Failed to upload image. Details: Upload File Pix Useapi POST Request. HTTPStatusError: Client error '400 Bad Request' for url 'https://api.useapi.net/v2/pixverse/files/?email=<value>' Occurred on attempt <n>. Response: {\"error\":\"Unable to find configuration for account <email>. Please add configuration at https://useapi.net/docs/api-pixverse-v2/post-pixverse-accounts-email\",\"code\":400}",
-              "workId": "3100100028261194718-1784153533624-5t7IS",
+              "error": "Response is None. Details: Pix Useapi GET Request. HTTPStatusError: Client error '400 Bad Request' for url 'https://api.useapi.net/v2/pixverse/videos/user:1306-pixverse:<email>-video:<long-number>' Occurred on attempt <n>. Response: {\"error\":\"Unable to find configuration for account <email>. Please add configuration at https://useapi.net/docs/api-pixverse-v2/post-pixverse-accounts-email\",\"code\":400}",
+              "workId": "2106250823181695641-1785094003836-xmGGZ",
+              "count": 2
+            },
+            {
+              "error": "Failed to upload image. Details: Upload File Pix Useapi POST Request. HTTPStatusError: Client error '400 Bad Request' for url 'https://api.useapi.net/v2/pixverse/files/?email=<value>' Occurred on attempt <n>. Response: {\"error\":\"Content is empty\",\"code\":400}",
+              "workId": "3100600029861498217-1785113961022-TF5B0",
               "count": 1
             },
             {
-              "error": "Response is None. Details: Pix Useapi POST Request. HTTPStatusError: Server error '504 Gateway Timeout' for url 'https://api.useapi.net/v2/pixverse/videos/create' Occurred on attempt <n>. Response: error code: 504",
-              "workId": "3100100028288293747-1784169826769-vF1eu",
+              "error": "Failed to upload image. Details: Upload File Pix Useapi POST Request. HTTPStatusError: Server error '520 <none>' for url 'https://api.useapi.net/v2/pixverse/files/?email=<value>' Occurred on attempt <n>. Response: error code: 520",
+              "workId": "3100600029858298159-1785112024486-BLxz3",
               "count": 1
+            },
+            {
+              "error": "Task timed out. Final Status: GENERATING. Response: {'video_id': 'user:1306-pixverse:<email>-video:<long-number>', 'video_status': 10, 'video_deleted': 0, 'account_id': <long-number>, 'created_at': '2026-07-26T16:45:31Z', 'video_created_at': '2026-07-26T16:45:31Z', 'first_frame': '', 'output_width': 0, 'output_height': 0, 'original_video_id': 0, 'upscaled': 0, 'prompt': '', 'model': 'pixverse-c1', 'negative_prompt': '', 'quality': '540p', 'motion_mode': '', 'asset_id': 0, 'auto_character_prompt': 0, 'seed': <long-number>, 'likes': 0, 'model_name': '', 'queue_data': {'queue_time': 1, 'queue_count': 0, 'estimated_gen_time': 44, 'processing_start_time': '2026-07-26T16:45:31.239317833Z'}, 'video_duration': 5, 'last_frame': '', 'extended': 0, 'lip_sync': None, 'original_sound_switch': 0, 'sound_effect_switch': 0, 'lip_sync_switch': 0, 'is_sound': 0, 'preview_mode': 0, 'is_hidden': 0, 'url': 'https://media.pixverse.ai/pixverse%2Fmp4%2Fmedia%2Fweb%2Fori%2Fbac7e812-05ac-4dc3-b42e-88b7b513ace0_seed2009228884.mp4', 'video_path': 'pixverse/mp4/media/web/ori/bac7e812-05ac-4dc3-b42e-88b7b513ace0_seed2009228884.mp4', 'img_id': 0, 'img_url': '', 'img_path': '', 'customer_img_path': '', 'customer_img_url': '', 'duration': 5, 'motion_brush': '', 'asset_name': '', 'asset_display_name': 'Untitled_pixverse-c1_540p_5s (4)', 'display_name': 'Untitled_pixverse-c1_540p_5s (4)', 'asset_img_url': '', 'remove_watermark': 1, 'nick_name': 'czqm9r6fph', 'avatar': 'https://media.pixverse.ai/profile-picture%2Fprofile_picture5.jpeg', 'aspect_ratio': '', 'camera_movement': '', 'relation_type': 0, 'style': '', 'template_id': 0, 'template_name': '', 'template_thumbnail_url': '', 'template_thumbnail_video_url': '', 'template_thumbnail_gif_url': '', 'template_i18n_json': '', 'workflow_tag': '', 'customer_paths': {'ext_info': None, 'platform': 'web', 'agent_info': None, 'cameo_id_list': None, 'duration_type': '', 'caption_switch': False, 'fusion_id_list': None, 'model_evaluator': '', 'customer_img_url': 'https://media.pixverse.ai/upload%2Fe781c133-1c04-4f31-880b-6d02bfcb7ccb.jpeg', 'customer_img_path': 'upload/<uuid>.jpeg', 'use_api_gen_image': False}, 'optional_image_num': 0, 'platform': 'web', 'create_mode': 'image_text', 'qualities': None, 'lora_weight': 0, 'restyle_id': 0, 'restyle_prompt': '', 'create_count': 1, 'off_peak': 0, 'is_dislike': 0, 'feedback_id': 0, 'creation_type': 2, 'cut_time_ms': 0, 'mask_info': None, 'template_paid': 0, 'media_locked': 0, 'is_remix': False, 'remix_feed_id': 0, 'audio': 0, 'multi_shot': 0, 'template_status': 0, 'webp_url': 'https://media.pixverse.ai/pixverse%2Fwebp%2Fmedia%2Fweb%2Fbac7e812-05ac-4dc3-b42e-88b7b513ace0_seed2009228884.webp', 'app_thumbnail_gif_url': 'https://media.pixverse.ai/pixverse%2Fwebp%2Fmedia%2Fweb%2Fbac7e812-05ac-4dc3-b42e-88b7b513ace0_seed2009228884.webp', 'video_status_name': 'GENERATING', 'video_status_final': False}",
+              "workId": "3100600029812391215-1785084321284-NH65K",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "subFunction": "gpt-image-2",
+          "count": 185,
+          "errorGroups": [
+            {
+              "error": "Status_final is True. Details: {'image_id': 'user:1306-pixverse:<email>-image:<long-number>', 'template_id': 0, 'template_type': 0, 'template_name': '', 'template_model': '', 'template_paid': 0, 'media_locked': 0, 'account_id': <long-number>, 'image_name': 'Masterpiece, best quality, ult_gpt-image-2.0_1080p', 'asset_display_name': 'Masterpiece, best quality, ult_gpt-image-2.0_1080p', 'display_name': 'Masterpiece, best quality, ult_gpt-image-2.0_1080p', 'image_status': 7, 'image_url': '', 'image_path': '', 'prompt': 'Masterpiece, best quality, ultra-detailed, photorealistic portrait, moody editorial photography, intimate soft-grain portrait, low-saturation tones, subtle film grain, quiet emotional atmosphere, soft shadow transitions, minimal dark grey studio background.\\nA clearly adult woman wears a beige ribbed knit halter top with a high neckline, open back, open sides, body-hugging fit, elegant and minimal, no distracting accessories.\\nHalf-body or upper-body composition. She faces the camera with a gentle, slightly melancholic expression, soft glassy eyes, relaxed lips, and a natural posture. One hand lightly touches her hair, cheek, or collarbone, while the other rests near her waist. Hair falls over both shoulders with slight motion.\\nSoft dim frontal lighting with subtle side shadow, natural skin glow, delicate highlights on hair and lips. Korean-style emotional portrait photography, close framing, simple background, strong focus on face, eyes, hair texture, and knit texture.\\nIntrospective, soft, elegant, understated, late-night personal portrait feeling.\\nNo text, no watermark, no collage, no extra people, no exaggerated smile, no plastic skin, no harsh flash, no stiff pose.', 'size': 0, 'seed': <long-number>, 'water_mark': False, 'quality': '1080p', 'model': 'gpt-image-2.0', 'priority': 0, 'created_at': '2026-07-27T06:07:01Z', 'updated_at': '2026-07-27T06:07:54Z', 'creation_type': 22, 'queue_data': {'queue_time': 0, 'queue_count': 0, 'estimated_gen_time': 0, 'processing_start_time': '2026-07-27T06:07:01.573980333Z'}, 'output_width': 0, 'output_height': 0, 'platform': 'web', 'is_dislike': 0, 'create_mode': 'create_image', 'retouch_mode': '', 'customer_img_paths': [], 'customer_img_urls': None, 'auxiliary_img_paths': None, 'auxiliary_img_urls': None, 'feedback_id': 0, 'aspect_ratio': '1:1', 'is_hidden': 0, 'transition': None, 'template_transition': 0, 'detail_level': 'medium', 'upscaled': 0, 'cost_credits': 0, 'image_status_name': 'MODERATED', 'image_status_final': True}",
+              "workId": "2106251202191694553-1785132416782-DgTij",
+              "count": 185
             }
           ]
         },
         {
           "subFunction": "pixverse-video-extend",
-          "count": 221,
+          "count": 177,
           "errorGroups": [
             {
-              "error": "PixVerse paid account list is empty.",
-              "workId": "2106260302103892231-1784159881512-FQzcL",
-              "count": 111
-            },
-            {
-              "error": "PixVerse account or password is None.",
-              "workId": "2106260302103892231-1784159881512-FQzcL",
-              "count": 74
-            },
-            {
               "error": "Response is None. Details: Pixverse Video Extend POST Request. HTTPStatusError: Client error '412 Precondition Failed' for url 'https://api.useapi.net/v2/pixverse/videos/extend-v4' Occurred on attempt <n>. Response: {\"error\":\"All Credits have been used up. Please upgrade your membership or purchase credits. (500043)\"}",
-              "workId": "3100600025665591618-1784159693468-bwclv",
-              "count": 32
-            },
-            {
-              "error": "Lock Status: AccountStatus.FAILURE. Msg: Account submission failed. Msg: Submit Account Pix Useapi POST Request. HTTPStatusError: Server error '555 <none>' for url 'https://api.useapi.net/v2/pixverse/accounts/<email>' Occurred on attempt <n>. Response: {\"error\":\"Your account has been banned for violating community guidelines. If you wish to appeal, please contact us via <email>. (400024)\"}",
-              "workId": "2106251023051098611-1784141825337-wuBo4",
-              "count": 4
+              "workId": "3100600029879792316-1785132463762-fiBjS",
+              "count": 177
             }
           ]
         },
         {
           "subFunction": "pixverse-r2v",
-          "count": 84,
+          "count": 109,
           "errorGroups": [
             {
-              "error": "PixVerse paid account list is empty.",
-              "workId": "2106260403215097623-1784159583798-pyIJm",
-              "count": 42
-            },
-            {
-              "error": "PixVerse account or password is None.",
-              "workId": "2106260403215097623-1784156287966-0A7Cb",
-              "count": 20
-            },
-            {
               "error": "Response is not found. Details: Pixverse R2V POST Request. HTTPStatusError: Client error '412 Precondition Failed' for url 'https://api.useapi.net/v2/pixverse/videos/create-fusion' Occurred on attempt <n>. Response: {\"error\":\"All Credits have been used up. Please upgrade your membership or purchase credits. (500043)\"}",
-              "workId": "2106260403215097623-1784159583798-pyIJm",
-              "count": 19
-            },
-            {
-              "error": "Lock Status: AccountStatus.FAILURE. Msg: Account submission failed. Msg: Submit Account Pix Useapi POST Request. HTTPStatusError: Server error '555 <none>' for url 'https://api.useapi.net/v2/pixverse/accounts/<email>' Occurred on attempt <n>. Response: {\"error\":\"Your account has been banned for violating community guidelines. If you wish to appeal, please contact us via <email>. (400024)\"}",
-              "workId": "2106260403215097623-1784132313564-otdn2",
-              "count": 3
+              "workId": "3100100028079696819-1785132760768-yoAB4",
+              "count": 109
             }
           ]
         },
         {
           "subFunction": "keling",
-          "count": 10,
+          "count": 28,
           "errorGroups": [
             {
               "error": "Failed to fetch task result, task data is None. Error message: Keling Useapi GET Request. HTTPStatusError: Client error '404 Not Found' for url 'https://api.useapi.net/v1/kling/tasks/<long-number>?email=<value>' Occurred on attempt <n>. Response: {\"error\":\"Sorry, the requested resource was not found (VALID.ResourceNotFound)\",\"message\":\"Not Found (VALID.ResourceNotFound)\"}",
-              "workId": "2106251013095098872-1784180947584-vTAlt",
-              "count": 7
-            },
-            {
-              "error": "Task processing failed, status not in retry_state_list. Status: failed. Error message: Undefined error",
-              "workId": "2106251116070894827-1784187026280-d3bYT",
-              "count": 2
-            },
-            {
-              "error": "Response is None. Details: Keling Useapi POST Request. HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.useapi.net/v1/kling/videos/image2video-frames' Occurred on attempt <n>. Response: {\"error\":\"Request frequency exceeded, please try again later (BASE.RateExceed)\",\"message\":\"Too many requests (BASE.RateExceed)\"}",
-              "workId": "2106260118013091411-1784139625910-RFjlB",
-              "count": 1
+              "workId": "2106260501205392611-1785132913460-tmRFk",
+              "count": 28
             }
           ]
         }
@@ -146,91 +112,132 @@
     },
     {
       "message": "DUOMI平台API调用失败",
-      "count": 934,
+      "count": 694,
       "children": [
         {
           "subFunction": "nano-banana",
-          "count": 712,
+          "count": 466,
           "errorGroups": [
             {
               "error": "Task processing failed. State: error. Response: {'code': 200, 'msg': 'success', 'data': {'task_id': '<redacted>', 'state': 'error', 'data': None, 'create_time': '<long-number>', 'update_time': '<long-number>', 'msg': '任务执行失败: gemini blocked: finish_reason:STOP (candidate stopped before producing an image)', 'status': '2', 'action': 'generate'}, 'exec_time': <seconds>, 'ip': '<ip>'}",
-              "workId": "2106251130072291211-1784188565035-KxJeS",
-              "count": 712
+              "workId": "3100600029015295474-1785132753053-t4jyU",
+              "count": 466
             }
           ]
         },
         {
           "subFunction": "gpt-image-2",
-          "count": 170,
+          "count": 93,
           "errorGroups": [
             {
-              "error": "Task not completed before timeout (600s). Response: {'id': '<uuid>', 'state': 'running', 'progress': 0, 'create_time': <long-number>, 'update_time': <long-number>, 'action': 'generate'}",
-              "workId": "3100600028317695117-1784187488844-sn12Q",
-              "count": 91
+              "error": "Task processing failed. State: error. Response: {'id': '<uuid>', 'state': 'error', 'progress': 0, 'create_time': <long-number>, 'update_time': <long-number>, 'action': 'generate', 'message': '任务执行失败: API Error: openai returned 451: {\"error\":{\"message\":\"The generated images appear to be unsafe. Try modifying the prompts or the seeds.\",\"type\":\"invalid_request_error\"}}'}",
+              "workId": "2106260106133895662-1785131264432-bLuOs",
+              "count": 87
             },
             {
-              "error": "Task processing failed. State: error. Response: {'id': '<uuid>', 'state': 'error', 'progress': 0, 'create_time': <long-number>, 'update_time': <long-number>, 'action': 'generate', 'message': '任务执行失败: We are sorry, but the images we created may have violated our relevant policies. If you think we made a mistake, please try again or edit your prompt.'}",
-              "workId": "3100600028163296716-1784188246842-nLkJG",
-              "count": 79
+              "error": "Task not completed before timeout (600s). Response: {'id': '<uuid>', 'state': 'running', 'progress': 0, 'create_time': <long-number>, 'update_time': <long-number>, 'action': 'generate'}",
+              "workId": "2106260124174593534-1785126264376-xMg55",
+              "count": 6
             }
           ]
         },
         {
-          "subFunction": "sora",
-          "count": 33,
+          "subFunction": "pixverse",
+          "count": 76,
           "errorGroups": [
             {
-              "error": "Task processing failed. Status: error. Response: {'id': '<uuid>', 'state': 'error', 'data': None, 'progress': 100, 'create_time': <long-number>, 'update_time': <long-number>, 'message': 'Failed to generate', 'action': 'generate'}",
-              "workId": "2106251019081791634-1784188344936-G8l4r",
-              "count": 33
+              "error": "Query timeout exceeded (600s). Task not completed. Status:0. State: pending. Response: {'code': 200, 'msg': '成功', 'data': {'task_id': '<redacted>', 'state': 'pending', 'status': '0', 'prompt': '두 사람이 프렌치 키스를 한다.', 'video_url': None, 'image_url': None, 'poster': None, 'msg': None, 'point': '1200', 'refund': '0', 'create_time': '<long-number>', 'update_time': '<long-number>'}, 'exec_time': <seconds>, 'ip': '<ip>'}",
+              "workId": "2106260307132896855-1785130628307-WUMwk",
+              "count": 61
+            },
+            {
+              "error": "Query timeout exceeded (600s). Task not completed. Status:1. State: running. Response: {'code': 200, 'msg': '成功', 'data': {'task_id': '<redacted>', 'state': 'running', 'status': '1', 'prompt': 'Cinematic anime style, hyper-detailed combat sequence in a rocky canyon landscape. Darius, a young man with dark skin, dreadlocked hair, and a golden crown, holds a heavy ornate sword that suddenly begins to disintegrate into dark, glowing purple crystalline fragments that drift into the air. His face reflects genuine confusion, eyes wide as he stares forward. Suddenly, Asher, wearing a vibrant red outfit, performs a rapid, gravity-defying backflip, landing gracefully at a distance while leaves swirl around his feet. Asher points a finger forward, lips moving to deliver a sharp warning: \"I know that move is coming, I see through your fake expression, brother.\" \\n\\nThe camera performs a sharp rack focus back to Darius, who transitions from confusion to a cold, calculated smirk. He tilts his head slightly, responding with a low, confident tone: \"That would have hurt, but you moved quite fast.\" Suddenly, the ambient energy shifts as Darius shouts \"Revoke!\" and slams his hand onto the sword hilt. The purple disintegration particles violently reverse their trajectory, rushing back toward the blade with a surge of crackling violet lightning and magical shockwaves. The sword instantly reforms into a solid, pristine blade, pulsating with intense purple energy that illuminates the surrounding canyon walls, while the ground beneath his feet cracks from the sudden pressure. ', 'video_url': None, 'image_url': None, 'poster': None, 'msg': None, 'point': '600', 'refund': '0', 'create_time': '<long-number>', 'update_time': '<long-number>'}, 'exec_time': <seconds>, 'ip': '<ip>'}",
+              "workId": "3100600029864693478-1785127229624-x1Jsc",
+              "count": 10
+            },
+            {
+              "error": "[Fallback Skipped: No matching rule] Multi-frames for Duomi is not supported yet",
+              "workId": "3040600029749994652-1785110677184-OUkJD",
+              "count": 4
+            },
+            {
+              "error": "Response is None. Details: Pix Duomi POST Request. HTTPStatusError: Server error '504 Gateway Timeout' for url 'https://duomiapi.com/api/video/pix/pro/generate' Occurred on attempt <n>. Response:",
+              "workId": "3100600029817894217-1785087607323-FeVFW",
+              "count": 1
             }
           ]
         },
         {
           "subFunction": "pixverse-r2v",
-          "count": 11,
+          "count": 25,
           "errorGroups": [
             {
               "error": "API error. Response: {'code': 400, 'msg': 'The number of fusion cannot exceed 3', 'data': None, 'exec_time': <seconds>, 'ip': '<ip>'}",
-              "workId": "2106251112030992624-1784154223160-3cLOr",
-              "count": 8
+              "workId": "2106260503075998832-1785105804592-fP1zA",
+              "count": 20
             },
             {
-              "error": "Task processing failed. Msg: Your video violates our content moderation policy. Response: {'code': 200, 'msg': '成功', 'data': {'task_id': '<redacted>', 'state': 'error', 'status': '2', 'prompt': 'Riprese fotorealistiche in stile cinematografico girate con una lente 50mm f/1.4, caratterizzate da una profondità di campo selettiva che esalta i dettagli materici. L`inquadratura è dal basso verso l`alto con una lenta zoomata in avanti che cattura una maestosa diavolessa sospesa a mezz`aria in un antico santuario gotico. La figura indossa un elaborato costume in pizzo nero e seta scarlatta, ornata da intricate rune tatuate su pelle diafana; possiede imponenti corna ricurve in osso scuro e ampie ali demoniache dalla struttura cartilaginea che si spiegano lentamente, proiettando ombre vive sulle colonne di pietra. \\n\\nL`ambiente è inondato da intensi fasci di luce paradisiaca che filtrano dall`alto, catturando particelle di polvere in sospensione che danzano nell`aria. Ai suoi piedi, un uomo inginocchiato abbassa lentamente il capo con devozione profonda per baciare il suo piede nudo, mentre nello sfondo una folla sfocata e in penombra acclama l`ascesa muovendosi freneticamente. Nelle fasi iniziali, il volto della diavolessa mantiene un`espressione dolce e solenne, illuminata da un bagliore etereo; col progredire della sequenza, i suoi occhi brillano di un rosso cremisi intenso e un sorriso impercettibile e maligno le increspa le labbra, mentre le ali continuano a vibrare con maestosità, agitando leggermente il mantello di velluto nero che ricade in lunghe pieghe drappeggiate sul pavimento di pietra antica, completando la scena con un`atmosfera di potere sovrannaturale sospeso nel tempo.', 'video_url': None, 'image_url': None, 'poster': None, 'msg': 'Your video violates our content moderation policy', 'point': '570', 'refund': '1', 'create_time': '<long-number>', 'update_time': '<long-number>'}, 'exec_time': <seconds>, 'ip': '<ip>'}",
-              "workId": "3100100028079696819-1784152396590-9GFmj",
+              "error": "Task processing failed. Msg: task timeout. Response: {'code': 200, 'msg': '成功', 'data': {'task_id': '<redacted>', 'state': 'error', 'status': '2', 'prompt': 'Con riprese cinematografiche realistiche in una citta abbandonato macabra ,\\xa0 la diavolessa sexy \\xa0@1\\xa0 con muovenze sexy si sta avvicinando a un sigillo a forma pentagrama inverso dorato che imprigiona Lucifero \\xa0\\xa0nell`inferno , lei lo distrugge facendo un incantesimo arcano mostrando il suo volto compiaciuto \\xa0@2\\xa0\\xa0', 'video_url': None, 'image_url': None, 'poster': None, 'msg': 'task timeout', 'point': '1140', 'refund': '1', 'create_time': '<long-number>', 'update_time': '<long-number>'}, 'exec_time': <seconds>, 'ip': '<ip>'}",
+              "workId": "3100100028079696819-1785092181209-VrCEM",
+              "count": 4
+            },
+            {
+              "error": "Task processing failed. Msg: Your video violates our content moderation policy. Response: {'code': 200, 'msg': '成功', 'data': {'task_id': '<redacted>', 'state': 'error', 'status': '2', 'prompt': 'Riprese cinematografiche ad alta velocità seguono una diavolessa bellissima e provocante mentre vola maestosamente sopra i grattacieli di una metropoli futuristica in rovina avvolta nella notte. La donna, con pelle diafana, lunghi capelli scuri, corna rosse ricurve e occhi scarlatti ipnotici, indossa un raffinato bustino in velluto nero con decorazioni gotiche e ali demoniache spiegate che fendono l`aria. Con un sorriso malizioso e seducente, solleva la mano destra puntando l`indice verso i grattacieli sottostanti: dal polpastrello si sprigionano sfere pulsanti di energia oscura che esplodono in collisione con le strutture in acciaio, avvolgendole in fiamme e detriti fluttuanti. La telecamera esegue una panoramica fluida seguendo la sua traiettoria di volo dinamica, alternando piani medi che mostrano la sua figura imponente alla distruzione sottostante, per poi chiudere con un macro estremo sul suo viso eccitato. La profondità di campo è estremamente ridotta, con lo sfondo della città in fiamme che sfuma in un bokeh caotico, mentre la luce lunare riflette i bagliori metallici sulle sue ali e sulla pelle, enfatizzando il contrasto tra la sua bellezza sensuale e la devastazione apocalittica che lascia al suo passaggio.', 'video_url': None, 'image_url': None, 'poster': None, 'msg': 'Your video violates our content moderation policy', 'point': '600', 'refund': '1', 'create_time': '<long-number>', 'update_time': '<long-number>'}, 'exec_time': <seconds>, 'ip': '<ip>'}",
+              "workId": "3100100028079696819-1785132734765-8SbDi",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "subFunction": "sora",
+          "count": 24,
+          "errorGroups": [
+            {
+              "error": "Task processing failed. Status: error. Response: {'id': '<uuid>', 'state': 'error', 'data': None, 'progress': 100, 'create_time': <long-number>, 'update_time': <long-number>, 'message': 'Failed to generate', 'action': 'generate'}",
+              "workId": "2106250904055791143-1785110339084-ME1Jd",
+              "count": 23
+            },
+            {
+              "error": "Response is None. Details: Sora Duomi POST Request. HTTPStatusError: Client error '400 Bad Request' for url 'https://duomiapi.com/v1/videos/generations' Occurred on attempt <n>. Response: { \"error\": { \"code\": \"invalid_request\", \"message\": \"Account balance not enough\", \"type\": \"invalid_request_error\" } }",
+              "workId": "2106251009185997284-1785099159206-mauC6",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "subFunction": "grok",
+          "count": 6,
+          "errorGroups": [
+            {
+              "error": "Task processing failed. Status: error. Response: {'id': '<uuid>', 'state': 'error', 'data': None, 'progress': 0, 'create_time': <long-number>, 'update_time': <long-number>, 'message': '抱歉，系统繁忙，请稍后重试', 'action': 'generate'}",
+              "workId": "3100100029813494419-1785126609799-CKiMJ",
+              "count": 4
+            },
+            {
+              "error": "Query timeout exceeded (900s). Task not completed. Task id:<uuid>. Most Recent API Response: {'id': '<uuid>', 'state': 'running', 'data': None, 'progress': 0, 'create_time': <long-number>, 'update_time': <long-number>, 'message': '', 'action': 'generate'}",
+              "workId": "3100100029813697813-1785125917951-D79dD",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "subFunction": "google-veo-r2v",
+          "count": 3,
+          "errorGroups": [
+            {
+              "error": "Task processing failed. Status: error. Response: {'id': '<uuid>', 'state': 'error', 'data': None, 'progress': 100, 'create_time': <long-number>, 'update_time': <long-number>, 'message': '生成异常，可能的原因包含以下几种：系统异常，提示词或图片违规等（3）', 'action': 'generate'}",
+              "workId": "3100600027478294319-1785108544238-TJdHu",
               "count": 3
             }
           ]
         },
         {
           "subFunction": "keling",
-          "count": 5,
-          "errorGroups": [
-            {
-              "error": "API returned None",
-              "workId": "2106251116070894827-1784187026280-d3bYT",
-              "count": 5
-            }
-          ]
-        },
-        {
-          "subFunction": "midjourney",
-          "count": 2,
-          "errorGroups": [
-            {
-              "error": "Query timeout exceeded (600s). Last response: {'code': 200, 'msg': '成功', 'data': {'task_id': '<redacted>', 'image_id': '<uuid>', 'state': 'pending', 'status': '0', 'prompt': 'necesito que generes una imagen que tenga un tamaño como para una A3, que sea un collage conmuchas imagenes muchas sobre la pornografia, no necesita ser explcito, y tambien que tenga un mensaje sobre lo que puede causar y que sea con estetica Cyberpunk --ar 1:1', 'image_url': None, 'progress': None, 'msg': None, 'point': '133', 'refund': '0', 'create_time': '<long-number>', 'update_time': '<long-number>', 'seed': None}, 'exec_time': <seconds>, 'ip': '<ip>'}",
-              "workId": "3100100028257491413-1784151988279-ClAok",
-              "count": 2
-            }
-          ]
-        },
-        {
-          "subFunction": "grok",
           "count": 1,
           "errorGroups": [
             {
-              "error": "Task processing failed. Status: error. Response: {'id': '<uuid>', 'state': 'error', 'data': None, 'progress': 0, 'create_time': <long-number>, 'update_time': <long-number>, 'message': '抱歉，系统繁忙，请稍后重试', 'action': 'generate'}",
-              "workId": "3100100025807792458-1784185288589-dcLzL",
+              "error": "当前渠道不支持这个模型: kling-v3-turbo",
+              "workId": "2106260422080196585-1785122625222-0uwrJ",
               "count": 1
             }
           ]
@@ -239,276 +246,163 @@
     },
     {
       "message": "FALAI平台API调用失败",
-      "count": 808,
+      "count": 647,
       "children": [
         {
-          "subFunction": "vidu",
-          "count": 202,
-          "errorGroups": [
-            {
-              "error": "FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "3100100028319496866-1784188547178-E0FPX",
-              "count": 202
-            }
-          ]
-        },
-        {
-          "subFunction": "nano-banana",
-          "count": 198,
-          "errorGroups": [
-            {
-              "error": "[Fallback Skipped: End of chain] ValueError: 暂时不支持Nano Banana 2 Lite模型",
-              "workId": "3100100028319693129-1784188762873-5iyO3",
-              "count": 186
-            },
-            {
-              "error": "[Fallback Skipped: End of chain] RuntimeError: FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "3100100028306496514-1784188310677-Omfvo",
-              "count": 12
-            }
-          ]
-        },
-        {
           "subFunction": "pixverse-video-extend",
-          "count": 111,
+          "count": 155,
           "errorGroups": [
             {
               "error": "FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "2106260302103892231-1784159881512-FQzcL",
-              "count": 111
+              "workId": "3100600027683193315-1785132201931-WpQSD",
+              "count": 155
+            }
+          ]
+        },
+        {
+          "subFunction": "vidu",
+          "count": 98,
+          "errorGroups": [
+            {
+              "error": "FalAI账号池连续查询4次后均无可用并发。",
+              "workId": "3100100029893497368-1785132942056-tKPYO",
+              "count": 98
             }
           ]
         },
         {
           "subFunction": "minimax-useapi",
-          "count": 67,
+          "count": 64,
           "errorGroups": [
             {
               "error": "FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "2106251201125896411-1784185814929-Ogz0e",
-              "count": 67
+              "workId": "2106260225012695238-1785132295590-YLqti",
+              "count": 64
             }
           ]
         },
-        {
-          "subFunction": "happyhorse",
-          "count": 59,
-          "errorGroups": [
-            {
-              "error": "FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "2106260129035892446-1784186919075-T8u55",
-              "count": 59
-            }
-          ]
-        },
-        {
-          "subFunction": "gpt-image-2",
-          "count": 44,
-          "errorGroups": [
-            {
-              "error": "FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "3100600028317695117-1784187488844-sn12Q",
-              "count": 44
-            }
-          ]
-        },
-        {
-          "subFunction": "seedance",
-          "count": 37,
-          "errorGroups": [
-            {
-              "error": "FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "3100100019415194418-1784181005153-y2tRu",
-              "count": 37
-            }
-          ]
-        },
-        {
-          "subFunction": "seedance2.0",
-          "count": 21,
-          "errorGroups": [
-            {
-              "error": "FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "2106260304205396887-1784184790706-f6lMK",
-              "count": 21
-            }
-          ]
-        },
-        {
-          "subFunction": "keling-omni",
-          "count": 14,
-          "errorGroups": [
-            {
-              "error": "FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "3100100027328798623-1784184850501-5m3bs",
-              "count": 14
-            }
-          ]
-        },
-        {
-          "subFunction": "keling-motion-control",
-          "count": 12,
-          "errorGroups": [
-            {
-              "error": "FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "3100600028170591112-1784185623902-T14Dv",
-              "count": 12
-            }
-          ]
-        },
-        {
-          "subFunction": "wan",
-          "count": 12,
-          "errorGroups": [
-            {
-              "error": "RuntimeError: FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "2106251024130194532-1784185406170-mHXpY",
-              "count": 12
-            }
-          ]
-        },
-        {
-          "subFunction": "google-veo",
-          "count": 11,
-          "errorGroups": [
-            {
-              "error": "FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "3100600026681293242-1784170616635-FGa7a",
-              "count": 11
-            }
-          ]
-        },
-        {
-          "subFunction": "pixverse-r2v",
-          "count": 11,
-          "errorGroups": [
-            {
-              "error": "[Fallback Skipped: End of chain] FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "2106251112030992624-1784154223160-3cLOr",
-              "count": 11
-            }
-          ]
-        },
-        {
-          "subFunction": "keling",
-          "count": 7,
-          "errorGroups": [
-            {
-              "error": "FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "2106251116070894827-1784187026280-d3bYT",
-              "count": 7
-            }
-          ]
-        },
-        {
-          "subFunction": "sora",
-          "count": 2,
-          "errorGroups": [
-            {
-              "error": "[Fallback Skipped: End of chain] FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "2106251118200996827-1784177182660-oIX0L",
-              "count": 2
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "message": "AIGPTSTORE平台API调用失败",
-      "count": 414,
-      "children": [
         {
           "subFunction": "nano-banana",
-          "count": 318,
+          "count": 63,
           "errorGroups": [
             {
-              "error": "No valid image URL or base64 data found. Response:{'id': 'chatcmpl-B202607160801501960324008268d9d6AtKfSd85MC', 'model': 'gemini-3.1-flash-lite-image', 'object': 'chat.completion', 'created': <long-number>, 'choices': [{'index': 0, 'message': {'role': 'assistant', 'content': ''}, 'logprobs': None, 'finish_reason': 'content_filter'}], 'usage': {'prompt_tokens': 1125, 'completion_tokens': 1140, 'total_tokens': 2265, 'prompt_tokens_details': {'cached_tokens': 0, 'cache_write_tokens': 0, 'text_tokens': 5, 'audio_tokens': 0, 'image_tokens': 0}, 'completion_tokens_details': {'text_tokens': 0, 'audio_tokens': 0, 'reasoning_tokens': 0}, 'input_tokens': 0, 'output_tokens': 0, 'input_tokens_details': None, 'output_tokens_details': None, 'claude_cache_creation_5_m_tokens': 0, 'claude_cache_creation_1_h_tokens': 0}, 'system_fingerprint': None}. Details: Content is empty. Response: {'id': 'chatcmpl-B202607160801501960324008268d9d6AtKfSd85MC', 'model': 'gemini-3.1-flash-lite-image', 'object': 'chat.completion', 'created': <long-number>, 'choices': [{'index': 0, 'message': {'role': 'assistant', 'content': ''}, 'logprobs': None, 'finish_reason': 'content_filter'}], 'usage': {'prompt_tokens': 1125, 'completion_tokens': 1140, 'total_tokens': 2265, 'prompt_tokens_details': {'cached_tokens': 0, 'cache_write_tokens': 0, 'text_tokens': 5, 'audio_tokens': 0, 'image_tokens': 0}, 'completion_tokens_details': {'text_tokens': 0, 'audio_tokens': 0, 'reasoning_tokens': 0}, 'input_tokens': 0, 'output_tokens': 0, 'input_tokens_details': None, 'output_tokens_details': None, 'claude_cache_creation_5_m_tokens': 0, 'claude_cache_creation_1_h_tokens': 0}, 'system_fingerprint': None}",
-              "workId": "3100100028319693129-1784188762873-5iyO3",
-              "count": 277
+              "error": "[Fallback Skipped: End of chain] ValueError: 暂时不支持Nano Banana 2 Lite模型",
+              "workId": "3100100029892492417-1785132542086-k499g",
+              "count": 60
             },
             {
-              "error": "Response is None. Details: Nano Banana Aigptstore POST Request. HTTPStatusError: Server error '500 Internal Server Error' for url 'https://api.mouxihub.com/v1/images/edits' Occurred on attempt <n>. Response: {\"error\":{\"message\":\"image generation task failed\",\"type\":\"new_api_error\",\"param\":\"\",\"code\":\"bad_response_body\"}}",
-              "workId": "3100600028068198145-1784188456748-fFZAC",
-              "count": 21
-            },
-            {
-              "error": "Response is None. Details: Gemini Aigptstore POST Request. HTTPStatusError: Client error '400 Bad Request' for url 'https://api.mouxihub.com/v1/chat/completions' Occurred on attempt <n>. Response: {\"error\":{\"code\":\"invalid_request\",\"message\":\"Model name not specified, model name cannot be empty (\",\"type\":\"new_api_error\"}}",
-              "workId": "3100300028303094719-1784179493184-pV3U2",
-              "count": 18
-            },
-            {
-              "error": "Response is None. Details: Nano Banana Aigptstore POST Request. HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.mouxihub.com/v1/images/edits' Occurred on attempt <n>. Response: {\"error\":{\"message\":\"当前分组上游负载已饱和，请稍后再试\",\"type\":\"new_api_error\",\"param\":\"\",\"code\":\"429\"}}",
-              "workId": "3100600028229093667-1784134900250-WMfZz",
-              "count": 2
-            }
-          ]
-        },
-        {
-          "subFunction": "gpt4o-image-aigptstore",
-          "count": 49,
-          "errorGroups": [
-            {
-              "error": "Response is None. Details: Gpt4O Image Aigptstore POST Request. HTTPStatusError: Client error '400 Bad Request' for url 'https://api.mouxihub.com/v1/images/edits' Occurred on attempt <n>. Response: {\"error\":{\"message\":\"\\n\\n\\u003e 🎨 生成中...\\n\\nI'm sorry, I can't help create or edit images to produce sexually explicit content.\",\"type\":\"new_api_error\",\"param\":\"\",\"code\":\"unknown_error\"}}",
-              "workId": "3100600025267096615-1784188671013-PMyWg",
-              "count": 48
-            },
-            {
-              "error": "Response is None. Details: Gpt4O Image Aigptstore POST Request. HTTPStatusError: Client error '422 Unprocessable Entity' for url 'https://api.mouxihub.com/v1/images/edits' Occurred on attempt <n>. Response: {\"error\":{\"message\":\"模型【gpt-image-1】不存在（traceid: 289a950e4bcaf85adf8022baa7e94a47）\",\"type\":\"new_api_error\",\"param\":\"\",\"code\":\"unknown_error\"}}",
-              "workId": "2106260131221093139-1784148311685-ZF0Vz",
-              "count": 1
-            }
-          ]
-        },
-        {
-          "subFunction": "google-veo",
-          "count": 42,
-          "errorGroups": [
-            {
-              "error": "Task processing failed. Status: FAILURE. Response: {'task_id': '<redacted>', 'platform': 'google', 'action': 'google-videos', 'status': 'FAILURE', 'fail_reason': 'Content security audit did not pass, please modify the prompt or image | 内容安全审查未通过，请修改提示词或图片', 'submit_time': <long-number>, 'start_time': <long-number>, 'finish_time': <long-number>, 'progress': '100%', 'data': {'output': ''}, 'cost': 0, 'search_item': ''}",
-              "workId": "2106251112005191882-1784185417751-dt8Lr",
-              "count": 41
-            },
-            {
-              "error": "Task response is None. Details: Google Veo Aigptstore GET Request. TimeoutError: . Occurred on attempt <n>. Response: No response received",
-              "workId": "2101260320092098421-1784145066147-bKwaE",
-              "count": 1
-            }
-          ]
-        },
-        {
-          "subFunction": "midjourney",
-          "count": 2,
-          "errorGroups": [
-            {
-              "error": "[Fallback Skipped: End of chain] Task processing failed. Status: FAILURE. Reason: 提示词报错, 抱歉,该提示词可能违反了我们的社区政策,请点击查看我们的社区政策.生成失败的任务不消耗GPU时间. Response: {'id': '<long-number>', 'action': 'IMAGINE', 'customId': '', 'botType': '', 'prompt': 'necesito que generes una imagen que tenga un tamaño como para una A3, que sea un collage conmuchas imagenes muchas sobre la pornografia, no necesita ser explcito, y tambien que tenga un mensaje sobre lo que puede causar y que sea con estetica Cyberpunk --ar 1:1 --fast', 'promptEn': 'necesito que generes una imagen que tenga un tamaño como para una A3, que sea un collage conmuchas imagenes muchas sobre la pornografia, no necesita ser explcito, y tambien que tenga un mensaje sobre lo que puede causar y que sea con estetica Cyberpunk --ar 1:1 ', 'description': 'Submit success', 'state': '', 'submitTime': <long-number>, 'startTime': <long-number>, 'finishTime': <long-number>, 'imageUrl': '', 'imageUrls': None, 'videoUrl': '', 'videoUrls': None, 'status': 'FAILURE', 'progress': '100%', 'failReason': '提示词报错, 抱歉,该提示词可能违反了我们的社区政策,请点击查看我们的社区政策.生成失败的任务不消耗GPU时间', 'properties': {'botType': 'MID_JOURNEY', 'discordChannelId': '<long-number>', 'discordInstanceId': '<long-number>', 'notifyHook': ''}, 'buttons': [], 'maskBase64': ''}",
-              "workId": "3100100028257491413-1784151988279-ClAok",
-              "count": 2
-            }
-          ]
-        },
-        {
-          "subFunction": "model-smart-router",
-          "count": 2,
-          "errorGroups": [
-            {
-              "error": "节点[llm_analysis_node]执行异常 错误信息：aigptstore invoke json error: Could not parse response content as the request was rejected by the content filter",
-              "workId": "auto-match-3100100028238691711-1784141039904-AamNO",
-              "count": 1
-            },
-            {
-              "error": "节点[llm_analysis_node]执行异常 错误信息：aigptstore invoke json error: Error code: 400 - {'error': {'message': 'request blocked by Gemini API: PROHIBITED_CONTENT', 'type': 'prompt_blocked', 'param': '', 'code': 'prompt_blocked'}}",
-              "workId": "auto-match-3100100025433896261-1784145846606-y0E8R",
-              "count": 1
+              "error": "[Fallback Skipped: End of chain] RuntimeError: FalAI账号池连续查询4次后均无可用并发。",
+              "workId": "3100100029231693615-1785116696847-5C0t9",
+              "count": 3
             }
           ]
         },
         {
           "subFunction": "pixverse",
+          "count": 60,
+          "errorGroups": [
+            {
+              "error": "[Fallback Skipped: End of chain] FalAI账号池连续查询4次后均无可用并发。",
+              "workId": "2106260307132896855-1785130628307-WUMwk",
+              "count": 60
+            }
+          ]
+        },
+        {
+          "subFunction": "happyhorse",
+          "count": 55,
+          "errorGroups": [
+            {
+              "error": "FalAI账号池连续查询4次后均无可用并发。",
+              "workId": "3100100029893796373-1785133095302-iyQqN",
+              "count": 55
+            }
+          ]
+        },
+        {
+          "subFunction": "seedance2.0",
+          "count": 53,
+          "errorGroups": [
+            {
+              "error": "FalAI账号池连续查询4次后均无可用并发。",
+              "workId": "3100100029887597420-1785131764321-PElyO",
+              "count": 53
+            }
+          ]
+        },
+        {
+          "subFunction": "seedance",
+          "count": 30,
+          "errorGroups": [
+            {
+              "error": "FalAI账号池连续查询4次后均无可用并发。",
+              "workId": "3100600029880294135-1785129045612-BRW2m",
+              "count": 30
+            }
+          ]
+        },
+        {
+          "subFunction": "pixverse-r2v",
+          "count": 25,
+          "errorGroups": [
+            {
+              "error": "[Fallback Skipped: End of chain] FalAI账号池连续查询4次后均无可用并发。",
+              "workId": "3100100028079696819-1785132734765-8SbDi",
+              "count": 25
+            }
+          ]
+        },
+        {
+          "subFunction": "google-veo",
+          "count": 13,
+          "errorGroups": [
+            {
+              "error": "FalAI账号池连续查询4次后均无可用并发。",
+              "workId": "2106260504040794426-1785127193771-Eb0MS",
+              "count": 13
+            }
+          ]
+        },
+        {
+          "subFunction": "keling-omni",
+          "count": 13,
+          "errorGroups": [
+            {
+              "error": "FalAI账号池连续查询4次后均无可用并发。",
+              "workId": "2106260417111894711-1785111957189-REBpx",
+              "count": 13
+            }
+          ]
+        },
+        {
+          "subFunction": "wan",
+          "count": 13,
+          "errorGroups": [
+            {
+              "error": "RuntimeError: FalAI账号池连续查询4次后均无可用并发。",
+              "workId": "2106260416235694148-1785120964431-spudM",
+              "count": 13
+            }
+          ]
+        },
+        {
+          "subFunction": "keling-motion-control",
+          "count": 4,
+          "errorGroups": [
+            {
+              "error": "FalAI账号池连续查询4次后均无可用并发。",
+              "workId": "admin-1785124733658-cRDuT",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "subFunction": "keling",
           "count": 1,
           "errorGroups": [
             {
-              "error": "Response is None. Details: Gpt4O Image Aigptstore POST Request. HTTPStatusError: Server error '500 Internal Server Error' for url 'https://api.mouxihub.com/v1/images/edits' Occurred on attempt <n>. Response: {\"error\":{\"message\":\"Post \\\"http://***/***/***/***/*** read tcp ***:36830-\\u003e***:10000: read: connection reset by peer\",\"type\":\"bad_response_status_code\",\"param\":\"\",\"code\":\"bad_response_status_code\"}}",
-              "workId": "2046241228223695712-1784150887019-726nV",
+              "error": "[Fallback Skipped: End of chain] FalAI账号池连续查询4次后均无可用并发。",
+              "workId": "2106260422080196585-1785122625222-0uwrJ",
               "count": 1
             }
           ]
@@ -517,147 +411,212 @@
     },
     {
       "message": "KieAI平台API调用失败",
-      "count": 358,
+      "count": 647,
       "children": [
         {
-          "subFunction": "nano-banana",
-          "count": 213,
+          "subFunction": "seedance-omni-reference",
+          "count": 392,
           "errorGroups": [
             {
-              "error": "Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': '182a4f2bc28213aff5df58ae648d1c9a', 'model': 'nano-banana-2-lite', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"aspect_ratio\\\\\":\\\\\"auto\\\\\",\\\\\"output_format\\\\\":\\\\\"jpg\\\\\",\\\\\"image_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/api-files/2026-07-16/fYzRy_b0b36e52c136_73-5iyO3.jpeg\\\\\"],\\\\\"prompt\\\\\":\\\\\"Make him have a penis\\\\\"}\",\"model\":\"nano-banana-2-lite\"}', 'resultJson': '', 'failCode': '400', 'failMsg': \"No images found in AI response. The image was filtered out because it violated Google's Generative AI Prohibited Use policy.\", 'costTime': 19, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
-              "workId": "3100100028319693129-1784188762873-5iyO3",
-              "count": 185
+              "error": "Suspend use of the bytedance/seedance-2-mini model on the KieAI platform.",
+              "workId": "3100600024385595217-1785133091974-qSquZ",
+              "count": 383
             },
             {
-              "error": "Code is not 200. Code:402. Response:{'code': 402, 'msg': 'Credits insufficient : Your current balance isn’t enough to run this request. Please top up to continue.', 'data': None}. Token:3c95c61a9bd48b8d7dd05bf47f4676e8",
-              "workId": "3100100028319194748-1784188454755-6UTNF",
-              "count": 28
-            }
-          ]
-        },
-        {
-          "subFunction": "gpt-image-2",
-          "count": 58,
-          "errorGroups": [
-            {
-              "error": "Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': '48ca65d40e7b9fdc23ec6ab1900b7d01', 'model': 'gpt-image-2-image-to-image', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"aspect_ratio\\\\\":\\\\\"auto\\\\\",\\\\\"prompt\\\\\":\\\\\"Two girls are lovers. First image girl is biting second image girl\\'s neck and draining blood from her neck, showing her fangs. First image girl is hugging from the front of second image girl and one of her hand is inside second image girl\\'s pants. While second image girl is accepting her touches. First image girl is savoring second image girl\\'s blood. Second image girl is panting, blushed, ecstatic happiness, smiling, blood flowing over her neck. Focus on their upper bodies. Background is dancing room nobody else is in. Same anime art style, cute anime art style similar to original images. Draw same anime art style with original images. \\\\\",\\\\\"resolution\\\\\":\\\\\"1K\\\\\",\\\\\"input_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/api-files/2026-07-16/Mun47_TRAIN_1784114517546_42-nLkJG.jpg\\\\\",\\\\\"https://res.advmtc.click/prod/api-files/2026-07-16/iEQy0_TRAIN_1784187084952_42-nLkJG.jpg\\\\\"]}\",\"model\":\"gpt-image-2-image-to-image\"}', 'resultJson': '', 'failCode': '400', 'failMsg': 'The input or output was flagged as sensitive. Please try again with different inputs.', 'costTime': 0, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
-              "workId": "3100600028163296716-1784188246842-nLkJG",
-              "count": 32
-            },
-            {
-              "error": "Code is not 200. Code:402. Response:{'code': 402, 'msg': 'Credits insufficient : Your current balance isn’t enough to run this request. Please top up to continue.', 'data': None}. Token:3c95c61a9bd48b8d7dd05bf47f4676e8",
-              "workId": "3100600028292597117-1784188930848-t8MHp",
-              "count": 20
-            },
-            {
-              "error": "Task not completed after maximum attempts. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': '9d35a9f93544a0d18746990663988025', 'model': 'gpt-image-2-image-to-image', 'state': 'generating', 'param': '{\"input\":\"{\\\\\"aspect_ratio\\\\\":\\\\\"auto\\\\\",\\\\\"prompt\\\\\":\\\\\"让图片中的角色保持原来的着装，外貌与气质，羞涩的表情，双手掀起自己的裙子。裙底视角\\\\\",\\\\\"resolution\\\\\":\\\\\"1K\\\\\",\\\\\"input_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/api-files/2026-07-16/gpqAg_TRAIN_1784187435277_44-sn12Q.jpg\\\\\"]}\",\"model\":\"gpt-image-2-image-to-image\"}', 'resultJson': '', 'failCode': None, 'failMsg': None, 'costTime': None, 'completeTime': None, 'createTime': <long-number>, 'creditsConsumed': 6.0}}",
-              "workId": "3100600028317695117-1784187488844-sn12Q",
-              "count": 5
-            },
-            {
-              "error": "Code is not 200. Code:422. Response:{'code': 422, 'msg': 'Sorrry, generation for 4:5 and 5:4 aspect ratios is temporarily unavailable.', 'data': None}",
-              "workId": "2106251224072091829-1784149212100-F7VJl",
-              "count": 1
+              "error": "Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': 'a15b4f15de9480d0ed8b956944a2e7b3', 'model': 'bytedance/seedance-2-fast', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"duration\\\\\":4,\\\\\"aspect_ratio\\\\\":\\\\\"16:9\\\\\",\\\\\"web_search\\\\\":false,\\\\\"generate_audio\\\\\":true,\\\\\"prompt\\\\\":\\\\\"Motion reference: Use VIDEO1 for exact positioning, camera angles, and all movement.\\\\\\\\u2028Subject references: Replace woman in VIDEO1 with exact woman from IMAGE1 (fully au naturel). Replace man in VIDEO1 with exact man from IMAGE2 (fully au naturel).\\\\\\\\u2028Environment: Match exact setting and lighting from IMAGE3.\\\\\\\\u2028Prioritize: Hyper-realistic face matching, breasts must match the exact size, shape, and proportions in the subject reference IMAGE1 - overriding VIDEO1 reference, soft realistic anatomy, gentle curves, subtle body fat, hyper-detailed skin textures, studio lighting, sharp focus, smooth high-quality realistic motion. Woman fully au naturel head-to-toe. Single penis on man, stays fully inserted in vagina. Woman maintains eye contact with camera and keeps head in optimal position for face matching.\\\\\",\\\\\"resolution\\\\\":\\\\\"720p\\\\\",\\\\\"nsfw_checker\\\\\":false,\\\\\"reference_image_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/api-files/2026-07-27/IPwFx_7a4f572484eb_M6h9QO.jpeg\\\\\",\\\\\"https://res.advmtc.click/prod/api-files/2026-07-27/E1WEQ_becd252add3d_IrI2fF.jpeg\\\\\",\\\\\"https://res.advmtc.click/prod/api-files/2026-07-27/5wrAz_cbc0bd8a8946_LVOZ9I_normalized.jpg\\\\\"],\\\\\"reference_video_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/api-files/2026-07-27/Fvrkg_3d083203064a_9qWuYL.mov\\\\\"]}\",\"model\":\"bytedance/seedance-2-fast\"}', 'resultJson': '', 'failCode': '500', 'failMsg': 'One or more parameters specified in the request are not valid: ServicerBadRequest: Invalid media input. Please check your reference media (video/audio/image): the file may be corrupted, truncated, or in an unsupported container format.', 'costTime': 280, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
+              "workId": "3100600019613293512-1785118375889-Mjm0L",
+              "count": 9
             }
           ]
         },
         {
           "subFunction": "seedance2.0",
-          "count": 39,
+          "count": 91,
           "errorGroups": [
             {
-              "error": "Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': 'bcde2cb87b7ea3140e010c76412fea1a', 'model': 'bytedance/seedance-2-fast', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"duration\\\\\":15,\\\\\"aspect_ratio\\\\\":\\\\\"adaptive\\\\\",\\\\\"first_frame_url\\\\\":\\\\\"https://res.advmtc.click/prod/api-files/2026-07-16/btPvM_TRAIN_1784184744125_06-f6lMK.jpg\\\\\",\\\\\"web_search\\\\\":false,\\\\\"generate_audio\\\\\":true,\\\\\"prompt\\\\\":\\\\\"2人は同じ シャワールーム にいて抱き合っている そして お互いのパンツを抜き 全裸になり お互い 回転しながら 二人の美しいお尻を見せながら撮影する お尻は ぷるんぷるんと入れている \\\\\",\\\\\"resolution\\\\\":\\\\\"480p\\\\\",\\\\\"nsfw_checker\\\\\":true}\",\"model\":\"bytedance/seedance-2-fast\"}', 'resultJson': '', 'failCode': '500', 'failMsg': 'The request failed because the output audio may contain sensitive information.', 'costTime': 183, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
-              "workId": "2106260304205396887-1784184790706-f6lMK",
-              "count": 34
+              "error": "Suspend use of the bytedance/seedance-2-mini model on the KieAI platform.",
+              "workId": "3100100029887597420-1785131764321-PElyO",
+              "count": 74
             },
             {
-              "error": "Task not completed after maximum attempts. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': '32adf687bfa314027eb0fd8d8cc9d80c', 'model': 'bytedance/seedance-2-fast', 'state': 'waiting', 'param': '{\"input\":\"{\\\\\"duration\\\\\":14,\\\\\"aspect_ratio\\\\\":\\\\\"adaptive\\\\\",\\\\\"first_frame_url\\\\\":\\\\\"https://res.advmtc.click/prod/api-files/2026-07-16/Hs3Zk_TRAIN_1784172035739_79-8uuIm.jpg\\\\\",\\\\\"web_search\\\\\":false,\\\\\"generate_audio\\\\\":true,\\\\\"prompt\\\\\":\\\\\"the viper snake wraps around the character while glowing blue protecting him from bullets flying towards him. as a group of enemy soldiers apprach, the viper snake unwraps from him and lunges to an enemy soldier taking him down. the character begins firing his gun and running into combat. he flips and dives through the air while firing his gun . A banner that reads \\\\\\\\\\\\\"BushViper\\\\\\\\\\\\\" flies above his head. His Viper snake is by his side \\\\\",\\\\\"resolution\\\\\":\\\\\"480p\\\\\",\\\\\"nsfw_checker\\\\\":true}\",\"model\":\"bytedance/seedance-2-fast\"}', 'resultJson': '', 'failCode': None, 'failMsg': None, 'costTime': None, 'completeTime': None, 'createTime': <long-number>, 'creditsConsumed': 217.0}}",
-              "workId": "2106260423212195413-1784172041979-8uuIm",
-              "count": 5
-            }
-          ]
-        },
-        {
-          "subFunction": "grok",
-          "count": 15,
-          "errorGroups": [
-            {
-              "error": "Task not completed after maximum attempts. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': 'beab4869fe87e2426d66e055cce62bd6', 'model': 'grok-imagine/image-to-video', 'state': 'waiting', 'param': '{\"input\":\"{\\\\\"mode\\\\\":\\\\\"normal\\\\\",\\\\\"duration\\\\\":10,\\\\\"aspect_ratio\\\\\":\\\\\"3:2\\\\\",\\\\\"image_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/api-files/2026-07-16/ckq2f_TRAIN_1784185525572_85-yRg8Y.jpg\\\\\"],\\\\\"prompt\\\\\":\\\\\"Commerciële portretfotografie, gemaakt met Sony A7R IV, 85mm f/1.4-lens, zachte studiobelichting, randlicht, zichtbare huidporiën, zeer gedetailleerde ogen, 8k.\\\\\\\\nLaat haar zwoel zijn\\\\\",\\\\\"resolution\\\\\":\\\\\"480p\\\\\"}\",\"model\":\"grok-imagine/image-to-video\"}', 'resultJson': '', 'failCode': None, 'failMsg': None, 'costTime': None, 'completeTime': None, 'createTime': <long-number>, 'creditsConsumed': 16.0}}",
-              "workId": "3100600024729793216-1784185530285-yRg8Y",
-              "count": 10
+              "error": "Code is not 200. Code:500. Response:{'code': 500, 'msg': 'Credits insufficient : Your current balance isn’t enough to run this request. Please top up to continue.', 'data': None}. Token:9039da253a95f4001f074287d11bb995",
+              "workId": "3100600029864693478-1785131721761-caLKH",
+              "count": 8
             },
             {
-              "error": "Code is not 200. Code:402. Response:{'code': 402, 'msg': 'Credits insufficient : Your current balance isn’t enough to run this request. Please top up to continue.', 'data': None}. Token:27b4e6b05bbb66ab05aedb60f46a1dd0",
-              "workId": "2106260406092496310-1784166985568-ZnzAv",
-              "count": 4
+              "error": "Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': '6e63aa839b62cc5adab6b2d9692e1819', 'model': 'bytedance/seedance-2', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"duration\\\\\":5,\\\\\"aspect_ratio\\\\\":\\\\\"9:16\\\\\",\\\\\"first_frame_url\\\\\":\\\\\"https://res.advmtc.click/prod/api-files/2026-07-27/Yn8pE_vbEP7c0fvAWWzFfF_1785130391611.562988_87-nENUw.jpg\\\\\",\\\\\"web_search\\\\\":false,\\\\\"generate_audio\\\\\":true,\\\\\"prompt\\\\\":\\\\\"このキャラクターの頭からピンクの大きな豚耳が生え、鼻が大きな豚鼻に変わり、キャラクターがブーブー鳴いている動画をテレビアニメ風のアニメ動画に。\\\\\",\\\\\"resolution\\\\\":\\\\\"480p\\\\\",\\\\\"nsfw_checker\\\\\":true}\",\"model\":\"bytedance/seedance-2\"}', 'resultJson': '', 'failCode': '500', 'failMsg': 'The request failed because the output video may be related to copyright restrictions.', 'costTime': 302, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
+              "workId": "2106260507071791221-1785130392787-nENUw",
+              "count": 7
             },
             {
-              "error": "Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': 'f46c2613f7bc7a8b3c4928539ec8325c', 'model': 'grok-imagine-video-1-5-preview', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"mode\\\\\":\\\\\"normal\\\\\",\\\\\"duration\\\\\":15,\\\\\"aspect_ratio\\\\\":\\\\\"9:16\\\\\",\\\\\"image_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/api-files/2026-07-16/6frcl_508b6a117bab_26-oX3xJ.jpg\\\\\"],\\\\\"prompt\\\\\":\\\\\"Make a group of delinquents come in the frame and approach her the girl on the left. (Give the girl on the left high pigtails tied with black hair ties. Preserve everything else.)They make her change her clothing to an elegant black bunny costume featuring satin fabric, white cuffs, a white collar with a bow tie, black bunny ears. they put leash on her and put her on the floor on all fours with her down and butt in the air. They make her lick one of the guys pants clean and call her a good girl and slap her butt (No music) (be rough with the girl)\\\\\",\\\\\"resolution\\\\\":\\\\\"480p\\\\\"}\",\"model\":\"grok-imagine-video-1-5-preview\"}', 'resultJson': '', 'failCode': '500', 'failMsg': 'Internal Error, Please try again later.', 'costTime': 32, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
-              "workId": "3100100026530794218-1784178329126-oX3xJ",
-              "count": 1
-            }
-          ]
-        },
-        {
-          "subFunction": "google-veo",
-          "count": 12,
-          "errorGroups": [
-            {
-              "error": "Task processing failed, status: 3. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': 'a4e327440f9d7777441f3024d433a967', 'paramJson': '{\"duration\":8,\"enableTranslation\":true,\"generationType\":\"FIRST_AND_LAST_FRAMES_2_VIDEO\",\"imageUrls\":[\"https://res.advmtc.click/prod/api-files/2026-07-16/AuQH6_TRAIN_1784170616291_35-FGa7a.jpg\"],\"aspectRatio\":\"Auto\",\"model\":\"veo3_fast\",\"enableFallback\":false,\"resolution\":\"720p\",\"prompt\":\"A real life cinematic transformation sequence. stage 1: the man in the photo. stage 2: his stomach wiggles and makes a sound at the start of the metamorphosis. stage 3: his muscles begin to soften and loose tone as his arms and legs grow fatter. stage 4: his waist gets wider as he suddenly gains weight and his chest loose tone as they droop down. stage 5: final transformation reveals him as an unattractive middle age balding overweight fat man. smooth seamless metamorphosis transformation.\"}', 'response': {'taskId': 'a4e327440f9d7777441f3024d433a967', 'resolution': '720p', 'originUrls': None, 'resultUrls': None, 'fullResultUrls': None, 'full_result_urls': None, 'seeds': None}, 'successFlag': 3, 'fallbackFlag': False, 'completeTime': <long-number>, 'createTime': <long-number>, 'errorCode': 400, 'errorMessage': 'Request blocked: The input content was flagged by safety filters for involving restricted third-party content.'}}.",
-              "workId": "3100600026681293242-1784170616635-FGa7a",
-              "count": 10
-            },
-            {
-              "error": "Code is not 200. Code:402. Response:{'code': 402, 'msg': 'Credits insufficient : Your current balance isn’t enough to run this request. Please top up to continue.', 'data': None}. Token:27b4e6b05bbb66ab05aedb60f46a1dd0",
-              "workId": "2106260109234195335-1784158607461-a8smp",
+              "error": "Task not completed after maximum attempts. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': '5ced8fb321ca05a2c05d95b9ce2f4506', 'model': 'bytedance/seedance-2', 'state': 'waiting', 'param': '{\"input\":\"{\\\\\"duration\\\\\":5,\\\\\"aspect_ratio\\\\\":\\\\\"9:16\\\\\",\\\\\"first_frame_url\\\\\":\\\\\"https://res.advmtc.click/prod/api-files/2026-07-27/Pr2yE_dIACHxaJiWKtXFQo_1785116666695.404053_38-ETuJ2.jpg\\\\\",\\\\\"web_search\\\\\":false,\\\\\"generate_audio\\\\\":true,\\\\\"prompt\\\\\":\\\\\"このキャラクターの頭からピンクの大きな豚耳が生え、鼻が大きな豚鼻に変わり、キャラクターがブーブー鳴いている動画をテレビアニメ風のアニメ動画に。\\\\\",\\\\\"resolution\\\\\":\\\\\"480p\\\\\",\\\\\"nsfw_checker\\\\\":true}\",\"model\":\"bytedance/seedance-2\"}', 'resultJson': '', 'failCode': None, 'failMsg': None, 'costTime': None, 'completeTime': None, 'createTime': <long-number>, 'creditsConsumed': 95.0}}",
+              "workId": "2106260507071791221-1785116667538-ETuJ2",
               "count": 2
             }
           ]
         },
         {
-          "subFunction": "minimax-useapi",
-          "count": 11,
+          "subFunction": "nano-banana",
+          "count": 78,
           "errorGroups": [
             {
-              "error": "Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': 'b33355549e533ffd0443418966091053', 'model': 'hailuo/2-3-image-to-video-standard', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"duration\\\\\":\\\\\"6\\\\\",\\\\\"image_url\\\\\":\\\\\"https://res.advmtc.click/prod/api-files/2026-07-16/uswm5_FsOkvaHN.jpg\\\\\",\\\\\"prompt\\\\\":\\\\\"kissing\\\\\",\\\\\"resolution\\\\\":\\\\\"768P\\\\\"}\",\"model\":\"hailuo/2-3-image-to-video-standard\",\"nsfw_checker\":true}', 'resultJson': '', 'failCode': '500', 'failMsg': 'png: invalid format: not enough pixel data', 'costTime': 32, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
-              "workId": "2106251201125896411-1784185814929-Ogz0e",
-              "count": 6
+              "error": "Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': 'a9c087dc487f04b6124376bfd6fcc667', 'model': 'nano-banana-2-lite', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"aspect_ratio\\\\\":\\\\\"auto\\\\\",\\\\\"output_format\\\\\":\\\\\"jpg\\\\\",\\\\\"image_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/api-files/2026-07-27/iJDpB_a580fbc9c779_86-k499g.jpeg\\\\\"],\\\\\"prompt\\\\\":\\\\\"Buat memakai Bikini pink tampa jilbab\\xa0\\\\\"}\",\"model\":\"nano-banana-2-lite\"}', 'resultJson': '', 'failCode': '524', 'failMsg': 'generate task timeout.', 'costTime': 28, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
+              "workId": "3100100029892492417-1785132542086-k499g",
+              "count": 48
             },
             {
-              "error": "Code is not 200. Code:402. Response:{'code': 402, 'msg': 'Credits insufficient : Your current balance isn’t enough to run this request. Please top up to continue.', 'data': None}. Token:27b4e6b05bbb66ab05aedb60f46a1dd0",
-              "workId": "2106250808211694781-1784165776425-tJoJG",
-              "count": 4
-            },
-            {
-              "error": "Code is not 200. Code:500. Response:{'code': 500, 'msg': 'resolution is not within the range of allowed options', 'data': None}",
-              "workId": "3100100028174994321-1784134948341-UrE88",
-              "count": 1
+              "error": "Code is not 200. Code:402. Response:{'code': 402, 'msg': 'Credits insufficient : Your current balance isn’t enough to run this request. Please top up to continue.', 'data': None}. Token:5900ace51ba5af5874c4ef52253c76bd",
+              "workId": "3100600029891298619-1785131698909-P4kdo",
+              "count": 30
             }
           ]
         },
         {
-          "subFunction": "seedance-omni-reference",
-          "count": 9,
+          "subFunction": "grok",
+          "count": 22,
           "errorGroups": [
             {
-              "error": "Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': '0dd8f5954f781c4f206624f1b399d9a0', 'model': 'bytedance/seedance-2', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"duration\\\\\":12,\\\\\"aspect_ratio\\\\\":\\\\\"4:3\\\\\",\\\\\"web_search\\\\\":false,\\\\\"generate_audio\\\\\":true,\\\\\"prompt\\\\\":\\\\\"@Video1\\xa0是我以前拍的一段视频，现在我想换主角，请让@Image1\\xa0中的情侣模仿 \\xa0@Video1\\xa0中的男女主角进行剧情演绎，\\xa0@Image1\\xa0人物完全代入 \\xa0@Video1\\xa0的妆造和剧情，保留歌曲音频，画面流畅搞笑\\\\\",\\\\\"resolution\\\\\":\\\\\"720p\\\\\",\\\\\"nsfw_checker\\\\\":false,\\\\\"reference_image_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/api-files/2026-07-16/NamSn_3cf3d3445403_y5iM0h.png\\\\\"],\\\\\"reference_video_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/api-files/2026-07-16/PCmAq_e09e64af56de_qrKJAY.mp4\\\\\"]}\",\"model\":\"bytedance/seedance-2\"}', 'resultJson': '', 'failCode': '500', 'failMsg': 'Frame rate must be between 23.8 FPS and 60 FPS.', 'costTime': 221, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
-              "workId": "2101260104105797161-1784183991033-3LTKj",
+              "error": "Task not completed after maximum attempts. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': 'ca9c4c976f54258a276cd8876f2c4507', 'model': 'grok-imagine-video-1-5-preview', 'state': 'waiting', 'param': '{\"input\":\"{\\\\\"mode\\\\\":\\\\\"normal\\\\\",\\\\\"duration\\\\\":15,\\\\\"aspect_ratio\\\\\":\\\\\"2:3\\\\\",\\\\\"image_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/api-files/2026-07-27/6F5nc_TRAIN_1785126848231_59-LAUSP.jpg\\\\\"],\\\\\"prompt\\\\\":\\\\\"嚴格要求全段影片必須用高清電影級畫質，令畫面感更好睇同完美。\\\\\\\\n\\\\\\\\n嚴格要求全程對話必須使用廣東話。鏡頭唔好固定一個位置，因應情況適當移動，使畫面感更好睇。\\\\\\\\n\\\\\\\\n嚴格要求佢繼續掙扎著嘅時候同純對話嘅時候，都必須要清楚睇到佢嘅全身連鞋。\\\\\\\\n\\\\\\\\n佢開始劇烈咁左右扭動身體同雙腳，試圖掙脫束縛，隨著佢每一次嘅用力掙扎，捆綁喺胸口、大腿及小腿位置嘅麻繩仿佛有生命咁，非但冇鬆脫，反而伴隨著緊繃嘅勒痕勒得越嚟越緊，深深陷入衣服同褲子嘅布料入面。麻繩已經收緊到極限，完全勒死，只喺剩番小幅度嘅鬆動空間可以掙扎。佢徹底被固定喺凳上面，因為體力耗盡同極度緊繃而暫時無法再掙扎，只能急促喘息，休息咗一陣，佢又再繼續掙扎，不停循環。\\\\\\\\n\\\\\\\\n（嚴格要求面容必須使用原圖的人物，唔可以自行生成面容去破壞原圖）佢繼續掙扎著（嚴格要求必須跟從第四段演示出嚟）同「嗚嗚嗚」咁繼續流口水去叫（嚴格要求必須跟從圖片嘅開口器，唔可以自行生成同突然消失），佢嘅牛仔褲已經被流出嚟嘅口水整濕哂。黑衣人再攞一把木制拍板出嚟，不停拍打佢嘅大腿位置，佢不停掙扎著同流出大量口水（嚴格要求必須跟從第四段演示出嚟），佢同時都喊咗出嚟，黑衣人拍打咗一陣之後，佢就暈咗。影片最後嚴格要求必須要睇到佢嘅全身連鞋嘅畫面。 \\\\\",\\\\\"resolution\\\\\":\\\\\"480p\\\\\"}\",\"model\":\"grok-imagine-video-1-5-preview\"}', 'resultJson': '', 'failCode': None, 'failMsg': None, 'costTime': None, 'completeTime': None, 'createTime': <long-number>, 'creditsConsumed': 24.0}}",
+              "workId": "2106260508203191719-1785126849259-LAUSP",
+              "count": 18
+            },
+            {
+              "error": "Code is not 200. Code:402. Response:{'code': 402, 'msg': 'Credits insufficient : Your current balance isn’t enough to run this request. Please top up to continue.', 'data': None}. Token:9039da253a95f4001f074287d11bb995",
+              "workId": "2106260508203191719-1785128081221-UXLkU",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "subFunction": "gpt-image-2",
+          "count": 20,
+          "errorGroups": [
+            {
+              "error": "Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': '0a2cd56fbd3259212103fb9af6f9db1b', 'model': 'gpt-image-2-image-to-image', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"aspect_ratio\\\\\":\\\\\"9:16\\\\\",\\\\\"prompt\\\\\":\\\\\"top-down bird view , 一位穿著新潮時尚桌球服飾的年輕漂亮年輕女生，在高級現代撞球館，躺在桌球桌枱上，姿勢參照 image2 , 左腳放松放在桌球枱邊上，右腳屈膝放松自然放在桌球枱上，膝蓋貼在枱面上，雙手握球桿，球桿上部貼著下巴並經過小腹部及小腿內側延伸到桌球枱上，人物輕咬下唇，中景構圖（Medium Shot），人物約佔畫面 50–70%，撞球桌、球桿、撞球及球桌檯面清楚入鏡。 超寫實真人攝影、Photorealistic、Professional Sports Photography、Editorial Fashion Photography、電影級光影、自然柔光、HDR、RAW Photo、16K、Ultra HD、Masterpiece、Best Quality、Ultra Detailed、極致細節、真實肌膚紋理、自然膚色、自然妝容、人物參照提供的照片，細膩眼神、健康光澤髮絲、真實比例、立體光影、高品質景深、背景柔和散景（Bokeh）。 Negative Prompt： AI face、plastic skin、overbeautified、anime、cartoon、CG、3D、low quality、low resolution、blur、noise、extra fingers、extra limbs、bad anatomy、deformed hands、cross-eyed、duplicate、cropped、text、logo、signature、watermark、frame、artifacts。 \\\\\",\\\\\"resolution\\\\\":\\\\\"2K\\\\\",\\\\\"input_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/api-files/2026-07-27/FKSPQ_TRAIN_1784998640218_37-QzwUU.jpg\\\\\",\\\\\"https://res.advmtc.click/prod/api-files/2026-07-27/m2LP8_8aec7c844485_37-QzwUU.jpg\\\\\"]}\",\"model\":\"gpt-image-2-image-to-image\"}', 'resultJson': '', 'failCode': '422', 'failMsg': 'The input or output was flagged as sensitive. Please try again with different inputs.', 'costTime': 59, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
+              "workId": "2106260504110693788-1785125862037-QzwUU",
+              "count": 10
+            },
+            {
+              "error": "Task not completed after maximum attempts. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': '38fa565501ca16a1868a9fc97644fa59', 'model': 'gpt-image-2-text-to-image', 'state': 'generating', 'param': '{\"input\":\"{\\\\\"aspect_ratio\\\\\":\\\\\"auto\\\\\",\\\\\"prompt\\\\\":\\\\\"日本人、女子高生、お風呂場を背景に、まっすぐ座る、青い目、長めのアイライン、濃いメイク、目はキリッとしてて、左目の下にホクロ、目には下にホクロ、鼻が高く、唇が薄い、口が細い、眉毛は細め、キツネ顔、角度のついたキツイ目、こっちを睨む、立ち耳、右耳に髪をかける、顔が小さい、顎が短い、縦長のキリッとした輪郭、輪郭がくっきり、ぱっつん前髪あり、前髪が目に少しかかる、髪は少し濡れてる、胸元にそばかす、細身で胸が少し大きい、前髪、髪が長い、画角に上半身、真正面のアングル、少し上からの視点、見下ろす視点、顔をクローズアップ、美女、かわいい\\\\\",\\\\\"resolution\\\\\":\\\\\"1K\\\\\"}\",\"model\":\"gpt-image-2-text-to-image\"}', 'resultJson': '', 'failCode': None, 'failMsg': None, 'costTime': None, 'completeTime': None, 'createTime': <long-number>, 'creditsConsumed': 6.0}}",
+              "workId": "3100100029871497743-1785120003483-31nR1",
               "count": 5
             },
             {
-              "error": "Code is not 200. Code:500. Response:{'code': 500, 'msg': 'Credits insufficient : Your current balance isn’t enough to run this request. Please top up to continue.', 'data': None}. Token:84f94e91b585b01b35107923b606d018",
-              "workId": "admin-1784185149765-ogNQV",
+              "error": "Code is not 200. Code:422. Response:{'code': 422, 'msg': 'Sorry, generation for 4:5 and 5:4 aspect ratios is temporarily unavailable.', 'data': None}",
+              "workId": "2106251224072091829-1785099693694-notz9",
+              "count": 3
+            },
+            {
+              "error": "Code is not 200. Code:402. Response:{'code': 402, 'msg': 'Credits insufficient : Your current balance isn’t enough to run this request. Please top up to continue.', 'data': None}. Token:5900ace51ba5af5874c4ef52253c76bd",
+              "workId": "2106260326080995511-1785124398488-7zN5K",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "subFunction": "google-veo",
+          "count": 15,
+          "errorGroups": [
+            {
+              "error": "Task processing failed, status: 3. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': 'e6a8739ff2a01e1ce588120ceca1505d', 'paramJson': '{\"duration\":8,\"enableTranslation\":true,\"generationType\":\"FIRST_AND_LAST_FRAMES_2_VIDEO\",\"imageUrls\":[\"https://res.advmtc.click/prod/api-files/2026-07-27/QqXcO_TRAIN_1785127149138_71-Eb0MS.jpg\"],\"aspectRatio\":\"Auto\",\"model\":\"veo3_fast\",\"enableFallback\":false,\"resolution\":\"720p\",\"prompt\":\"Let the girl take off her clothes \"}', 'response': {'taskId': 'e6a8739ff2a01e1ce588120ceca1505d', 'resolution': '720p', 'originUrls': None, 'resultUrls': None, 'fullResultUrls': None, 'full_result_urls': None, 'seeds': None}, 'successFlag': 3, 'fallbackFlag': False, 'completeTime': <long-number>, 'createTime': <long-number>, 'errorCode': 400, 'errorMessage': 'Request blocked: The input content was flagged by safety filters for involving minors.'}}.",
+              "workId": "2106260504040794426-1785127193771-Eb0MS",
+              "count": 11
+            },
+            {
+              "error": "Code is not 200. Code:402. Response:{'code': 402, 'msg': 'Credits insufficient : Your current balance isn’t enough to run this request. Please top up to continue.', 'data': None}. Token:0609d03753b96f09015144cf6c0f6ad6",
+              "workId": "3100600029821491488-1785115285531-eCzzW",
               "count": 4
             }
           ]
         },
         {
           "subFunction": "keling",
+          "count": 7,
+          "errorGroups": [
+            {
+              "error": "Code is not 200. Code:422. Response:{'code': 422, 'msg': 'multi_shots cannot be empty', 'data': None}",
+              "workId": "2106260501205392611-1785132913460-tmRFk",
+              "count": 5
+            },
+            {
+              "error": "Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': '36dd084fd692231792e52a6fe73333ad', 'model': 'kling/v3-turbo-image-to-video', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"duration\\\\\":4,\\\\\"image_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/api-files/2026-07-27/httYy_TRAIN_1785122625036_22-0uwrJ.jpg\\\\\"],\\\\\"prompt\\\\\":\\\\\"Kobieta powolnie zsuwa z siebie bluzkę \\\\\",\\\\\"resolution\\\\\":\\\\\"720p\\\\\"}\",\"model\":\"kling/v3-turbo-image-to-video\"}', 'resultJson': '', 'failCode': '400', 'failMsg': 'Generation failed as the content includes sensitive information.', 'costTime': 51, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
+              "workId": "2106260422080196585-1785122625222-0uwrJ",
+              "count": 1
+            },
+            {
+              "error": "当前渠道不支持这个模型: kling-v1-6",
+              "workId": "2106251102182698752-1785095296612-EuICT",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "subFunction": "minimax-useapi",
+          "count": 7,
+          "errorGroups": [
+            {
+              "error": "Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': '05d64b9296b0562d5270fd1a195d2ab0', 'model': 'hailuo/02-image-to-video-standard', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"duration\\\\\":\\\\\"10\\\\\",\\\\\"image_url\\\\\":\\\\\"https://res.advmtc.click/prod/api-files/2026-07-27/izKbb_a39fdd515d38_04-ZAXsj.jpeg\\\\\",\\\\\"prompt\\\\\":\\\\\"Cinematic close-up shot, soft warm ambient lighting in an intimate bedroom setting. A young man with messy brown hair and a slender build is embracing a fit young woman with a blonde ponytail. They are completely naked, skin textures realistically rendered with natural highlights. The camera slowly pans around them as they share deep, passionate kisses, their bodies moving in a synchronized, rhythmic motion. The man’s hand is firmly placed on the woman’s breast, his fingers gently pressing against her skin, while the woman’s arms wrap tightly around his neck. The atmosphere is intense and affectionate, with subtle camera shakes to emphasize the motion of their intimate connection, capturing every flicker of emotion on their faces and the fluid, graceful movement of their bodies in the low-light environment. They are an adult couple and the husband is constantly caressing the wife’s breasts\\\\\",\\\\\"resolution\\\\\":\\\\\"512P\\\\\"}\",\"model\":\"hailuo/02-image-to-video-standard\",\"nsfw_checker\":false}', 'resultJson': '', 'failCode': '500', 'failMsg': 'input new_sensitive', 'costTime': 46, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
+              "workId": "3100100029866993514-1785118093804-ZAXsj",
+              "count": 7
+            }
+          ]
+        },
+        {
+          "subFunction": "happyhorse",
+          "count": 5,
+          "errorGroups": [
+            {
+              "error": "[Fallback Skipped: End of chain] Code is not 200. Code:500. Response:{'code': 500, 'msg': 'resolution is not within the range of allowed options', 'data': None}",
+              "workId": "2106260509162294677-1785127872386-EuxbL",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "subFunction": "keling-motion-control",
+          "count": 4,
+          "errorGroups": [
+            {
+              "error": "Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': '33be6dc937231086d597d8362ba6ad31', 'model': 'kling-3.0/motion-control', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"mode\\\\\":\\\\\"720p\\\\\",\\\\\"background_source\\\\\":\\\\\"input_video\\\\\",\\\\\"video_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/resource/55d47c8801c2.mp4\\\\\"],\\\\\"character_orientation\\\\\":\\\\\"video\\\\\",\\\\\"prompt\\\\\":\\\\\"dance\\\\\",\\\\\"input_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/api-files/2026-07-27/ifxXr_4996dd69bd90_58-cRDuT.jpg\\\\\"]}\",\"model\":\"kling-3.0/motion-control\"}', 'resultJson': '', 'failCode': '400', 'failMsg': 'No valid characters detected in the video', 'costTime': 103, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
+              "workId": "admin-1785124733658-cRDuT",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "subFunction": "pixverse-video-extend",
+          "count": 3,
+          "errorGroups": [
+            {
+              "error": "Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': '7fc3b52a294a4277b47ce112092ad805', 'model': 'pixverse-v6/extend', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"duration\\\\\":10,\\\\\"video_url\\\\\":\\\\\"https://res.advmtc.click/prod/api-files/2026-07-27/Z7s45_1785086739019-jFJZqqMP-0_31-WpQSD.mp4\\\\\",\\\\\"seed\\\\\":<long-number>,\\\\\"generate_audio_switch\\\\\":true,\\\\\"prompt\\\\\":\\\\\"角色在河流中赤裸上身（洗澡中）\\\\\\\\n手上發出的金蛋變為金幣\\\\\",\\\\\"quality\\\\\":\\\\\"540p\\\\\"}\",\"model\":\"pixverse-v6/extend\"}', 'resultJson': '', 'failCode': '500', 'failMsg': 'The text you entered contains sensitive information. Please re-enter.', 'costTime': 1, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
+              "workId": "3100600027683193315-1785132201931-WpQSD",
+              "count": 2
+            },
+            {
+              "error": "[Fallback Skipped: End of chain] Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': 'badb75da463dfccc9f546af5e89e3c2b', 'model': 'pixverse-v6/extend', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"duration\\\\\":10,\\\\\"video_url\\\\\":\\\\\"https://res.advmtc.click/prod/api-files/2026-07-26/DXab0_1785102640853-LRgoVBdw-0_19-LVp3V.mp4\\\\\",\\\\\"seed\\\\\":<long-number>,\\\\\"generate_audio_switch\\\\\":true,\\\\\"prompt\\\\\":\\\\\"de 3 mannen in de lucht lachen allemaal\\\\\\\\nde man bij de auto zegt alleen \\\\\\\\\\\\\"thank u for life grandpa\\'s\\\\\\\\\\\\\" \\\\\\\\nmet remember who u are muziek van lion king op de achtergrond\\\\\",\\\\\"quality\\\\\":\\\\\"720p\\\\\"}\",\"model\":\"pixverse-v6/extend\"}', 'resultJson': '', 'failCode': '500', 'failMsg': 'The text you entered contains sensitive information. Please re-enter.', 'costTime': 1, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
+              "workId": "3100600029842692438-1785103896619-LVp3V",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "subFunction": "gemini-omni",
+          "count": 2,
+          "errorGroups": [
+            {
+              "error": "Code is not 200. Code:402. Response:{'code': 402, 'msg': 'Credits insufficient : Your current balance isn’t enough to run this request. Please top up to continue.', 'data': None}. Token:9039da253a95f4001f074287d11bb995",
+              "workId": "3100600024325991753-1785126545209-2eYCO",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "subFunction": "runway",
           "count": 1,
           "errorGroups": [
             {
-              "error": "[Fallback Skipped: End of chain] Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': 'f7b19c356db7a51af6f438a89033df82', 'model': 'kling/v3-turbo-image-to-video', 'state': 'fail', 'param': '{\"input\":\"{\\\\\"duration\\\\\":4,\\\\\"image_urls\\\\\":[\\\\\"https://res.advmtc.click/prod/api-files/2026-07-15/PwpfH_TRAIN_1784145272801_98-qpIIf.jpg\\\\\"],\\\\\"prompt\\\\\":\\\\\"口を閉じる、ピース、ジムトレーナー、かなり大きい肉厚なお尻、かなり小さい黒のTバック、汗をかなりかいた、汗がふきでる身体、汗が大量汗だくハードなスクワットトレーニング、、、汗が大量にふきでる身体、後ろからのアングル 、横から、前から 、下から 、汗が大量にしたたり落ちる、汗がふきでる上体起こし、前から横から後ろからアングル \\\\\",\\\\\"resolution\\\\\":\\\\\"720p\\\\\"}\",\"model\":\"kling/v3-turbo-image-to-video\"}', 'resultJson': '', 'failCode': '400', 'failMsg': 'The content you uploaded appears to violate the community guidelines.', 'costTime': 13, 'completeTime': <long-number>, 'createTime': <long-number>, 'creditsConsumed': 0.0}}.",
-              "workId": "2106251116070894827-1784145274098-qpIIf",
+              "error": "Task processing failed, status: fail. Response: {'code': 200, 'msg': 'success', 'data': {'taskId': '3ff72ff5a2ab996f26f3c1c96792fed7', 'parentTaskId': None, 'generateParam': {'prompt': 'Make the two girls dance, twirl around in their dances. Have zelda guiding the golden light orbs by her arms, around with their dancing. Both lean forward and blow a kiss at the end of the animation.', 'imageUrl': 'https://res.advmtc.click/prod/api-files/2026-07-27/Futws_364131a21adb_89-VbaHd.png', 'expandPrompt': None}, 'state': 'fail', 'generateTime': '<long-number>', 'videoInfo': None, 'failCode': '400', 'failMsg': 'The uploaded image is not compliant, please replace it and try again', 'expireFlag': 0}}.",
+              "workId": "3100100029859391834-1785113152989-VbaHd",
               "count": 1
             }
           ]
@@ -665,68 +624,85 @@
       ]
     },
     {
-      "message": "BYTEPLUS官方API调用失败",
-      "count": 96,
+      "message": "AIGPTSTORE平台API调用失败",
+      "count": 307,
       "children": [
         {
-          "subFunction": "seedance-omni-reference",
-          "count": 93,
+          "subFunction": "nano-banana",
+          "count": 273,
           "errorGroups": [
             {
-              "error": "failed to prepare reference images: ByteDance asset processing failed: { \"Id\": \"<asset-id>\", \"Name\": \"<asset-name>\", \"URL\": \"\", \"AssetType\": \"Image\", \"GroupId\": \"<group-id>\", \"Status\": \"Failed\", \"Error\": { \"Code\": \"InputImageSensitiveContentDetected\", \"Message\": \"The request failed because the input image may contain sensitive information. \" }, \"Moderation\": { \"Strategy\": \"Default\" }, \"CreateTime\": \"2026-07-16T05:52:19Z\", \"UpdateTime\": \"2026-07-16T05:52:22Z\", \"ProjectName\": \"GZSZ\" }",
-              "workId": "3100600024385595217-1784181120439-Borjb",
-              "count": 58
+              "error": "No valid image URL or base64 data found. Response:{'id': 'chatcmpl-B202607270610495866689838268d9d6HABjMmpVMC', 'model': 'gemini-3.1-flash-lite-image', 'object': 'chat.completion', 'created': <long-number>, 'choices': [{'index': 0, 'message': {'role': 'assistant', 'content': ''}, 'logprobs': None, 'finish_reason': 'content_filter'}], 'usage': {'prompt_tokens': 1132, 'completion_tokens': 0, 'total_tokens': 1132, 'prompt_tokens_details': {'cached_tokens': 0, 'cache_write_tokens': 0, 'text_tokens': 12, 'audio_tokens': 0, 'image_tokens': 0}, 'completion_tokens_details': {'text_tokens': 0, 'audio_tokens': 0, 'reasoning_tokens': 0}, 'input_tokens': 0, 'output_tokens': 0, 'input_tokens_details': None, 'output_tokens_details': None, 'claude_cache_creation_5_m_tokens': 0, 'claude_cache_creation_1_h_tokens': 0}, 'system_fingerprint': None}. Details: Content is empty. Response: {'id': 'chatcmpl-B202607270610495866689838268d9d6HABjMmpVMC', 'model': 'gemini-3.1-flash-lite-image', 'object': 'chat.completion', 'created': <long-number>, 'choices': [{'index': 0, 'message': {'role': 'assistant', 'content': ''}, 'logprobs': None, 'finish_reason': 'content_filter'}], 'usage': {'prompt_tokens': 1132, 'completion_tokens': 0, 'total_tokens': 1132, 'prompt_tokens_details': {'cached_tokens': 0, 'cache_write_tokens': 0, 'text_tokens': 12, 'audio_tokens': 0, 'image_tokens': 0}, 'completion_tokens_details': {'text_tokens': 0, 'audio_tokens': 0, 'reasoning_tokens': 0}, 'input_tokens': 0, 'output_tokens': 0, 'input_tokens_details': None, 'output_tokens_details': None, 'claude_cache_creation_5_m_tokens': 0, 'claude_cache_creation_1_h_tokens': 0}, 'system_fingerprint': None}",
+              "workId": "3100100029892492417-1785132542086-k499g",
+              "count": 194
             },
             {
-              "error": "Task processing failed, status: failed. Response: {'id': 'cgt-<long-number>-8q5pf', 'model': 'dreamina-seedance-2-0-260128', 'status': 'failed', 'error': {'code': 'OutputAudioSensitiveContentDetected', 'message': 'The request failed because the output audio may contain sensitive information. '}, 'created_at': <long-number>, 'updated_at': <long-number>, 'service_tier': 'default', 'execution_expires_after': 172800, 'generate_audio': True, 'draft': False, 'priority': 0}.",
-              "workId": "3100100028164695224-1784181359508-mIOPN",
-              "count": 19
+              "error": "Response is None. Details: Nano Banana Aigptstore POST Request. HTTPStatusError: Client error '451 Unavailable For Legal Reasons' for url 'https://api.mouxihub.com/v1/images/edits' Occurred on attempt <n>. Response: {\"error\":{\"message\":\"Content blocked\",\"type\":\"new_api_error\",\"param\":\"\",\"code\":\"451\"}}",
+              "workId": "2106260107215294454-1785131537811-5dIra",
+              "count": 47
             },
             {
-              "error": "failed to prepare reference images: GetAsset 请求失败 status_code: 404 sign_content_type: True signed_headers: content-type;host;x-content-sha256;x-date x_date: <timestamp> x_content_sha256: <sha256> response: { \"ResponseMetadata\": { \"RequestId\": \"2026071603344247ABF56E9E5CAE1F0898\", \"Action\": \"GetAsset\", \"Version\": \"2024-01-01\", \"Service\": \"ark\", \"Region\": \"ap-southeast-1\", \"Error\": { \"Code\": \"NotFound.asset_id\", \"Message\": \"The specified asset <asset-id> is not found.\", \"Data\": { \"__Message.parameter\": \"asset_id\", \"__Message.resourceContent\": \"<asset-id>\", \"__Message.resourceType\": \"asset\" } } } }",
-              "workId": "3100600024349494711-1784144066770-TSY5C",
-              "count": 4
+              "error": "Response is None. Details: Gemini Aigptstore POST Request. HTTPStatusError: Client error '400 Bad Request' for url 'https://api.mouxihub.com/v1/chat/completions' Occurred on attempt <n>. Response: {\"error\":{\"code\":\"invalid_request\",\"message\":\"Model name not specified, model name cannot be empty (\",\"type\":\"new_api_error\"}}",
+              "workId": "3040600029362496832-1785128874669-v6Xbm",
+              "count": 18
             },
             {
-              "error": "failed to prepare reference videos: ByteDance asset processing failed: { \"Id\": \"<asset-id>\", \"Name\": \"<asset-name>\", \"URL\": \"\", \"AssetType\": \"Video\", \"GroupId\": \"<group-id>\", \"Status\": \"Failed\", \"Error\": { \"Code\": \"InputVideoSensitiveContentDetected\", \"Message\": \"The request failed because the input video may contain sensitive information. \" }, \"Moderation\": { \"Strategy\": \"Default\" }, \"CreateTime\": \"2026-07-15T20:48:40Z\", \"UpdateTime\": \"2026-07-15T20:48:46Z\", \"ProjectName\": \"GZSZ\" }",
-              "workId": "2106260425090493712-1784148504076-BPZBg",
-              "count": 4
+              "error": "Response is None. Details: Gemini Aigptstore POST Request. HTTPStatusError: Server error '500 Internal Server Error' for url 'https://api.mouxihub.com/v1/chat/completions' Occurred on attempt <n>. Response: {\"error\":{\"message\":\"get file data from 'https://***.click/***/***/***/*** failed: failed to download file from https://***.click/***/***/***/*** Get \\\"https://***.click/***/***/***/*** read tcp ***.***.***.***:40174-\\u003e***.***.***.***:443: read: connection reset by peer (\",\"type\":\"new_api_error\",\"param\":\"\",\"code\":\"convert_request_failed\"}}",
+              "workId": "2106251127002594363-1785126273195-XX3Mg",
+              "count": 6
             },
             {
-              "error": "Task processing failed, status: failed. Response: {'id': 'cgt-<long-number>-7mr29', 'model': 'dreamina-seedance-2-0-260128', 'status': 'failed', 'error': {'code': 'OutputVideoSensitiveContentDetected', 'message': 'The request failed because the output video may contain sensitive information. '}, 'created_at': <long-number>, 'updated_at': <long-number>, 'service_tier': 'default', 'execution_expires_after': 172800, 'generate_audio': True, 'draft': False, 'priority': 0}.",
-              "workId": "2106260414000596715-1784175153211-Oyrsp",
-              "count": 2
+              "error": "Response is None. Details: Nano Banana Aigptstore POST Request. HTTPStatusError: Server error '500 Internal Server Error' for url 'https://api.mouxihub.com/v1/images/edits' Occurred on attempt <n>. Response: {\"error\":{\"message\":\"image generation task failed\",\"type\":\"new_api_error\",\"param\":\"\",\"code\":\"bad_response_body\"}}",
+              "workId": "3100600029859291613-1785112445817-CapM4",
+              "count": 5
             },
             {
-              "error": "failed to prepare reference videos: CreateAsset 请求失败 status_code: 400 sign_content_type: True signed_headers: content-type;host;x-content-sha256;x-date x_date: <timestamp> x_content_sha256: <sha256> response: { \"ResponseMetadata\": { \"RequestId\": \"20260716105117D97F1B3E9213EF244BB1\", \"Action\": \"CreateAsset\", \"Version\": \"2024-01-01\", \"Service\": \"ark\", \"Region\": \"ap-southeast-1\", \"Error\": { \"Code\": \"InvalidParameter.FpsTooHigh\", \"Message\": \"Frame rate must be between 23.8 FPS and 60 FPS.\", \"Data\": null } } }",
-              "workId": "3100600021261295789-1784170229385-BA33j",
-              "count": 2
-            },
-            {
-              "error": "failed to prepare reference videos: CreateAsset 请求失败 status_code: 400 sign_content_type: True signed_headers: content-type;host;x-content-sha256;x-date x_date: <timestamp> x_content_sha256: <sha256> response: { \"ResponseMetadata\": { \"RequestId\": \"20260716144404590C8205F2E71625A8EA\", \"Action\": \"CreateAsset\", \"Version\": \"2024-01-01\", \"Service\": \"ark\", \"Region\": \"ap-southeast-1\", \"Error\": { \"Code\": \"InvalidParameter.FpsTooLow\", \"Message\": \"Frame rate must be between 23.8 FPS and 60 FPS.\", \"Data\": null } } }",
-              "workId": "2101260104105797161-1784183991033-3LTKj",
-              "count": 2
-            },
-            {
-              "error": "failed to prepare reference audios: GetAsset 请求失败 status_code: 404 sign_content_type: True signed_headers: content-type;host;x-content-sha256;x-date x_date: <timestamp> x_content_sha256: <sha256> response: { \"ResponseMetadata\": { \"RequestId\": \"202607160048108DFF42AB6D419D2399D5\", \"Action\": \"GetAsset\", \"Version\": \"2024-01-01\", \"Service\": \"ark\", \"Region\": \"ap-southeast-1\", \"Error\": { \"Code\": \"NotFound.asset_id\", \"Message\": \"The specified asset <asset-id> is not found.\", \"Data\": { \"__Message.parameter\": \"asset_id\", \"__Message.resourceContent\": \"<asset-id>\", \"__Message.resourceType\": \"asset\" } } } }",
-              "workId": "2106260411212197411-1784134066320-wr3Aw",
+              "error": "Response is None. Details: Gemini Aigptstore POST Request. HTTPStatusError: Client error '400 Bad Request' for url 'https://api.mouxihub.com/v1/chat/completions' Occurred on attempt <n>. Response: {\"error\":{\"message\":\"request blocked by Gemini API: PROHIBITED_CONTENT\",\"type\":\"prompt_blocked\",\"param\":\"\",\"code\":\"prompt_blocked\"}}{\"error\":{\"message\":\"request blocked by Gemini API: PROHIBITED_CONTENT\",\"type\":\"prompt_blocked\",\"param\":\"\",\"code\":\"prompt_blocked\"}}",
+              "workId": "asset-3100600029840292639-1785101204569-wqSxW",
               "count": 1
             },
             {
-              "error": "failed to prepare reference videos: GetAsset 请求失败 status_code: 404 sign_content_type: True signed_headers: content-type;host;x-content-sha256;x-date x_date: <timestamp> x_content_sha256: <sha256> response: { \"ResponseMetadata\": { \"RequestId\": \"20260716031404EF681FFB8017F40F45F7\", \"Action\": \"GetAsset\", \"Version\": \"2024-01-01\", \"Service\": \"ark\", \"Region\": \"ap-southeast-1\", \"Error\": { \"Code\": \"NotFound.asset_id\", \"Message\": \"The specified asset <asset-id> is not found.\", \"Data\": { \"__Message.parameter\": \"asset_id\", \"__Message.resourceContent\": \"<asset-id>\", \"__Message.resourceType\": \"asset\" } } } }",
-              "workId": "2101260420182195335-1784142819409-vANCn",
+              "error": "Response is None. Details: Nano Banana Aigptstore POST Request. HTTPStatusError: Client error '403 Forbidden' for url 'https://api.mouxihub.com/v1/images/edits' Occurred on attempt <n>. Response: {\"error\":{\"message\":\"Upstream rejected this request because access is forbidden. Please check model access, account permissions, or content policy.\",\"type\":\"new_api_error\",\"param\":\"\",\"code\":\"403\"}}",
+              "workId": "3100600020572198384-1785105244389-ADBUx",
+              "count": 1
+            },
+            {
+              "error": "Response is None. Details: Nano Banana Aigptstore POST Request. HTTPStatusError: Client error '451 Unavailable For Legal Reasons' for url 'https://api.mouxihub.com/v1/images/generations' Occurred on attempt <n>. Response: {\"error\":{\"message\":\"CONTENT_BLOCKED\",\"type\":\"new_api_error\",\"param\":\"\",\"code\":\"451\"}}",
+              "workId": "2106260422102992713-1785129706784-Rb3Kl",
               "count": 1
             }
           ]
         },
         {
-          "subFunction": "seedance2.0",
-          "count": 3,
+          "subFunction": "google-veo",
+          "count": 28,
           "errorGroups": [
             {
-              "error": "Task processing failed, status: failed. Response: {'id': 'cgt-<long-number>-bnwnh', 'model': 'dreamina-seedance-2-0-mini-260615', 'status': 'failed', 'error': {'code': 'OutputAudioSensitiveContentDetected', 'message': 'The request failed because the output audio may contain sensitive information. '}, 'created_at': <long-number>, 'updated_at': <long-number>, 'service_tier': 'default', 'execution_expires_after': 172800, 'generate_audio': True, 'draft': False, 'priority': 0}.",
-              "workId": "2106251014174095333-1784149594305-cAgRe",
-              "count": 3
+              "error": "Task processing failed. Status: FAILURE. Response: {'task_id': '<redacted>', 'platform': 'google', 'action': 'google-videos', 'status': 'FAILURE', 'fail_reason': 'Model response exception, please try again later | 模型响应异常，请稍后重试', 'submit_time': <long-number>, 'start_time': <long-number>, 'finish_time': <long-number>, 'progress': '100%', 'data': {'output': ''}, 'cost': 0, 'search_item': ''}",
+              "workId": "2106260504040794426-1785127193771-Eb0MS",
+              "count": 28
+            }
+          ]
+        },
+        {
+          "subFunction": "gpt4o-image-aigptstore",
+          "count": 4,
+          "errorGroups": [
+            {
+              "error": "Response is None. Details: Gpt4O Image Aigptstore POST Request. HTTPStatusError: Client error '400 Bad Request' for url 'https://api.mouxihub.com/v1/images/edits' Occurred on attempt <n>. Response: {\"error\":{\"message\":\"\\n\\n\\u003e 🎨 生成中...\\n\\nI’m sorry, but I can’t help edit an image to depict a child engaging in sexual contact or a non-consensual sexual ***.Content is blocked\",\"type\":\"new_api_error\",\"param\":\"\",\"code\":\"unknown_error\"}}",
+              "workId": "3100600023410497275-1785108278826-2x9q3",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "subFunction": "gptstore",
+          "count": 2,
+          "errorGroups": [
+            {
+              "error": "[Fallback Skipped: End of chain] Response is None. Details: Gptstore POST Request. HTTPStatusError: Server error '500 Internal Server Error' for url 'https://api.mouxihub.com/v1/chat/completions' Occurred on attempt <n>. Response: {\"error\":{\"message\":\"mime type is not supported by Gemini: 'video/quicktime', url: 'https://***.click/***/***/***/***/*** supported types are: [image/webp image/heif video/avi audio/mpeg image/png video/mov image/jpeg image/heic text/plain video/wmv video/flv image/jpg video/mpeg video/mp4 video/mpg video/mpegps application/pdf audio/mp3 audio/wav] (\",\"type\":\"new_api_error\",\"param\":\"\",\"code\":\"convert_request_failed\"}}",
+              "workId": "expand-async-3100100027804596518-1785114875493-DGedm",
+              "count": 2
             }
           ]
         }
@@ -734,85 +710,88 @@
     },
     {
       "message": "OpenAI风控审核过程中出错",
-      "count": 46,
+      "count": 103,
       "children": [
         {
           "subFunction": null,
-          "count": 46,
+          "count": 103,
           "errorGroups": [
             {
-              "error": "图片审核过程中出错: Connection error.",
-              "workId": "2106260122144494425-1784184763656-8WrWR",
-              "count": 23
+              "error": "文本审核过程中出错: Connection error.",
+              "workId": "2106260223030296179-1785132898201-g0NNK",
+              "count": 56
             },
             {
-              "error": "文本审核过程中出错: Connection error.",
-              "workId": "3100100028312696711-1784184952273-igaaF",
-              "count": 23
+              "error": "图片审核过程中出错: Connection error.",
+              "workId": "3100600029015295474-1785129833663-adwT1",
+              "count": 47
             }
           ]
         }
       ]
     },
     {
-      "message": "RUNNINGHUB平台API调用失败",
-      "count": 28,
+      "message": "BYTEPLUS官方API调用失败",
+      "count": 69,
       "children": [
         {
-          "subFunction": "pixverse-video-extend",
-          "count": 16,
+          "subFunction": "seedance-omni-reference",
+          "count": 65,
           "errorGroups": [
             {
-              "error": "[Fallback Skipped: End of chain] Status not in retry status list, status: FAILED. Response: {'taskId': '<long-number>', 'status': 'FAILED', 'errorCode': '1720', 'errorMessage': 'PixVerse generation failed: video upload did not obtain media_id. Please retry or switch channel | PixVerse生成失败，视频上传未拿到media_id，请重试或切换渠道', 'results': None, 'clientId': '', 'promptTips': '', 'failedReason': {}, 'usage': {'consumeMoney': None, 'consumeCoins': None, 'taskCostTime': '0', 'thirdPartyConsumeMoney': None}, 'parentTaskId': None, 'taskUsageList': [{'taskId': '<long-number>', 'parentTaskId': None, 'taskStatus': 'FAILED', 'usage': {'consumeMoney': None, 'consumeCoins': None, 'taskCostTime': '0', 'thirdPartyConsumeMoney': None}}]}.",
-              "workId": "2106260412101394421-1784156833835-22DJ5",
-              "count": 16
+              "error": "Task processing failed, status: failed. Response: {'id': 'cgt-<long-number>-g2tkh', 'model': 'dreamina-seedance-2-0-mini-260615', 'status': 'failed', 'error': {'code': 'OutputVideoSensitiveContentDetected', 'message': 'The request failed because the output video may contain sensitive information. '}, 'created_at': <long-number>, 'updated_at': <long-number>, 'service_tier': 'default', 'execution_expires_after': 172800, 'generate_audio': True, 'draft': False, 'priority': 0}.",
+              "workId": "2106251105075892611-1785115324274-cDYZY",
+              "count": 27
+            },
+            {
+              "error": "failed to prepare reference images: ByteDance asset processing failed: { \"Id\": \"<asset-id>\", \"Name\": \"<asset-name>\", \"URL\": \"\", \"AssetType\": \"Image\", \"GroupId\": \"<group-id>\", \"Status\": \"Failed\", \"Error\": { \"Code\": \"InputImageSensitiveContentDetected\", \"Message\": \"The request failed because the input image may contain sensitive information. \" }, \"Moderation\": { \"Strategy\": \"Default\" }, \"CreateTime\": \"2026-07-27T06:13:04Z\", \"UpdateTime\": \"2026-07-27T06:13:05Z\", \"ProjectName\": \"GZSZ\" }",
+              "workId": "3100600024385595217-1785132747765-5fXk3",
+              "count": 12
+            },
+            {
+              "error": "Task processing failed, status: failed. Response: {'id': 'cgt-<long-number>-h6wp7', 'model': 'dreamina-seedance-2-0-fast-260128', 'status': 'failed', 'error': {'code': 'InvalidParameter', 'message': 'One or more parameters specified in the request are not valid: ServicerBadRequest: Invalid media input. Please check your reference media (video/audio/image): the file may be corrupted, truncated, or in an unsupported container format. '}, 'created_at': <long-number>, 'updated_at': <long-number>, 'service_tier': 'default', 'execution_expires_after': 172800, 'generate_audio': True, 'draft': False, 'priority': 0}.",
+              "workId": "3100600019613293512-1785118375889-Mjm0L",
+              "count": 9
+            },
+            {
+              "error": "Task processing failed, status: failed. Response: {'id': 'cgt-<long-number>-czdd7', 'model': 'dreamina-seedance-2-0-mini-260615', 'status': 'failed', 'error': {'code': 'OutputAudioSensitiveContentDetected', 'message': 'The request failed because the output audio may contain sensitive information. '}, 'created_at': <long-number>, 'updated_at': <long-number>, 'service_tier': 'default', 'execution_expires_after': 172800, 'generate_audio': True, 'draft': False, 'priority': 0}.",
+              "workId": "2106260410192692824-1785114971582-5aKWz",
+              "count": 7
+            },
+            {
+              "error": "failed to prepare reference videos: ByteDance asset processing failed: { \"Id\": \"<asset-id>\", \"Name\": \"<asset-name>\", \"URL\": \"\", \"AssetType\": \"Video\", \"GroupId\": \"<group-id>\", \"Status\": \"Failed\", \"Error\": { \"Code\": \"InputVideoSensitiveContentDetected\", \"Message\": \"The request failed because the input video may contain sensitive information. \" }, \"Moderation\": { \"Strategy\": \"Default\" }, \"CreateTime\": \"2026-07-27T02:56:00Z\", \"UpdateTime\": \"2026-07-27T02:56:09Z\", \"ProjectName\": \"GZSZ\" }",
+              "workId": "2106251026205092512-1785120937253-vg70x",
+              "count": 6
+            },
+            {
+              "error": "failed to prepare reference videos: ByteDance asset processing failed: { \"Id\": \"<asset-id>\", \"Name\": \"<asset-name>\", \"URL\": \"\", \"AssetType\": \"Video\", \"GroupId\": \"<group-id>\", \"Status\": \"Failed\", \"Error\": { \"Code\": \"InputAudioSensitiveContentDetected\", \"Message\": \"The request failed because the input audio may contain sensitive information. \" }, \"Moderation\": { \"Strategy\": \"Default\" }, \"CreateTime\": \"2026-07-26T23:34:04Z\", \"UpdateTime\": \"2026-07-26T23:34:10Z\", \"ProjectName\": \"GZSZ\" }",
+              "workId": "2106260404151198269-1785108808029-CGJLp",
+              "count": 2
+            },
+            {
+              "error": "failed to prepare reference videos: CreateAsset 请求失败 status_code: 400 sign_content_type: True signed_headers: content-type;host;x-content-sha256;x-date x_date: <timestamp> x_content_sha256: <sha256> response: { \"ResponseMetadata\": { \"RequestId\": \"2026072700523246190483B2F2978A3096\", \"Action\": \"CreateAsset\", \"Version\": \"2024-01-01\", \"Service\": \"ark\", \"Region\": \"ap-southeast-1\", \"Error\": { \"Code\": \"InvalidParameter.FpsTooLow\", \"Message\": \"Frame rate must be between 23.8 FPS and 60 FPS.\", \"Data\": null } } }",
+              "workId": "3100100029383996525-1785084720172-qvf35",
+              "count": 2
             }
           ]
         },
         {
           "subFunction": "seedance2.0",
-          "count": 6,
-          "errorGroups": [
-            {
-              "error": "[Fallback Skipped: End of chain] Status not in retry status list, status: FAILED. Response: {'taskId': '<long-number>', 'status': 'FAILED', 'errorCode': '1501', 'errorMessage': 'Content review failed. Please adjust the input and try again | 内容审核未通过，请调整输入内容后重试', 'results': None, 'clientId': '', 'promptTips': '', 'failedReason': {}, 'usage': {'consumeMoney': None, 'consumeCoins': None, 'taskCostTime': '0', 'thirdPartyConsumeMoney': None}, 'parentTaskId': None, 'taskUsageList': [{'taskId': '<long-number>', 'parentTaskId': None, 'taskStatus': 'FAILED', 'usage': {'consumeMoney': None, 'consumeCoins': None, 'taskCostTime': '0', 'thirdPartyConsumeMoney': None}}]}.",
-              "workId": "3100600019575492282-1784167870595-p3wrA",
-              "count": 6
-            }
-          ]
-        },
-        {
-          "subFunction": "gemini-omni",
           "count": 4,
           "errorGroups": [
             {
-              "error": "Status not in retry status list, status: FAILED. Response: {'taskId': '<long-number>', 'status': 'FAILED', 'errorCode': '1007', 'errorMessage': 'Invalid parameters: reference video duration cannot exceed 10 seconds | 参数校验失败，参考视频时长不能超过10秒', 'results': None, 'clientId': '', 'promptTips': '', 'failedReason': {}, 'usage': {'consumeMoney': None, 'consumeCoins': None, 'taskCostTime': '0', 'thirdPartyConsumeMoney': None}, 'parentTaskId': None, 'taskUsageList': [{'taskId': '<long-number>', 'parentTaskId': None, 'taskStatus': 'FAILED', 'usage': {'consumeMoney': None, 'consumeCoins': None, 'taskCostTime': '0', 'thirdPartyConsumeMoney': None}}]}.",
-              "workId": "2101260104105797161-1784184041080-bcuaO",
+              "error": "failed to prepare reference images: CreateAsset 请求失败 status_code: 400 sign_content_type: True signed_headers: content-type;host;x-content-sha256;x-date x_date: <timestamp> x_content_sha256: <sha256> response: { \"ResponseMetadata\": { \"RequestId\": \"202607270226417807FBC83CED5959202D\", \"Action\": \"CreateAsset\", \"Version\": \"2024-01-01\", \"Service\": \"ark\", \"Region\": \"ap-southeast-1\", \"Error\": { \"Code\": \"InvalidParameter.WidthTooSmall\", \"Message\": \"Width must be between 300px and 6000px.\", \"Data\": null } } }",
+              "workId": "2106251208070895814-1785090360979-WnpMa",
               "count": 2
             },
             {
-              "error": "GeminiOmni Runninghub not supports two images.",
-              "workId": "3100600019117991812-1784185797481-ghzgr",
+              "error": "Task processing failed, status: failed. Response: {'id': 'cgt-<long-number>-bp6n4', 'model': 'dreamina-seedance-2-0-mini-260615', 'status': 'failed', 'error': {'code': 'OutputAudioSensitiveContentDetected', 'message': 'The request failed because the output audio may contain sensitive information. '}, 'created_at': <long-number>, 'updated_at': <long-number>, 'service_tier': 'default', 'execution_expires_after': 172800, 'generate_audio': True, 'draft': False, 'priority': 0}.",
+              "workId": "2106251014174095333-1785114724771-YIuTP",
               "count": 1
             },
             {
-              "error": "The task submission id is None. Response: {'taskId': '', 'status': '', 'errorCode': '1007', 'errorMessage': \"field 'imageUrls' input number is greater than the maximum number of inputs, maximum number of inputs: 3\", 'results': None, 'clientId': '', 'promptTips': '', 'failedReason': {}, 'usage': None, 'parentTaskId': None, 'taskUsageList': None}",
-              "workId": "2106251022221393269-1784147765528-HXSsi",
-              "count": 1
-            }
-          ]
-        },
-        {
-          "subFunction": "nvidia-vsr",
-          "count": 2,
-          "errorGroups": [
-            {
-              "error": "Status not in retry status list, status: FAILED. Response: {'code': 805, 'msg': 'APIKEY_TASK_STATUS_ERROR', 'errorMessages': None, 'data': {'failedReason': {'current_outputs': '{}', 'exception_type': 'RuntimeError', 'node_name': 'RTXVideoSuperResolution', 'current_inputs': '{}', 'traceback': '[\" File \\\\\"/workspace/ComfyUI/execution.py\\\\\", line 1887, in execute\\\\n output_data, output_ui, has_subgraph, has_pending_tasks = await get_output_data(prompt_id, unique_id, obj, input_data_all, execution_block_cb=execution_block_cb, pre_execute_cb=pre_execute_cb, v3_data=v3_data)\\\\n\",\" File \\\\\"/workspace/ComfyUI/execution.py\\\\\", line 672, in get_output_data\\\\n return_values = await _async_map_node_over_list(prompt_id, unique_id, obj, input_data_all, obj.FUNCTION, allow_interrupt=True, execution_block_cb=execution_block_cb, pre_execute_cb=pre_execute_cb, v3_data=v3_data)\\\\n\",\" File \\\\\"/workspace/ComfyUI/execution.py\\\\\", line 646, in _async_map_node_over_list\\\\n await process_inputs(input_dict, i)\\\\n\",\" File \\\\\"/workspace/ComfyUI/execution.py\\\\\", line 634, in process_inputs\\\\n result = f(**inputs)\\\\n\",\" File \\\\\"/workspace/ComfyUI/comfy_api/internal/__init__.py\\\\\", line 149, in wrapped_func\\\\n return method(locked_class, **inputs)\\\\n\",\" File \\\\\"/workspace/ComfyUI/comfy_api/latest/_io.py\\\\\", line 1935, in EXECUTE_NORMALIZED\\\\n to_return = cls.execute(*args, **kwargs)\\\\n\",\" File \\\\\"/workspace/ComfyUI/custom_nodes/Nvidia_RTX_Nodes_ComfyUI/__init__.py\\\\\", line 179, in execute\\\\n final_images = _run_vsr_in_subprocess(images, output_width, output_height, quality)\\\\n\",\" File \\\\\"/workspace/ComfyUI/custom_nodes/Nvidia_RTX_Nodes_ComfyUI/__init__.py\\\\\", line 110, in _run_vsr_in_subprocess\\\\n raise RuntimeError(\\\\n\"]', 'node_id': '6', 'exception_message': 'RTX Video Super Resolution worker failed (exit code 1).\\n--- worker stderr ---\\nTraceback (most recent call last):\\n File \"/workspace/ComfyUI/custom_nodes/Nvidia_RTX_Nodes_ComfyUI/nvvfx_worker.py\", line 92, in <module>\\n sys.exit(main())\\n File \"/workspace/ComfyUI/custom_nodes/Nvidia_RTX_Nodes_ComfyUI/nvvfx_worker.py\", line 78, in main\\n batch_cuda = batch.cuda().permute(0, 3, 1, 2).contiguous()\\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 84.00 MiB. GPU 0 has a total capacity of 47.37 GiB of which 1.56 MiB is free. Process 649308 has 46.94 GiB memory in use. Process 1150587 has 402.00 MiB memory in use. Of the allocated memory 0 bytes is allocated by PyTorch, and 0 bytes is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation. See documentation for Memory Management (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)'}}}.",
-              "workId": "3100600026269998411-1784164976599-cMGYl",
-              "count": 1
-            },
-            {
-              "error": "The task submission execution failed. Response: {'code': 414, 'msg': 'TASK_CREATE_FAILED_BY_NOT_ENOUGH_POWER_VALUE', 'errorMessages': None, 'data': None}",
-              "workId": "2106260421173892417-1784155618893-CzP0S",
+              "error": "Task processing failed, status: failed. Response: {'id': 'cgt-<long-number>-gvt6q', 'model': 'dreamina-seedance-2-0-mini-260615', 'status': 'failed', 'error': {'code': 'OutputVideoSensitiveContentDetected', 'message': 'The request failed because the output video may contain sensitive information. '}, 'created_at': <long-number>, 'updated_at': <long-number>, 'service_tier': 'default', 'execution_expires_after': 172800, 'generate_audio': True, 'draft': False, 'priority': 0}.",
+              "workId": "2106251208070895814-1785089116182-0mUoB",
               "count": 1
             }
           ]
@@ -821,64 +800,31 @@
     },
     {
       "message": "REPLICATE平台API调用失败",
-      "count": 23,
+      "count": 69,
       "children": [
         {
-          "subFunction": "nano-banana",
-          "count": 10,
+          "subFunction": "pixverse",
+          "count": 68,
           "errorGroups": [
             {
-              "error": "Task processing failed, status: failed. Response: {'id': 'pmt2z8n3hxrmw0czd6ws7p0znr', 'model': 'google/nano-banana', 'version': 'hidden', 'input': {'aspect_ratio': '9:16', 'output_format': 'png', 'prompt': 'Bruce Banner was a brilliant scientist working on experiments involving gamma radiation. During a test, a young person accidentally entered the danger zone. Bruce rushed in to save him and was exposed to a massive blast of gamma rays. Instead of dying, the radiation changed him forever.\\nAfter the accident, whenever Bruce became extremely angry, stressed, or emotional, he transformed into the Hulk — a gigantic green being with incredible strength. The angrier Hulk gets, the stronger he becomes.\\nA'}, 'logs': 'Sid pmt2z8n3hxrmw0czd6ws7p0znr\\nGenerating image with Gemini Flash...\\nTokens: 96\\nException: Failed to generate image.\\n', 'output': None, 'data_removed': False, 'error': 'Failed to generate image.', 'source': 'api', 'status': 'failed', 'created_at': '2026-07-16T07:00:01.551Z', 'started_at': '2026-07-16T07:00:01.562346469Z', 'completed_at': '2026-07-16T07:00:07.306416615Z', 'urls': {'cancel': 'https://api.replicate.com/v1/predictions/pmt2z8n3hxrmw0czd6ws7p0znr/cancel', 'get': 'https://api.replicate.com/v1/predictions/pmt2z8n3hxrmw0czd6ws7p0znr', 'stream': 'https://stream.replicate.com/v1/files/jbxs-jd66snmqhaedexbipivhhghop6yyifdyadb3u6qwybgh2yg765pq', 'web': 'https://replicate.com/p/pmt2z8n3hxrmw0czd6ws7p0znr'}, 'metrics': {'predict_time': 5.<long-number>, 'total_time': 5.<long-number>}}.",
-              "workId": "asset-3100100028313792434-1784185110205-SuO45",
-              "count": 5
+              "error": "API returned None",
+              "workId": "2106260307132896855-1785130628307-WUMwk",
+              "count": 60
             },
             {
-              "error": "ValueError: 暂时不支持Nano Banana 2 Lite模型",
-              "workId": "3100100028308094781-1784181862317-PdDst",
-              "count": 5
+              "error": "[Fallback Skipped: No matching rule] API returned None",
+              "workId": "2106251020174397322-1785108615569-CQvM8",
+              "count": 8
             }
           ]
         },
         {
           "subFunction": "keling",
-          "count": 5,
-          "errorGroups": [
-            {
-              "error": "'NoneType' object has no attribute 'get'",
-              "workId": "2106251116070894827-1784187026280-d3bYT",
-              "count": 5
-            }
-          ]
-        },
-        {
-          "subFunction": "keling-omni",
-          "count": 5,
-          "errorGroups": [
-            {
-              "error": "[Fallback Skipped: End of chain] Task processing failed, status: failed. Response: {'id': '1rcsc6yc09rmt0czd6db6e36sc', 'model': 'kwaivgi/kling-v3-omni-video', 'version': 'hidden', 'input': {'duration': 5, 'generate_audio': False, 'keep_original_sound': True, 'mode': 'standard', 'prompt': '<<<video_1>>>\\xa0是我以前拍的一段视频，现在我想换主角，请让<<<image_1>>>\\xa0中的情侣模仿 \\xa0<<<video_1>>>\\xa0中的男女主角进行剧情演绎，\\xa0<<<image_1>>>\\xa0人物完全代入 \\xa0<<<video_1>>>\\xa0的妆造和剧情，保留歌曲音频，画面流畅搞笑', 'reference_images': ['https://res.advmtc.click/prod/api-files/2026-07-16/l0O6c_2KpYr6U8Ei.jpg'], 'reference_video': 'https://res.advmtc.click/prod/api-files/2026-07-16/BG0IU_e09e64af56de_aKFzIg.mp4', 'video_reference_type': 'base'}, 'logs': 'Warning: Moderation check failed: \\nUploading images to GCP...\\nReference video duration: 10.1s\\n', 'output': None, 'data_removed': False, 'error': 'Prediction failed: Async prediction failed: ModelError: The input was invalid. Please try again with different inputs. (E006) (uIJ6l3ruRD): Reference video must not exceed 10 seconds. Got 10.1s.', 'source': 'api', 'status': 'failed', 'created_at': '2026-07-16T06:26:20.29Z', 'started_at': '2026-07-16T06:26:20.307420822Z', 'completed_at': '2026-07-16T06:26:32.922388358Z', 'urls': {'cancel': 'https://api.replicate.com/v1/predictions/1rcsc6yc09rmt0czd6db6e36sc/cancel', 'get': 'https://api.replicate.com/v1/predictions/1rcsc6yc09rmt0czd6db6e36sc', 'stream': 'https://stream.replicate.com/v1/files/jbxs-hlvoe5jwgxv5xqmil2j3f34x2giq7ilo2mybe6ebxrnq26xhj7oq', 'web': 'https://replicate.com/p/1rcsc6yc09rmt0czd6db6e36sc'}, 'metrics': {'predict_time': 12.<long-number>, 'total_time': 12.<long-number>}}.",
-              "workId": "2101260104105797161-1784183134895-9tM2k",
-              "count": 5
-            }
-          ]
-        },
-        {
-          "subFunction": "sora",
-          "count": 2,
-          "errorGroups": [
-            {
-              "error": "Response is None. Details: Sora Replicate POST Request. HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.replicate.com/v1/models/openai/sora-2/predictions' Occurred on attempt <n>. Response: {\"detail\":\"Request was throttled. Request was rate limited for creating predictions to openai/sora-2. Your rate limit resets in ~9s.\",\"status\":429,\"retry_after\":9}",
-              "workId": "2106251118200996827-1784177182660-oIX0L",
-              "count": 2
-            }
-          ]
-        },
-        {
-          "subFunction": "keling-motion-control",
           "count": 1,
           "errorGroups": [
             {
-              "error": "[Fallback Skipped: End of chain] Task processing failed, status: failed. Response: {'id': '2cegwfsmysrmy0czd3pts6qthr', 'model': 'kwaivgi/kling-v3-motion-control', 'version': 'hidden', 'input': {'character_orientation': 'video', 'image': 'https://res.advmtc.click/prod/api-files/2026-07-16/f3Zqp_TRAIN_1784171763088_53-Pvi01.jpg', 'keep_original_sound': True, 'mode': 'std', 'prompt': 'dance', 'video': 'https://res.advmtc.click/prod/resource/0aaae0fcddc8.mp4'}, 'logs': \"Input video duration: 9.915\\nUploading image and video to GCP...\\nhttp.client.RemoteDisconnected: Remote end closed connection without response\\n\\nDuring handling of the above exception, another exception occurred:\\n\\nurllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))\\n\\nDuring handling of the above exception, another exception occurred:\\n\\nrequests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))\\n\\nDuring handling of the above exception, another exception occurred:\\n\\nException: Failed to upload /tmp/tmpczqgxd_yf3Zqp_TRAIN_1784171763088_53-Pvi01.jpg\\n\", 'output': None, 'data_removed': False, 'error': 'Failed to upload /tmp/tmpczqgxd_yf3Zqp_TRAIN_1784171763088_53-Pvi01.jpg', 'source': 'api', 'status': 'failed', 'created_at': '2026-07-16T03:16:43.894Z', 'started_at': '2026-07-16T03:16:43.905954415Z', 'completed_at': '2026-07-16T03:16:46.369523792Z', 'urls': {'cancel': 'https://api.replicate.com/v1/predictions/2cegwfsmysrmy0czd3pts6qthr/cancel', 'get': 'https://api.replicate.com/v1/predictions/2cegwfsmysrmy0czd3pts6qthr', 'stream': 'https://stream.replicate.com/v1/files/jbxs-z2p6htsnhrsoeswqjhn3gkyus7uz6n6iiig2zj6nwzs7ft26kina', 'web': 'https://replicate.com/p/2cegwfsmysrmy0czd3pts6qthr'}, 'metrics': {'model_variant': 'std', 'predict_time': 2.<long-number>, 'total_time': 2.<long-number>, 'video_output_duration_seconds': 9.915}}.",
-              "workId": "2046250403073994511-1784171763953-Pvi01",
+              "error": "当前渠道不支持这个模型: kling-v3-turbo",
+              "workId": "2106260422080196585-1785122625222-0uwrJ",
               "count": 1
             }
           ]
@@ -886,21 +832,104 @@
       ]
     },
     {
-      "message": "WAVE SPEED平台API调用失败",
+      "message": "RUNNINGHUB平台API调用失败",
+      "count": 15,
+      "children": [
+        {
+          "subFunction": "pixverse-video-extend",
+          "count": 6,
+          "errorGroups": [
+            {
+              "error": "Status not in retry status list, status: FAILED. Response: {'taskId': '<long-number>', 'status': 'FAILED', 'errorCode': '1501', 'errorMessage': 'Content review failed. Please adjust the input and try again | 内容审核未通过，请调整输入内容后重试', 'results': None, 'clientId': '', 'promptTips': '', 'failedReason': {}, 'usage': {'consumeMoney': None, 'consumeCoins': None, 'taskCostTime': '0', 'thirdPartyConsumeMoney': None}, 'parentTaskId': None, 'taskUsageList': [{'taskId': '<long-number>', 'parentTaskId': None, 'taskStatus': 'FAILED', 'usage': {'consumeMoney': None, 'consumeCoins': None, 'taskCostTime': '0', 'thirdPartyConsumeMoney': None}}]}.",
+              "workId": "3100600029842692438-1785103896619-LVp3V",
+              "count": 4
+            },
+            {
+              "error": "[Fallback Skipped: End of chain] Status not in retry status list, status: FAILED. Response: {'taskId': '<long-number>', 'status': 'FAILED', 'errorCode': '1501', 'errorMessage': 'Content review failed. Please adjust the input and try again | 内容审核未通过，请调整输入内容后重试', 'results': None, 'clientId': '', 'promptTips': '', 'failedReason': {}, 'usage': {'consumeMoney': None, 'consumeCoins': None, 'taskCostTime': '0', 'thirdPartyConsumeMoney': None}, 'parentTaskId': None, 'taskUsageList': [{'taskId': '<long-number>', 'parentTaskId': None, 'taskStatus': 'FAILED', 'usage': {'consumeMoney': None, 'consumeCoins': None, 'taskCostTime': '0', 'thirdPartyConsumeMoney': None}}]}.",
+              "workId": "3100600027683193315-1785132201931-WpQSD",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "subFunction": "seedance-omni-reference",
+          "count": 6,
+          "errorGroups": [
+            {
+              "error": "[Fallback Skipped: End of chain] Status not in retry status list, status: FAILED. Response: {'taskId': '<long-number>', 'status': 'FAILED', 'errorCode': '1501', 'errorMessage': 'Input video may contain sensitive information. Please replace the material and try again | 输入视频可能包含敏感信息，请更换素材后重试', 'results': None, 'clientId': '', 'promptTips': '', 'failedReason': {}, 'usage': {'consumeMoney': None, 'consumeCoins': None, 'taskCostTime': '0', 'thirdPartyConsumeMoney': None}, 'parentTaskId': None, 'taskUsageList': [{'taskId': '<long-number>', 'parentTaskId': None, 'taskStatus': 'FAILED', 'usage': {'consumeMoney': None, 'consumeCoins': None, 'taskCostTime': '0', 'thirdPartyConsumeMoney': None}}]}.",
+              "workId": "3100600019613293512-1785118375889-Mjm0L",
+              "count": 6
+            }
+          ]
+        },
+        {
+          "subFunction": "nvidia-vsr",
+          "count": 2,
+          "errorGroups": [
+            {
+              "error": "The task submission execution failed. Response: {'code': 500, 'msg': 'UNKNOWN_ERROR', 'errorMessages': None, 'data': None}",
+              "workId": "2106250919180692522-1785118721695-bvuny",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "subFunction": "gemini-omni",
+          "count": 1,
+          "errorGroups": [
+            {
+              "error": "[Fallback Skipped: End of chain] GeminiOmni Runninghub not supports two images.",
+              "workId": "3100600024325991753-1785126545209-2eYCO",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "message": "ALIYUN平台API调用失败",
+      "count": 5,
+      "children": [
+        {
+          "subFunction": "happyhorse",
+          "count": 5,
+          "errorGroups": [
+            {
+              "error": "Task processing failed, status: FAILED. Response: {'request_id': '<uuid>', 'output': {'task_id': '<redacted>', 'task_status': 'FAILED', 'submit_time': '2026-07-27 12:51:58.249', 'scheduled_time': '2026-07-27 12:51:58.266', 'end_time': '2026-07-27 12:51:59.251', 'code': 'FaceDetectionSuspect', 'message': 'The input content is suspected to include real human faces.'}}.",
+              "workId": "2106260509162294677-1785127872386-EuxbL",
+              "count": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "message": "未知错误",
       "count": 4,
       "children": [
         {
-          "subFunction": "runway",
-          "count": 4,
+          "subFunction": "keling-motion-control",
+          "count": 3,
           "errorGroups": [
             {
-              "error": "[Fallback Skipped: No matching rule] Task processing failed, status: failed. Error: The input was invalid. Please try again with different inputs. (E006) (uIJ6l3ruRD). Response: {'code': 200, 'message': 'success', 'data': {'id': 'c9cdceb798fe4470a6d9f11102f5350c', 'model': 'runwayml/gen4-turbo', 'outputs': [], 'urls': {'get': 'https://api.wavespeed.ai/api/v3/predictions/c9cdceb798fe4470a6d9f11102f5350c/result'}, 'status': 'failed', 'created_at': '2026-07-15T19:32:38.853357388Z', 'code': 1405, 'error': 'The input was invalid. Please try again with different inputs. (E006) (uIJ6l3ruRD)', 'executionTime': 0, 'timings': {'inference': 0}}}.",
-              "workId": "3100600028233798547-1784143943775-krb7O",
-              "count": 3
+              "error": "'image_url'",
+              "workId": "admin-1785120533297-9jJ1d",
+              "count": 2
             },
             {
-              "error": "[Fallback Skipped: No matching rule] model is required",
-              "workId": "2046260508090897871-1784182501249-x56le",
+              "error": "FalAI账号池连续查询4次后均无可用并发。",
+              "workId": "admin-1785120768157-68vQd",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "subFunction": "seedance-falai",
+          "count": 1,
+          "errorGroups": [
+            {
+              "error": "FalAI账号池连续查询4次后均无可用并发。",
+              "workId": "2106260309102597113-1785113461039-M109o",
               "count": 1
             }
           ]
@@ -913,22 +942,44 @@
       "children": [
         {
           "subFunction": "gptstore",
-          "count": 2,
+          "count": 3,
           "errorGroups": [
             {
-              "error": "Response is None. Details: Anyaigc POST Request. TimeoutError: . Occurred on attempt <n>. Response: No response received",
-              "workId": "expand-3100600027387991810-1784151819138-XImDV",
+              "error": "Response is None. Details: Anyaigc POST Request. HTTPStatusError: Server error '500 Internal Server Error' for url 'https://anyaigc.com/v1/chat/completions' Occurred on attempt <n>. Response: {\"error\":{\"message\":\"mime type is not supported by Gemini: 'video/quicktime', url: 'https://imageproxy.zhongzhuan.chat/api/proxy/image/f212fe06291c760af69c9329c544933e.mov', supported types are: [application/pdf video/mp4 video/avi video/wmv audio/mpeg audio/wav image/png image/jpeg audio/mp3 video/mov video/mpeg text/plain video/mpg video/mpegps video/flv] (\",\"type\":\"new_api_error\",\"param\":\"\",\"code\":\"local:convert_request_failed\"}}",
+              "workId": "expand-async-3100100027804596518-1785114875493-DGedm",
               "count": 2
+            },
+            {
+              "error": "Response is None. Details: Anyaigc POST Request. TimeoutError: . Occurred on attempt <n>. Response: No response received",
+              "workId": "expand-async-3100100026909697721-1785092167355-nmkCH",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "message": "本地服务调用失败",
+      "count": 2,
+      "children": [
+        {
+          "subFunction": "animate-wan",
+          "count": 1,
+          "errorGroups": [
+            {
+              "error": "comfyui生成失败: {'HTTP_error': 400, 'error_details': {'error': {'type': 'missing_node_type', 'message': \"Node 'WanVideo Add SteadyDancer Embeds' not found. The custom node may not be installed.\", 'details': \"Node ID '#71'\", 'extra_info': {'node_id': '71', 'class_type': 'WanVideoAddSteadyDancerEmbeds', 'node_title': 'WanVideo Add SteadyDancer Embeds'}}, 'node_errors': {}}}",
+              "workId": "3040600025887392722-1785118433967-sSz1g",
+              "count": 1
             }
           ]
         },
         {
-          "subFunction": "model-smart-router",
+          "subFunction": null,
           "count": 1,
           "errorGroups": [
             {
-              "error": "[Fallback Skipped: No matching rule] 节点[llm_analysis_node]执行异常 错误信息：anyaigc invoke json error: Error code: 500 - {'error': {'message': 'request blocked by Google Gemini (PROHIBITED_CONTENT): content is prohibited under official usage policies. Refer to https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/configure-safety-filters for more information (', 'type': 'new_api_error', 'param': '', 'code': 'request_body_blocked'}}",
-              "workId": "auto-match-3100100025433896261-1784145846606-y0E8R",
+              "error": "用户图片检测人脸信息为空",
+              "workId": "3100100029883094224-1785127965328-LJ1gp",
               "count": 1
             }
           ]
@@ -937,65 +988,15 @@
     },
     {
       "message": "下载文件失败",
-      "count": 2,
-      "children": [
-        {
-          "subFunction": "animate-steady",
-          "count": 2,
-          "errorGroups": [
-            {
-              "error": "Download error: The read operation timed out. Url: https://cdn3.dmiapi.com/img/2026/07/16/1/task_<id>/0.png?e=<value>&token=<value>",
-              "workId": "3100600028235196614-1784144815770-aF1Ef",
-              "count": 1
-            },
-            {
-              "error": "Download error: peer closed connection without sending complete message body (received <n> bytes, expected <n>). Url: https://cdn3.dmiapi.com/img/2026/07/16/1/task_<id>/0.png?e=<value>&token=<value>",
-              "workId": "2106250915052797714-1784170662776-Udugi",
-              "count": 1
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "message": "未知错误",
-      "count": 2,
-      "children": [
-        {
-          "subFunction": "nano-banana-falai",
-          "count": 1,
-          "errorGroups": [
-            {
-              "error": "FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "3100600028170591112-1784185651279-lRxd1",
-              "count": 1
-            }
-          ]
-        },
-        {
-          "subFunction": "seedance-falai",
-          "count": 1,
-          "errorGroups": [
-            {
-              "error": "FalAI账号池连续查询4次后均无可用并发。",
-              "workId": "3100100028261892612-1784154479647-lUviu",
-              "count": 1
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "message": "本地文件解析失败",
       "count": 1,
       "children": [
         {
-          "subFunction": "pixverse",
+          "subFunction": "animate-wan",
           "count": 1,
           "errorGroups": [
             {
-              "error": "获取视频第一帧失败",
-              "workId": "3100600028295095669-1784174115113-Ms7LX",
+              "error": "Download error: peer closed connection without sending complete message body (received <n> bytes, expected <n>). Url: https://cdn3.dmiapi.com/img/<long-number>/6a663199727fb.jpg?e=<value>&token=<value>",
+              "workId": "2106260202005091288-1785082047883-aqVD2",
               "count": 1
             }
           ]
@@ -1003,16 +1004,16 @@
       ]
     },
     {
-      "message": "账号或密码为空",
+      "message": "文件下载失败",
       "count": 1,
       "children": [
         {
-          "subFunction": "pix-fusion-useapi",
+          "subFunction": "pixverse-video-extend",
           "count": 1,
           "errorGroups": [
             {
-              "error": "PixVerse account or password is None.",
-              "workId": "3040600028262398561-1784154377432-x6FXJ",
+              "error": "Download error: The read operation timed out. Url: https://tempfile.aiquickdraw.com/pixverse-v6/<long-number>-xtx6fg6nwia.mp4",
+              "workId": "2106260414223198512-1785123966076-yIfG5",
               "count": 1
             }
           ]
